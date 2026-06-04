@@ -6,7 +6,6 @@ const NAV_LINKS = [
   { label: "Solucion", href: "#solucion" },
   { label: "Servicios", href: "#servicios" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contacto", href: "#contacto" },
 ];
 
 export function Navbar() {
