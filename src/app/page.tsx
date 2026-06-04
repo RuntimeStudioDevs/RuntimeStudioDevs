@@ -1,4 +1,3 @@
-import { LogoNegroRuntimeStudioDevs } from "@/components/brand/Logo_Negro-RuntimeStudioDevs";
 import { BenefitsSection } from "@/components/landing/BenefitsSection";
 import { ContactSection } from "@/components/landing/ContactSection";
 import { FAQSection } from "@/components/landing/FAQSection";
