@@ -45,9 +45,8 @@ function HeroText({ content }: HeroTextProps) {
         {content.supportText}
       </p>
 
-      <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+      <div className="pt-2">
         <CtaPrimary cta={content.primaryCTA} />
-        <CtaSecondary cta={content.secondaryCTA} />
       </div>
     </div>
   );
@@ -86,17 +85,6 @@ function CtaPrimary({ cta }: CtaProps) {
       {cta.microText && (
         <span className="mt-0.5 text-xs opacity-80">{cta.microText}</span>
       )}
-    </a>
-  );
-}
-
-function CtaSecondary({ cta }: CtaProps) {
-  return (
-    <a
-      href={cta.href}
-      className="inline-flex items-center justify-center rounded-lg border border-[var(--color-devs-silver)] px-6 py-3 font-medium transition-colors hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
-    >
-      {cta.label}
     </a>
   );
 }
