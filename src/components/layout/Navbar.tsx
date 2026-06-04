@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { label: "Beneficios", href: "#beneficios" },
   { label: "Casos de uso", href: "#casos-de-uso" },
   { label: "FAQ", href: "#faq" },
+  { label: "Contacto", href: "#contacto" },
 ];
 
 export function Navbar() {
