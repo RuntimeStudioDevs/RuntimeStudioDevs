@@ -2,7 +2,8 @@ import { LogoNegroRuntimeStudioDevs } from "@/components/brand/Logo_Negro-Runtim
 import { MobileMenu } from "./MobileMenu";
 
 const NAV_LINKS = [
-  { label: "Inicio", href: "#inicio" },
+  { label: "Problema", href: "#problema" },
+  { label: "Solucion", href: "#solucion" },
   { label: "Servicios", href: "#servicios" },
   { label: "FAQ", href: "#faq" },
   { label: "Contacto", href: "#contacto" },
@@ -16,7 +17,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 md:grid md:grid-cols-3 md:px-8">
         {/* LEFT: Logo */}
-        <a href="#inicio" className="shrink-0 md:justify-self-start">
+        <a href="#" className="shrink-0 md:justify-self-start">
           <LogoNegroRuntimeStudioDevs className="text-2xl" />
         </a>
 
