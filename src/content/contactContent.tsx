@@ -1,7 +1,7 @@
 export const whatsappContactConfig = {
   // TODO: Reemplazar con el numero oficial validado en Notion.
   // Debe estar en formato internacional y solo contener digitos.
-  phoneNumber: "573001234567",
+  phoneNumber: "573194312060",
   // TODO: Reemplazar con el copy oficial validado en Notion.
   greeting: "Hola,",
 };
