@@ -10,7 +10,6 @@ export type HeroContent = {
   supportText: string;
   badges: string[];
   primaryCTA: CtaContent;
-  secondaryCTA: CtaContent;
 };
 
 export const heroContent: HeroContent = {
@@ -25,9 +24,5 @@ export const heroContent: HeroContent = {
     label: "Agenda una llamada",
     href: "/#contacto",
     microText: "Sesión de diagnóstico gratis",
-  },
-  secondaryCTA: {
-    label: "Cuéntanos tu idea",
-    href: "/#contacto",
-  },
+  }
 };
