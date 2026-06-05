@@ -1,3 +1,8 @@
+export const whatsappContactConfig = {
+  phoneNumber: "573194312060",
+  greeting: "Hola,",
+};
+
 export type ContactFieldContent = {
   label: string;
   placeholder: string;
@@ -42,6 +47,6 @@ export const contactContent: ContactContent = {
   submitLabel: "Enviar mensaje",
   trustText: "Respondemos en menos de 24 horas",
   whatsapp: {
-    phonePlaceholder: "57XXXXXXXXXX",
+    phonePlaceholder: whatsappContactConfig.phoneNumber,
   },
 };

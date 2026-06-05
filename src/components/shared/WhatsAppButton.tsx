@@ -9,6 +9,7 @@ type WhatsAppButtonProps = {
   ariaLabel?: string;
   className?: string;
   variant?: "secondary" | "floating";
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 };
 
 function buildMessage({
@@ -36,6 +37,7 @@ export function WhatsAppButton({
   ariaLabel = "Abrir WhatsApp para iniciar una conversacion sobre tu proyecto",
   className = "",
   variant = "secondary",
+  onClick,
 }: WhatsAppButtonProps) {
   const normalizedPhoneNumber = phoneNumber.replace(/\D/g, "");
   const href = `https://wa.me/${normalizedPhoneNumber}?text=${encodeURIComponent(
@@ -47,6 +49,7 @@ export function WhatsAppButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={onClick}
       aria-label={ariaLabel}
       className={[
         "inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2",
