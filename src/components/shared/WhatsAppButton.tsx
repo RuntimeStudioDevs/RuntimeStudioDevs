@@ -1,4 +1,4 @@
-import { buildWhatsAppMessage, whatsappContactConfig } from "@/content/contactContent";
+import { contactContent } from "@/content/contactContent";
 
 type WhatsAppButtonProps = {
   name?: string;
@@ -11,19 +11,27 @@ type WhatsAppButtonProps = {
   variant?: "secondary" | "floating";
 };
 
-// Implementacion esperada dentro del formulario:
-// <WhatsAppButton
-//   name={form.name}
-//   email={form.email}
-//   idea={form.idea}
-// />
-// Borrar este comentario cuando el boton quede conectado al formulario real.
+function buildMessage({
+  name,
+  email,
+  idea,
+}: {
+  name?: string;
+  email?: string;
+  idea?: string;
+}) {
+  const n = name?.trim() || "[nombre]";
+  const e = email?.trim() || "[correo]";
+  const i = idea?.trim() || "[idea]";
+
+  return `Hola, quiero hablar sobre un proyecto.%0A%0ANombre: ${n}%0ACorreo: ${e}%0AMensaje:%0A${i}`;
+}
 
 export function WhatsAppButton({
   name,
   email,
   idea,
-  phoneNumber = whatsappContactConfig.phoneNumber,
+  phoneNumber = contactContent.whatsapp.phonePlaceholder,
   label = "Hablar por WhatsApp",
   ariaLabel = "Abrir WhatsApp para iniciar una conversacion sobre tu proyecto",
   className = "",
@@ -31,7 +39,7 @@ export function WhatsAppButton({
 }: WhatsAppButtonProps) {
   const normalizedPhoneNumber = phoneNumber.replace(/\D/g, "");
   const href = `https://wa.me/${normalizedPhoneNumber}?text=${encodeURIComponent(
-    buildWhatsAppMessage({ name, email, idea }),
+    buildMessage({ name, email, idea }),
   )}`;
 
   return (
