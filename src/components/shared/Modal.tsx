@@ -8,6 +8,7 @@ type ModalProps = {
   title: string;
   children: React.ReactNode;
   className?: string;
+  showCloseButton?: boolean;
 };
 
 const FOCUSABLE_SELECTOR = [
@@ -25,6 +26,7 @@ export function Modal({
   title,
   children,
   className = "",
+  showCloseButton = true,
 }: ModalProps) {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -92,16 +94,18 @@ export function Modal({
           <h2 id={titleId} className="text-2xl font-semibold text-foreground">
             {title}
           </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
-            aria-label="Cerrar modal"
-          >
-            <span aria-hidden="true" className="text-xl leading-none">
-              x
-            </span>
-          </button>
+          {showCloseButton ? (
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+              aria-label="Cerrar modal"
+            >
+              <span aria-hidden="true" className="text-xl leading-none">
+                x
+              </span>
+            </button>
+          ) : null}
         </div>
         <div className="mt-5">{children}</div>
       </div>
