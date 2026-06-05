@@ -1,25 +1,52 @@
 export const whatsappContactConfig = {
-  // TODO: Reemplazar con el numero oficial validado en Notion.
-  // Debe estar en formato internacional y solo contener digitos.
   phoneNumber: "573194312060",
-  // TODO: Reemplazar con el copy oficial validado en Notion.
   greeting: "Hola,",
 };
 
-type WhatsAppMessageParams = {
-  name?: string;
-  email?: string;
-  idea?: string;
+export type ContactFieldContent = {
+  label: string;
+  placeholder: string;
 };
 
-export function buildWhatsAppMessage({
-  name,
-  email,
-  idea,
-}: WhatsAppMessageParams) {
-  const normalizedName = name?.trim() || "[nombre]";
-  const normalizedEmail = email?.trim() || "[correo]";
-  const normalizedIdea = idea?.trim() || "[idea]";
+export type ContactContent = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  fields: {
+    name: ContactFieldContent;
+    email: ContactFieldContent;
+    message: ContactFieldContent;
+  };
+  submitLabel: string;
+  trustText: string;
+  whatsapp: {
+    phonePlaceholder: string;
+  };
+};
 
-  return `${whatsappContactConfig.greeting} soy ${normalizedName}, mi correo es ${normalizedEmail} y tengo esta idea en mente: ${normalizedIdea}`;
-}
+export const contactContent: ContactContent = {
+  eyebrow: "Contacto",
+  title: "Hablemos de tu proyecto",
+  subtitle:
+    "Transformamos ideas audaces en productos digitales excepcionales. Cuéntanos qué tienes en mente y hagamos que suceda.",
+  fields: {
+    name: {
+      label: "Nombre completo",
+      placeholder: "Escribe tu nombre aquí",
+    },
+    email: {
+      label: "Correo electrónico",
+      placeholder: "ejemplo@compañia.com",
+    },
+    message: {
+      label: "Descripción del proyecto",
+      placeholder:
+        "Cuéntanos un poco sobre los objetivos y desafíos de tu proyecto...",
+    },
+  },
+  submitLabel: "Enviar mensaje",
+  trustText: "Respondemos en menos de 24 horas",
+  whatsapp: {
+    phonePlaceholder: whatsappContactConfig.phoneNumber,
+  },
+};
