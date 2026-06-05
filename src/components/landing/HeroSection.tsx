@@ -11,9 +11,9 @@ export function HeroSection() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="h-[calc(100svh-72px)] bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
     >
-      <div className="mx-auto max-w-7xl px-4 py-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-24">
+      <div className="mx-auto grid h-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
         <HeroText content={heroContent} />
         <HeroVisual />
       </div>
