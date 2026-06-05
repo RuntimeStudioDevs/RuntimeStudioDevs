@@ -68,14 +68,8 @@ function ContactFormPanel({ content }: PanelProps) {
   }
 
   return (
-    <div className="relative mx-auto max-w-2xl">
-      {/* Blue blur behind the card */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-[var(--color-studio-blue)]/5 blur-2xl"
-      />
-
-      <div className="relative rounded-2xl border border-[var(--color-devs-silver)]/30 bg-white p-6 shadow-lg sm:p-10">
+    <div className="mx-auto max-w-2xl">
+      <div className="rounded-2xl border border-[var(--color-devs-silver)]/40 bg-white p-6 sm:p-10">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-5"
