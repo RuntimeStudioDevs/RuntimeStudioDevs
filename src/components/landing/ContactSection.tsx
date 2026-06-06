@@ -1,12 +1,13 @@
 "use client";
 
-import { type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 
 import {
   contactContent,
   type ContactContent,
   type ContactFieldContent,
 } from "@/content/contactContent";
+import { WhatsAppButtonWithConfirmation } from "@/components/shared/WhatsAppButtonWithConfirmation";
 
 export function ContactSection() {
   return (
@@ -51,6 +52,28 @@ type PanelProps = {
 };
 
 function ContactFormPanel({ content }: PanelProps) {
+  const [submittedData, setSubmittedData] = useState<{
+    name: string;
+    email: string;
+    message: string;
+  } | null>(null);
+
+  function buildWhatsAppUrl({
+    name,
+    email,
+    message,
+  }: {
+    name: string;
+    email: string;
+    message: string;
+  }) {
+    const text = encodeURIComponent(
+      `Hola, quiero hablar sobre un proyecto.\n\nNombre: ${name}\nCorreo: ${email}\nMensaje:\n${message}`,
+    );
+
+    return `https://wa.me/${content.whatsapp.phonePlaceholder}?text=${text}`;
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -60,45 +83,64 @@ function ContactFormPanel({ content }: PanelProps) {
     const email = (data.get("email") as string).trim();
     const message = (data.get("message") as string).trim();
 
-    const text = `Hola, quiero hablar sobre un proyecto.%0A%0ANombre: ${name}%0ACorreo: ${email}%0AMensaje:%0A${message}`;
-
-    const url = `https://wa.me/${content.whatsapp.phonePlaceholder}?text=${text}`;
-
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(
+      buildWhatsAppUrl({ name, email, message }),
+      "_blank",
+      "noopener,noreferrer",
+    );
+    setSubmittedData({ name, email, message });
+    form.reset();
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="rounded-2xl border border-[var(--color-devs-silver)]/40 bg-white p-6 sm:p-10">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-5"
-          noValidate
-        >
-          <InputField
-            id="contact-name"
-            name="name"
-            type="text"
-            field={content.fields.name}
-            required
-          />
-          <InputField
-            id="contact-email"
-            name="email"
-            type="email"
-            field={content.fields.email}
-            required
-          />
-          <TextareaField
-            id="contact-message"
-            name="message"
-            field={content.fields.message}
-            required
-          />
-          <SubmitButton content={content} />
-        </form>
+    <>
+      <div className="mx-auto max-w-2xl">
+        <div className="rounded-2xl border border-[var(--color-devs-silver)]/40 bg-white p-6 sm:p-10">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-5"
+            noValidate
+          >
+            <InputField
+              id="contact-name"
+              name="name"
+              type="text"
+              field={content.fields.name}
+              required
+            />
+            <InputField
+              id="contact-email"
+              name="email"
+              type="email"
+              field={content.fields.email}
+              required
+            />
+            <TextareaField
+              id="contact-message"
+              name="message"
+              field={content.fields.message}
+              required
+            />
+            <SubmitButton content={content} />
+          </form>
+        </div>
       </div>
-    </div>
+
+      {submittedData ? (
+        <WhatsAppButtonWithConfirmation
+          name={submittedData.name}
+          email={submittedData.email}
+          idea={submittedData.message}
+          phoneNumber={content.whatsapp.phonePlaceholder}
+          initialOpen
+          hideButton
+          hideWhatsAppAction
+          onClose={() => {
+            setSubmittedData(null);
+          }}
+        />
+      ) : null}
+    </>
   );
 }
 
