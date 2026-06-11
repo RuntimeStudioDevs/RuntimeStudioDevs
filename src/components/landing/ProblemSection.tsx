@@ -60,7 +60,7 @@ function ProblemGrid({ cards }: { cards: ProblemCard[] }) {
 
 function ProblemCard({ card }: { card: ProblemCard }) {
   return (
-    <article className="group rounded-2xl border border-border/40 bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_30px_var(--color-studio-blue)]/8 sm:p-8">
+    <article className="group rounded-2xl border border-border/40 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-8">
       <ProblemIcon icon={card.icon} />
 
       <h3 className="mt-4 text-lg font-semibold tracking-tight text-foreground sm:text-xl">
