@@ -1,7 +1,9 @@
+export type ProblemIconType = "disconnected" | "calendar" | "legacy" | "quality";
+
 export type ProblemCard = {
   title: string;
   description: string;
-  icon: string;
+  icon: ProblemIconType;
 };
 
 export type ProblemContent = {
