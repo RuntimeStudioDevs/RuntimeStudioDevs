@@ -22,6 +22,7 @@ El codigo es la fuente de verdad del proyecto. La documentacion debe reflejar el
 │   ├── README.md
 │   ├── DOCUMENTATION.md
 │   ├── RUN.md
+│   ├── DESIGN.md
 │   │
 │   ├── frontend/
 │   │   ├── README.md
@@ -39,7 +40,9 @@ El codigo es la fuente de verdad del proyecto. La documentacion debe reflejar el
         │   └── SKILL.md
         ├── frontend/
         │   └── SKILL.md
-        └── backend/
+        ├── backend/
+        │   └── SKILL.md
+        └── skill-governance/
             └── SKILL.md
 ```
 
@@ -128,6 +131,27 @@ Catalogo y documentacion de componentes frontend.
 #### frontend/development.md
 
 Guias de desarrollo, convenciones, procedimientos y comandos de validacion.
+
+---
+
+### docs/DESIGN.md
+
+Documento de diseno del proyecto.
+
+Centraliza la informacion relacionada con:
+
+* Principios de diseno observables
+* Sistema de colores y tokens semanticos
+* Sistema de fuentes
+* Arbol de componentes
+* Componentes con estado local
+* Sistema de contenido
+* Integraciones (WhatsApp)
+* Navegacion
+* Decisiones de configuracion
+* Limitaciones actuales
+
+No debe contener aspiraciones ni funcionalidades no implementadas. Toda afirmacion debe estar respaldada por evidencia del codigo fuente.
 
 ---
 
@@ -232,4 +256,4 @@ Se recomienda revisar la documentacion cuando se completen funcionalidades impor
 
 ## Ultima actualizacion
 
-2026-06-09 — Creacion inicial del mapa documental.
+2026-06-09 — Actualizacion: se anadio DESIGN.md, se corrigio la estructura de .agents/skills/ y se completo la auditoria documental.

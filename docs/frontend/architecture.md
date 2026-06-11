@@ -12,10 +12,6 @@ src/
 |  |- layout.tsx
 |  |- page.tsx
 |
-|- assets/
-|  |- fonts/
-|     |- .gitkeep
-|
 |- components/
 |  |- brand/
 |  |  |- Logo_Blanco-RuntimeStudioDevs.tsx
@@ -34,24 +30,22 @@ src/
 |  |  |- UseCasesSection.tsx
 |  |
 |  |- layout/
-|     |- Footer.tsx
-|     |- Navbar.tsx
+|  |  |- Footer.tsx
+|  |  |- Navbar.tsx
+|  |  |- MobileMenu.tsx
+|  |
+|  |- shared/
+|     |- Modal.tsx
+|     |- WhatsAppButton.tsx
+|     |- WhatsAppButtonWithConfirmation.tsx
 |
 |- content/
-   |- .gitkeep
-
-public/
-|- icons/
-|  |- .gitkeep
-|- images/
-   |- brand/
-   |  |- .gitkeep
-   |- hero/
-   |  |- .gitkeep
-   |- services/
-   |  |- .gitkeep
-   |- use-cases/
-      |- .gitkeep
+   |- benefitsContent.tsx
+   |- contactContent.tsx
+   |- ContentServices.tsx
+   |- faqContent.tsx
+   |- heroContent.tsx
+   |- solutionContent.tsx
 ```
 
 ## `src/app`
@@ -137,13 +131,22 @@ Icono del sitio usado por Next.js.
 
 ## `src/content`
 
-Carpeta reservada actualmente solo con `.gitkeep` para conservarla en Git.
+Carpeta de datos tipados para cada seccion de la landing.
 
-Estado actual:
+Contiene 6 archivos con tipos y objetos de contenido:
 
-- No contiene datos ni textos usados por la aplicacion.
-- No hay imports desde esta carpeta.
-- No se usa en runtime.
+- `heroContent.tsx` — Tipos `HeroContent`, `CtaContent` y datos del Hero
+- `solutionContent.tsx` — Tipos `SolutionContent`, `SolutionProcessStep` y datos de Solucion
+- `ContentServices.tsx` — Tipos `Service`, `ServiceCategory`, servicios, pasos de proceso y CTAs
+- `benefitsContent.tsx` — Tipos `Benefit`, beneficios y CTA de beneficios
+- `faqContent.tsx` — Tipos `FaqItem` y datos del FAQ
+- `contactContent.tsx` — Tipos `ContactContent`, configuracion de WhatsApp y datos del formulario
+
+Uso recomendado:
+
+- Mantener aqui los datos de contenido separados de los componentes de presentacion.
+- Cada archivo debe exportar sus tipos y el objeto de datos correspondiente.
+- No colocar logica de renderizado ni componentes en esta carpeta.
 
 ## `public`
 
@@ -169,7 +172,7 @@ Carpeta para iconos publicos.
 
 Estado actual:
 
-- Solo contiene `.gitkeep`.
+- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
 - No hay iconos usados actualmente.
 
 ### `public/images/brand`
@@ -178,7 +181,7 @@ Carpeta para imagenes de marca.
 
 Estado actual:
 
-- Solo contiene `.gitkeep`.
+- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
 - No hay imagenes usadas actualmente.
 
 ### `public/images/hero`
@@ -187,7 +190,7 @@ Carpeta para imagenes relacionadas con la seccion Hero.
 
 Estado actual:
 
-- Solo contiene `.gitkeep`.
+- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
 - No hay imagenes usadas actualmente.
 
 ### `public/images/services`
@@ -196,7 +199,7 @@ Carpeta para imagenes relacionadas con servicios.
 
 Estado actual:
 
-- Solo contiene `.gitkeep`.
+- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
 - No hay imagenes usadas actualmente.
 
 ### `public/images/use-cases`
@@ -205,5 +208,5 @@ Carpeta para imagenes relacionadas con casos de uso.
 
 Estado actual:
 
-- Solo contiene `.gitkeep`.
+- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
 - No hay imagenes usadas actualmente.
