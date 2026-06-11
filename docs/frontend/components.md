@@ -102,151 +102,233 @@ Componentes de estructura general que envuelven la pagina.
 
 ### `src/components/layout/Navbar.tsx`
 
-Representa la seccion de navegacion superior.
+Barra de navegacion superior sticky.
 
 Estado actual:
 
-- Renderiza un bloque con borde.
-- Muestra el texto centrado `Navbar`.
-- No tiene enlaces ni interaccion.
+- Implementado completamente.
+- Incluye logo (`LogoNegroRuntimeStudioDevs`) + 7 enlaces de navegacion con hover animado.
+- Selector de idioma visual (ES/EN) — no funcional, sin i18n real.
+- CTA "Contactanos" estilo boton azul.
+- Hamburguesa animada que abre `MobileMenu` en mobile.
+- Clases: `sticky top-0 z-50`, glass-morphism con `backdrop-blur`.
 
 Uso recomendado:
 
 - Mantener aqui todo lo relacionado con la barra de navegacion.
-- Cuando se trabaje esta parte, agregar aqui enlaces, logo o acciones de navegacion.
 - No mezclar contenido de secciones de la landing dentro del Navbar.
 
-### `src/components/layout/Footer.tsx`
+### `src/components/layout/MobileMenu.tsx`
 
-Representa la seccion final de la pagina.
+Menu movil animado tipo Apple.
 
 Estado actual:
 
-- Renderiza un bloque de pantalla completa.
-- Muestra el texto centrado `Footer`.
+- Implementado completamente.
+- Hamburguesa animada (3 lineas → X) con `useState`.
+- Overlay slide-down con links escalonados.
+- Selector de idioma visual (no funcional).
+- Scroll lock en `<body>` cuando esta abierto (`useEffect`).
+- CTA "Contactanos".
+
+### `src/components/layout/Footer.tsx`
+
+Pie de pagina.
+
+Estado actual:
+
+- Implementado con logo blanco, links de servicios, navegacion y CTA de WhatsApp.
+- Contiene 3 TODOs pendientes:
+  - Redes sociales: muestra "Pendiente por definir".
+  - Links legales: muestra "Links legales pendientes por definir".
+  - Selector de idioma: visual unicamente, sin i18n real.
+- Consume `services` de `@/content/ContentServices` para los links de servicios.
+- Consume `whatsappContactConfig` de `@/content/contactContent` para el CTA.
 
 Uso recomendado:
 
 - Mantener aqui el contenido propio del footer.
-- Usarlo para informacion final del sitio cuando se trabaje esa fase.
 
 ## `src/components/landing`
 
 Contiene las secciones principales de la landing page.
 
-Cada archivo representa una seccion independiente. Actualmente cada seccion contiene directamente su propio `<section>`.
+### Estructura de secciones
 
-Estructura base actual de una seccion:
+Cada archivo representa una seccion independiente con su propio `<section>` e `id`. Las secciones implementadas usan datos de `src/content/`. Las secciones stub usan la estructura base placeholder.
+
+Estructura base de una seccion stub:
 
 ```tsx
-export function ServicesSection() {
+export function ExampleSection() {
   return (
     <section
-      id="servicios"
+      id="ejemplo"
       className="flex min-h-screen items-center justify-center border border-border bg-background"
     >
       <h2 className="text-center text-3xl font-semibold text-foreground">
-        Seccion Servicios
+        Seccion Ejemplo
       </h2>
     </section>
   );
 }
 ```
 
-Clases usadas actualmente:
-
-- `min-h-screen`: hace que la seccion ocupe al menos el alto completo de la pantalla.
-- `border border-border`: delimita visualmente la seccion usando el token global de borde.
-- `bg-background`: aplica el token global de fondo.
-- `text-foreground`: aplica el token global de texto principal.
-- `flex items-center justify-center`: centra el texto de la seccion.
-
 ### `HeroSection.tsx`
 
 Seccion inicial de la landing.
 
-Estado actual:
+Estado actual: **IMPLEMENTADO**
 
-- Tiene `id="inicio"`.
-- Muestra el texto `Hero`.
+- `id="inicio"`, usa `"use client"`.
+- Altura calculada: `h-[calc(100svh-72px)]`.
+- Grid 2 columnas (texto + visual) en desktop.
+- Badges (Hecho en Medellin, Desarrollo + IA + Producto).
+- Heading, subtitle, supportText desde `@/content/heroContent`.
+- CTA primario ("Agenda una llamada") con microTexto.
+- Mockup visual con grafico de barras, progress ring y badges flotantes (Idea → Diseno → Desarrollo → Lanzamiento).
 
 ### `ProblemSection.tsx`
 
 Seccion para el problema.
 
-Estado actual:
+Estado actual: **STUB**
 
-- Tiene `id="problema"`.
-- Muestra el texto `Seccion Problema`.
+- `id="problema"`.
+- Solo muestra texto placeholder "Seccion Problema".
+- Sin contenido real ni datos externos.
 
 ### `SolutionSection.tsx`
 
 Seccion para la solucion.
 
-Estado actual:
+Estado actual: **IMPLEMENTADO**
 
-- Tiene `id="solucion"`.
-- Muestra el texto `Seccion Solucion`.
+- `id="solucion"`.
+- Header con badge, titulo con highlight y CTA desde `@/content/solutionContent`.
+- Mockup visual de plataforma con KPIs (Ingresos, Usuarios, Conversion), lista de proyectos y modulos.
+- Proceso en 5 pasos con iconos SVG inline (insights, diseno, codigo, rocket, tendencia).
+- CTA final con microTexto.
 
 ### `ServicesSection.tsx`
 
 Seccion de servicios.
 
-Estado actual:
+Estado actual: **IMPLEMENTADO**
 
-- Tiene `id="servicios"`.
-- Muestra el texto `Seccion Servicios`.
+- `id="servicios"`, usa `"use client"` con `useState` para `activeCategory`.
+- 6 servicios con filtro por categoria (Web, Aplicaciones, Automatizacion & IA, Plataformas).
+- Grid responsivo con tarjeta destacada (featured) + tarjetas regulares.
+- Cada tarjeta: nombre, tagline, problema, entregables, outcome, publico ideal, CTA.
+- Seccion de proceso (4 pasos).
+- Seccion de confianza (logos, testimonial, metrica — actualmente vacios).
+- CTA final con microcopy.
+- Schema JSON-LD estructurado para SEO.
+- Datos desde `@/content/ContentServices`.
 
 ### `HowItWorksSection.tsx`
 
 Seccion de como funciona.
 
-Estado actual:
+Estado actual: **STUB**
 
-- Tiene `id="como-funciona"`.
-- Muestra el texto `Seccion Como Funciona`.
+- `id="como-funciona"`.
+- Solo muestra texto placeholder "Seccion Como Funciona".
+- Sin contenido real ni datos externos.
 
 ### `BenefitsSection.tsx`
 
 Seccion de beneficios.
 
-Estado actual:
+Estado actual: **IMPLEMENTADO**
 
-- Tiene `id="beneficios"`.
-- Muestra el texto `Seccion Beneficios`.
+- `id="beneficios"`, usa `"use client"`.
+- Header con eyebrow, titulo y descripcion desde `@/content/benefitsContent`.
+- Grid de 8 tarjetas de beneficios, cada una con icono SVG inline unico.
+- CTA final desde `benefitsCtaContent`.
 
 ### `UseCasesSection.tsx`
 
 Seccion de casos de uso.
 
-Estado actual:
+Estado actual: **STUB**
 
-- Tiene `id="casos-de-uso"`.
-- Muestra el texto `Seccion Casos de Uso`.
+- `id="casos-de-uso"`.
+- Solo muestra texto placeholder "Seccion Casos de Uso".
+- Sin contenido real ni datos externos.
 
 ### `FAQSection.tsx`
 
 Seccion de preguntas frecuentes.
 
-Estado actual:
+Estado actual: **IMPLEMENTADO**
 
-- Tiene `id="faq"`.
-- Muestra el texto `Seccion FAQ`.
+- `id="faq"`, usa `"use client"` con `useState` para `activeIndex`.
+- Header con eyebrow, titulo y subtitulo desde `@/content/faqContent`.
+- Acordeon interactivo con 6 items (solo uno abierto a la vez).
+- Cada item: pregunta, preview, respuesta expandible, badge opcional.
+- Indicador +/- animado.
+- Accesibilidad: `aria-expanded`, `aria-controls`, `aria-labelledby`.
+- CTA final con meta texto.
 
 ### `ContactSection.tsx`
 
 Seccion del formulario de contacto.
 
-Estado actual:
+Estado actual: **IMPLEMENTADO**
 
-- Tiene `id="contacto"`.
-- Muestra el texto `Seccion Formulario de Contacto`.
+- `id="contacto"`, usa `"use client"` con `useState` para `formSubmitted`.
+- Header con eyebrow, titulo y subtitulo desde `@/content/contactContent`.
+- Formulario con campos: nombre, correo, mensaje.
+- Al enviar: oculta formulario, muestra `WhatsAppButtonWithConfirmation`.
+- Texto de confianza debajo del formulario.
 
 ### `FinalCTASection.tsx`
 
 Seccion de llamado a la accion final.
 
-Estado actual:
+Estado actual: **STUB**
 
-- Tiene `id="cta-final"`.
-- Muestra el texto `Seccion CTA Final`.
+- `id="cta-final"`.
+- Solo muestra texto placeholder "Seccion CTA Final".
+- Sin contenido real ni datos externos.
+
+## `src/components/shared`
+
+Componentes reutilizables compartidos entre secciones.
+
+### `src/components/shared/WhatsAppButton.tsx`
+
+Boton de WhatsApp reutilizable.
+
+Estado actual: **IMPLEMENTADO**
+
+- Construye deep link `https://wa.me/...` con mensaje predefinido.
+- Dos variantes: `secondary` (boton normal) y `floating` (boton flotante fixed).
+- Icono SVG de WhatsApp inline.
+- Numero y mensaje desde `@/content/contactContent`.
+
+### `src/components/shared/WhatsAppButtonWithConfirmation.tsx`
+
+Wrapper de WhatsAppButton con modal de confirmacion.
+
+Estado actual: **IMPLEMENTADO**
+
+- Usa `"use client"` con `useState` para `showModal`.
+- Envuelve `WhatsAppButton` + `Modal`.
+- Modal de agradecimiento con 3 opciones: "Continuar por WhatsApp", "Agendar llamada" (opcional), "Seguir explorando".
+- Props: `initialOpen`, `hideButton`, `hideWhatsAppAction`, `onClose`.
+
+### `src/components/shared/Modal.tsx`
+
+Dialogo modal accesible.
+
+Estado actual: **IMPLEMENTADO**
+
+- Usa `"use client"` con `useEffect`, `useRef`, `useId`.
+- Backdrop click-to-close.
+- Cierre con tecla Escape.
+- Focus trap: auto-foco en primer elemento focusable.
+- Scroll lock en `<body>`.
+- Boton de cierre opcional.
+- Renderizado via portal (`createPortal` no usado; render inline con posicion fixed).
