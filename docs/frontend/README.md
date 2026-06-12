@@ -1,6 +1,6 @@
 # Frontend
 
-TODO: Proposito del area frontend del proyecto Runtime Studio Devs.
+Documentación del área frontend de Runtime Studio Devs. Cubre la arquitectura Next.js App Router, el sistema de diseño, el catálogo de componentes y las guías de desarrollo de la landing page.
 
 ## Documentos
 

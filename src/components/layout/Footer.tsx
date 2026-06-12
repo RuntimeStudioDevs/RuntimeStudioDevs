@@ -83,7 +83,7 @@ export function Footer() {
                   href={FOOTER_CTA_HREF}
                   className="transition-colors hover:text-runtime-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
                 >
-                  Ir a la seccion de contacto
+                  Ir a la sección de contacto
                 </a>
               </li>
               <li>{FOOTER_LOCATION}</li>

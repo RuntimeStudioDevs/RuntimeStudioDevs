@@ -8,11 +8,12 @@ Sitio web single-page desarrollado con Next.js que presenta los servicios de des
 
 ## Estado actual
 
-Version 0.1.0 en desarrollo. La landing page cuenta con 10 secciones, de las cuales 6 estan implementadas con contenido real y 4 permanecen como placeholders.
+Version 0.1.0 en desarrollo. La landing page cuenta con 10 secciones, de las cuales 7 estan implementadas con contenido real y 3 permanecen como placeholders.
 
 ### Secciones implementadas
 
 - Hero (`inicio`)
+- Problema (`problema`)
 - Solucion (`solucion`)
 - Servicios (`servicios`)
 - Beneficios (`beneficios`)
@@ -21,7 +22,6 @@ Version 0.1.0 en desarrollo. La landing page cuenta con 10 secciones, de las cua
 
 ### Secciones pendientes
 
-- Problema (`problema`)
 - Como funciona (`como-funciona`)
 - Casos de uso (`casos-de-uso`)
 - CTA final (`cta-final`)

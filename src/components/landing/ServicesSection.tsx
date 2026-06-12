@@ -1,12 +1,11 @@
-"use client";
-
-import {
+﻿import {
   servicesSectionContent,
   services,
   trustContent,
   servicesCtaContent,
   type Service,
 } from "@/content/ContentServices";
+import { iconMap, FallbackIcon } from "@/components/icons/ServicesIcons";
 
 export function ServicesSection() {
   return (
@@ -84,7 +83,7 @@ function ServiceCardFeatured({ service }: CardProps) {
       </span>
 
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--color-devs-silver)] bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
         <div className="min-w-0">
@@ -133,7 +132,7 @@ function ServiceCardFeatured({ service }: CardProps) {
         </div>
       </div>
 
-      <div className="mt-auto border-t border-[var(--color-devs-silver)]/30 pt-4">
+      <div className="mt-auto border-t border-border/40 pt-4">
         <a
           href={servicesCtaContent.primaryHref}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-studio-blue)] hover:underline"
@@ -151,10 +150,10 @@ function ServiceCard({ service }: CardProps) {
 
   return (
     <div
-      className="flex h-full flex-col rounded-2xl border border-[var(--color-devs-silver)] p-5 transition-all duration-200 hover:border-[var(--color-studio-blue)] hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-all duration-200 hover:border-[var(--color-studio-blue)] hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[var(--color-devs-silver)] bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
         <div className="min-w-0">
@@ -209,7 +208,7 @@ function ServiceCard({ service }: CardProps) {
         </div>
       </div>
 
-      <div className="mt-auto border-t border-[var(--color-devs-silver)]/30 pt-3">
+      <div className="mt-auto border-t border-border/40 pt-3">
         <a
           href={servicesCtaContent.primaryHref}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-studio-blue)] hover:underline"
@@ -245,7 +244,7 @@ function TrustBlock() {
       )}
 
       {hasTestimonial && trustContent.testimonial && (
-        <div className="mt-8 rounded-2xl border border-[var(--color-devs-silver)] p-6 text-center sm:p-8">
+        <div className="mt-8 rounded-2xl border border-border/40 p-6 text-center sm:p-8">
           <p className="text-sm leading-6 italic text-[color:var(--color-runtime-black)]/80">
             &ldquo;{trustContent.testimonial.quote}&rdquo;
           </p>
@@ -293,171 +292,26 @@ function ServicesFinalCta() {
 }
 
 function ServicesSchema() {
-  const serviceSchemas = services.map((s) => ({
+  const schema = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: s.name,
-    description: s.tagline,
-    provider: {
-      "@type": "Organization",
-      name: "Runtime Studio Devs",
-    },
-  }));
-
-  const jsonString = (obj: object) =>
-    JSON.stringify(obj).replace(/</g, "\\u003c");
+    "@graph": services.map((s) => ({
+      "@type": "Service",
+      name: s.name,
+      description: s.tagline,
+      provider: {
+        "@type": "Organization",
+        name: "Runtime Studio Devs",
+      },
+    })),
+  };
 
   return (
-    <>
-      {serviceSchemas.map((schema, i) => (
-        <script
-          key={`service-${i}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonString(schema) }}
-        />
-      ))}
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+      }}
+    />
   );
 }
 
-/* ── SVG Icons ──────────────────────── */
-
-function IconPlatforms() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <line x1="3" y1="9" x2="21" y2="9" />
-      <line x1="9" y1="3" x2="9" y2="21" />
-      <line x1="15" y1="3" x2="15" y2="21" />
-      <line x1="3" y1="15" x2="21" y2="15" />
-    </svg>
-  );
-}
-
-function IconWebsites() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <ellipse cx="12" cy="12" rx="4" ry="9" />
-      <line x1="3" y1="12" x2="21" y2="12" />
-    </svg>
-  );
-}
-
-function IconApps() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="3" width="18" height="8" rx="2" />
-      <rect x="5" y="13" width="14" height="8" rx="2" />
-    </svg>
-  );
-}
-
-function IconAutomation() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M17 2l4 4-4 4" />
-      <path d="M3 11v-1a4 4 0 014-4h14" />
-      <path d="M7 22l-4-4 4-4" />
-      <path d="M21 13v1a4 4 0 01-4 4H3" />
-    </svg>
-  );
-}
-
-function IconIA() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polygon points="12,2 15.5,8.5 22,9 17,14 18.5,21 12,17.5 5.5,21 7,14 2,9 8.5,8.5" />
-    </svg>
-  );
-}
-
-function IconAPIs() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-    </svg>
-  );
-}
-
-function FallbackIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      stroke="currentColor"
-      fill="none"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
-  );
-}
-
-const iconMap: Record<string, React.FC> = {
-  plataformas: IconPlatforms,
-  "sitios-web": IconWebsites,
-  "aplicaciones-web": IconApps,
-  automatizaciones: IconAutomation,
-  ia: IconIA,
-  "apis-backends": IconAPIs,
-};

@@ -4,7 +4,7 @@ import {
   type ProblemCard,
   type ProblemIconType,
 } from "@/content/problemContent";
-import { iconMap } from "./ProblemIcons";
+import { iconMap } from "@/components/icons/ProblemIcons";
 
 export function ProblemSection() {
   return (

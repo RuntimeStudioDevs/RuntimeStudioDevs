@@ -149,9 +149,9 @@ Orden de renderizado en `page.tsx`:
 RootLayout (layout.tsx)
 └── Home (page.tsx)
     ├── Navbar (sticky)
-    ├── <main>
+    ├── <main id="main-content">
     │   ├── HeroSection
-    │   ├── ProblemSection (STUB)
+    │   ├── ProblemSection
     │   ├── SolutionSection
     │   ├── ServicesSection
     │   ├── HowItWorksSection (STUB)
@@ -165,12 +165,10 @@ RootLayout (layout.tsx)
 
 ## Componentes con estado local
 
-Solo 7 componentes usan `"use client"`:
+Solo 5 componentes usan `"use client"`:
 
 | Componente | Hook(s) usado(s) | Propósito del estado |
 |---|---|---|
-| `ServicesSection` | `useState` | `activeCategory` para filtrar servicios |
-| `BenefitsSection` | (ninguno pese a `"use client"`) | — |
 | `FAQSection` | `useState` | `activeIndex` para acordeón |
 | `ContactSection` | `useState` | `formSubmitted` para alternar formulario / confirmación |
 | `MobileMenu` | `useState`, `useEffect` | `isOpen` para abrir/cerrar + scroll lock |
@@ -223,9 +221,9 @@ La navegación entre secciones usa scroll suave nativo via `scroll-smooth` en `<
 ## Limitaciones actuales
 
 1. **Sin backend**: No hay API, base de datos ni lógica de servidor. El proyecto es puramente frontend estático.
-2. **Sin i18n real**: El selector de idioma en Navbar, MobileMenu y Footer es puramente visual. No hay librería de internacionalización.
+2. **Sin i18n real**: El selector de idioma en MobileMenu y Footer es puramente visual. No hay librería de internacionalización.
 3. **Sin fuentes cargadas**: Las fuentes dependen del sistema operativo del usuario.
-4. **4 secciones stub**: ProblemSection, HowItWorksSection, UseCasesSection, FinalCTASection no tienen contenido real (solo placeholder).
+4. **3 secciones stub**: HowItWorksSection, UseCasesSection, FinalCTASection no tienen contenido real (solo placeholder).
 5. **Sin tests**: No hay framework de testing configurado.
 6. **Sin despliegue configurado**: No hay archivos de configuración para Vercel, Netlify, Docker u otros.
 7. **Sin variables de entorno**: No se detectaron archivos `.env`.

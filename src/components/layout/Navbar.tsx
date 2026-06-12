@@ -3,7 +3,7 @@ import { MobileMenu } from "./MobileMenu";
 
 const NAV_LINKS = [
   { label: "Problema", href: "#problema" },
-  { label: "Solucion", href: "#solucion" },
+  { label: "Solución", href: "#solucion" },
   { label: "Servicios", href: "#servicios" },
   { label: "Proceso", href: "#como-funciona" },
   { label: "Ventajas", href: "#beneficios" },
@@ -49,7 +49,7 @@ export function Navbar() {
             href="#contacto"
             className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary/90 active:scale-95"
           >
-            Contactanos
+            Contáctanos
           </a>
         </div>
 

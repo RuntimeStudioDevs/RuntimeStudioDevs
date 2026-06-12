@@ -1,10 +1,6 @@
 # Backend
 
-TODO: Proposito del area backend del proyecto Runtime Studio Devs.
-
-## Documentos
-
-TODO: Listar documentos disponibles para el backend.
+Reservado para futuro desarrollo backend.
 
 ## Ultima actualizacion
 

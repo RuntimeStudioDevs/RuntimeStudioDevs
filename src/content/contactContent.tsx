@@ -1,5 +1,5 @@
 export const whatsappContactConfig = {
-  phoneNumber: "573194312060",
+  phoneNumber: process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "",
   greeting: "Hola,",
 };
 

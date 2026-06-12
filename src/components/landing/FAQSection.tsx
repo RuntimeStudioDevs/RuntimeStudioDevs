@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -86,7 +86,7 @@ function FAQAccordionItem({
       className={`relative overflow-hidden rounded-2xl border bg-white px-5 py-5 shadow-sm transition-all duration-300 ${
         isOpen
           ? "border-[var(--color-studio-blue)]/40 shadow-[0_18px_50px_rgba(0,140,249,0.10)] -translate-y-0.5"
-          : "border-[var(--color-devs-silver)]/30 hover:border-[var(--color-studio-blue)]/40 hover:shadow-md"
+          : "border-border/40 hover:border-[var(--color-studio-blue)]/40 hover:shadow-md"
       }`}
     >
       {isOpen && (
@@ -124,7 +124,7 @@ function FAQAccordionItem({
         }`}
       >
         <div className="overflow-hidden">
-          <div className="mt-4 border-t border-[var(--color-devs-silver)]/20 pt-4">
+          <div className="mt-4 border-t border-border/40 pt-4">
             <p className="text-sm leading-6 text-[color:var(--color-runtime-black)]/65">
               {item.answer}
             </p>
@@ -178,7 +178,7 @@ function AccordionIndicator({ isOpen }: { isOpen: boolean }) {
 function FAQCta() {
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="rounded-3xl border border-[var(--color-devs-silver)]/30 bg-slate-50/50 px-6 py-10 text-center sm:px-10 sm:py-12">
+      <div className="rounded-3xl border border-border/40 bg-background/50 px-6 py-10 text-center sm:px-10 sm:py-12">
         <h3 className="text-xl font-semibold tracking-tight text-[var(--color-runtime-black)] sm:text-2xl">
           {faqContent.cta.title}
         </h3>

@@ -18,4 +18,4 @@ Indice documental del proyecto Runtime Studio Devs.
 
 ## Ultima actualizacion
 
-2026-06-09 — Creacion inicial de la estructura documental.
+2026-06-12 — Actualización documental: ProblemSection implementada, FAQSection con 8 items, stubs reducidos a 3.

@@ -2,7 +2,8 @@ export type ServiceCategory =
   | "Web"
   | "Aplicaciones"
   | "Automatización & IA"
-  | "Plataformas";
+  | "Plataformas"
+  | "APIs & Backend";
 
 export type ServiceAudience =
   | "Personas"
@@ -40,14 +41,6 @@ export const servicesSectionContent = {
   title: "Software a medida que paga su costo",
   description:
     "Diseñamos, construimos y operamos productos digitales — desde una web que convierte, hasta plataformas internas, automatizaciones e IA — para empresas y startups que necesitan velocidad sin perder calidad de ingeniería.",
-  preGridText:
-    "Empieza por el caso que más se parece al tuyo. Si no encaja, lo armamos a medida.",
-  groupAnchors: [
-    "Web",
-    "Aplicaciones",
-    "Automatización & IA",
-    "Plataformas",
-  ] as ServiceCategory[],
 };
 
 export const services: Service[] = [
@@ -180,7 +173,7 @@ export const services: Service[] = [
     outcome:
       "Una capa técnica sólida que tu equipo puede extender sin nosotros.",
     idealFor: ["Equipos de ingeniería", "CTOs", "Heads of product"],
-    category: "Aplicaciones",
+    category: "APIs & Backend",
     audiences: ["Empresas", "Developers"],
     microCta: "Hablar con un ingeniero",
   },

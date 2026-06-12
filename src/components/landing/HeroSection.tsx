@@ -1,6 +1,4 @@
-"use client";
-
-import {
+﻿import {
   heroContent,
   type HeroContent,
   type CtaContent,
@@ -62,7 +60,7 @@ function Badges({ badges }: BadgesProps) {
       {badges.map((badge) => (
         <span
           key={badge}
-          className="inline-flex items-center rounded-full border border-[var(--color-devs-silver)] px-3 py-1 text-xs font-medium text-[var(--color-studio-blue)]"
+          className="inline-flex items-center rounded-full border border-border/40 px-3 py-1 text-xs font-medium text-[var(--color-studio-blue)]"
         >
           {badge}
         </span>
@@ -103,7 +101,7 @@ function DashboardMockup() {
       className="relative mx-auto w-full max-w-[500px] overflow-visible"
       aria-label="Dashboard de desarrollo de software con flujo Idea, Diseño, Desarrollo y Lanzamiento"
     >
-      <div className="rounded-3xl border border-slate-200/60 bg-white/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-7">
+      <div className="rounded-3xl border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-7">
         {/* Window dots */}
         <div className="mb-5 flex items-center gap-2 sm:mb-7">
           <div className="flex gap-1.5">
@@ -111,14 +109,14 @@ function DashboardMockup() {
             <div className="h-2.5 w-2.5 rounded-full bg-amber-400/50" />
             <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/50" />
           </div>
-          <div className="ml-2 h-3 w-28 rounded-full bg-slate-200/70 sm:w-36" />
+          <div className="ml-2 h-3 w-28 rounded-full bg-border/70 sm:w-36" />
         </div>
 
         {/* Upper grid: chart + progress ring */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
           {/* Chart box */}
-          <div className="col-span-1 rounded-2xl border border-slate-200/60 bg-slate-50 p-4 sm:col-span-3">
-            <div className="mb-3 h-1.5 w-16 rounded-full bg-slate-200/70" />
+          <div className="col-span-1 rounded-2xl border border-border/40 bg-background p-4 sm:col-span-3">
+            <div className="mb-3 h-1.5 w-16 rounded-full bg-border/70" />
             <div className="flex h-20 items-end gap-2">
               {["bg-blue-900/60", "bg-blue-800/60", "bg-blue-600/70", "bg-blue-400/80"].map(
                 (color, i) => (
@@ -133,11 +131,11 @@ function DashboardMockup() {
           </div>
 
           {/* Progress ring box */}
-          <div className="col-span-1 flex items-center justify-center rounded-2xl border border-slate-200/60 bg-slate-50 p-4 sm:col-span-2">
+          <div className="col-span-1 flex items-center justify-center rounded-2xl border border-border/40 bg-background p-4 sm:col-span-2">
             <div className="relative flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16">
-              <div className="absolute inset-0 rounded-full border-[3px] border-slate-200/70" />
+              <div className="absolute inset-0 rounded-full border-[3px] border-border/40" />
               <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-blue-400/80 border-r-blue-400/80 rotate-[135deg]" />
-              <span className="relative text-xs font-semibold text-slate-500">
+              <span className="relative text-xs font-semibold text-foreground/70">
                 74%
               </span>
             </div>
@@ -146,15 +144,15 @@ function DashboardMockup() {
 
         {/* Skeleton rows */}
         <div className="mt-4 space-y-3">
-          <div className="flex items-center gap-3 rounded-xl border border-slate-200/40 bg-slate-50 p-3">
+          <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-background p-3">
             <div className="h-5 w-5 flex-shrink-0 rounded-md bg-blue-500/20" />
-            <div className="h-2 w-3/5 rounded-full bg-slate-200/70" />
-            <div className="h-2 w-1/4 rounded-full bg-slate-200/50" />
+            <div className="h-2 w-3/5 rounded-full bg-border/70" />
+            <div className="h-2 w-1/4 rounded-full bg-border/50" />
           </div>
-          <div className="flex items-center gap-3 rounded-xl border border-slate-200/40 bg-slate-50 p-3">
+          <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-background p-3">
             <div className="h-5 w-5 flex-shrink-0 rounded-md bg-emerald-500/20" />
-            <div className="h-2 w-1/2 rounded-full bg-slate-200/70" />
-            <div className="h-2 w-1/5 rounded-full bg-slate-200/50" />
+            <div className="h-2 w-1/2 rounded-full bg-border/70" />
+            <div className="h-2 w-1/5 rounded-full bg-border/50" />
           </div>
         </div>
       </div>
@@ -180,12 +178,12 @@ function WorkflowBadges() {
     {
       label: "Diseño",
       style:
-        "border border-slate-200/60 bg-white text-slate-700 shadow-lg shadow-black/5",
+        "border border-border/40 bg-white text-foreground shadow-lg shadow-black/5",
     },
     {
       label: "Desarrollo",
       style:
-        "border border-slate-200/60 bg-white text-slate-700 shadow-lg shadow-black/5 sm:translate-y-3",
+        "border border-border/40 bg-white text-foreground shadow-lg shadow-black/5 sm:translate-y-3",
     },
     {
       label: "Lanzamiento",
@@ -207,7 +205,7 @@ function WorkflowBadges() {
             {step.label}
           </span>
           {i < steps.length - 1 && (
-            <span className="text-[11px] text-slate-400 sm:text-sm">→</span>
+            <span className="text-[11px] text-foreground/60 sm:text-sm">→</span>
           )}
         </span>
       ))}

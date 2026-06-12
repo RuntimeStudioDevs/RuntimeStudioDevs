@@ -1,6 +1,6 @@
 # Arquitectura Frontend
 
-El proyecto usa Next.js con App Router dentro de `src/app`. La pagina actual es una single page compuesta por secciones independientes. Cada seccion se delimita directamente en su propio archivo usando una etiqueta `<section>` con alto completo de pantalla, borde y texto centrado.
+El proyecto usa Next.js con App Router dentro de `src/app`. La pagina actual es una single page compuesta por secciones independientes. Cada seccion se delimita directamente en su propio archivo usando una etiqueta `<section>`.
 
 ## Estructura Actual
 
