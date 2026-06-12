@@ -101,9 +101,10 @@ export function Modal({
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
               aria-label="Cerrar modal"
             >
-              <span aria-hidden="true" className="text-xl leading-none">
-                x
-              </span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                <path d="M18 6L6 18" strokeLinecap="round" />
+                <path d="M6 6l12 12" strokeLinecap="round" />
+              </svg>
             </button>
           ) : null}
         </div>

@@ -32,7 +32,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
       <button
         onClick={toggleMenu}
         className="relative z-50 flex h-8 w-8 flex-col items-center justify-center gap-1.5 p-1 lg:hidden"
-        aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
+        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
       >
         <span
           className={`h-[2px] w-6 bg-foreground transition-all duration-300 ${
@@ -105,7 +105,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
             onClick={close}
             className="w-full rounded-full bg-primary py-3.5 text-center text-base font-semibold text-white transition-colors hover:bg-primary/90"
           >
-            Contactanos
+            Contáctanos
           </a>
         </div>
       </div>

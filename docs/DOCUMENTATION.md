@@ -1,12 +1,12 @@
 # Mapa Documental
 
-## Proposito
+## Propósito
 
-Este documento define la organizacion oficial de la documentacion del proyecto, la responsabilidad de cada archivo documental y las reglas que deben seguirse para mantener la documentacion consistente, actualizada y facil de navegar.
+Este documento define la organización oficial de la documentación del proyecto, la responsabilidad de cada archivo documental y las reglas que deben seguirse para mantener la documentación consistente, actualizada y fácil de navegar.
 
-La documentacion del proyecto esta organizada por responsabilidades. Cada documento tiene un proposito especifico y debe evitarse la duplicacion de informacion entre archivos.
+La documentación del proyecto está organizada por responsabilidades. Cada documento tiene un propósito específico y debe evitarse la duplicación de información entre archivos.
 
-El codigo es la fuente de verdad del proyecto. La documentacion debe reflejar el estado real del codigo y actualizarse cuando existan cambios relevantes.
+El código es la fuente de verdad del proyecto. La documentación debe reflejar el estado real del código y actualizarse cuando existan cambios relevantes.
 
 ---
 
@@ -53,33 +53,33 @@ El codigo es la fuente de verdad del proyecto. La documentacion debe reflejar el
 
 Punto de entrada principal del repositorio.
 
-Debe proporcionar una vision general del proyecto y servir como punto de navegacion hacia la documentacion disponible.
+Debe proporcionar una visión general del proyecto y servir como punto de navegación hacia la documentación disponible.
 
-No debe contener documentacion tecnica extensa ni detalles de implementacion.
+No debe contener documentación técnica extensa ni detalles de implementación.
 
 ---
 
 ### README.en.md
 
-Version en ingles del README principal.
+Versión en inglés del README principal.
 
-Debe mantener la misma estructura y proposito que README.md.
+Debe mantener la misma estructura y propósito que README.md.
 
 ---
 
 ### AGENTS.md
 
-Punto de entrada para herramientas y agentes IA compatibles con el estandar AGENTS.md.
+Punto de entrada para herramientas y agentes IA compatibles con el estándar AGENTS.md.
 
-Puede referenciar documentacion especializada ubicada dentro de `.agents/`.
+Puede referenciar documentación especializada ubicada dentro de `.agents/`.
 
 ---
 
 ### docs/README.md
 
-Indice principal de la documentacion interna.
+Índice principal de la documentación interna.
 
-Debe enlazar a las diferentes areas documentales disponibles y facilitar la navegacion entre documentos.
+Debe enlazar a las diferentes áreas documentales disponibles y facilitar la navegación entre documentos.
 
 ---
 
@@ -87,7 +87,7 @@ Debe enlazar a las diferentes areas documentales disponibles y facilitar la nave
 
 Mapa documental oficial del proyecto.
 
-Define la estructura documental, las responsabilidades de cada documento y las reglas organizativas que deben seguirse al crear o modificar documentacion.
+Define la estructura documental, las responsabilidades de cada documento y las reglas organizativas que deben seguirse al crear o modificar documentación.
 
 ---
 
@@ -95,13 +95,13 @@ Define la estructura documental, las responsabilidades de cada documento y las r
 
 Documento operativo del proyecto.
 
-Centraliza la informacion relacionada con:
+Centraliza la información relacionada con:
 
-* Tecnologias utilizadas
+* Tecnologías utilizadas
 * Versiones requeridas
 * Variables de entorno
-* Instalacion
-* Ejecucion local
+* Instalación
+* Ejecución local
 * Scripts disponibles
 * Troubleshooting
 
@@ -109,27 +109,27 @@ Centraliza la informacion relacionada con:
 
 ### docs/frontend/
 
-Contiene toda la documentacion relacionada con el frontend del proyecto.
+Contiene toda la documentación relacionada con el frontend del proyecto.
 
 #### frontend/README.md
 
-Indice y punto de entrada de la documentacion frontend.
+Índice y punto de entrada de la documentación frontend.
 
 #### frontend/architecture.md
 
-Arquitectura, estructura de carpetas y organizacion tecnica del frontend.
+Arquitectura, estructura de carpetas y organización técnica del frontend.
 
 #### frontend/design-system.md
 
-Sistema de diseno, principios, tipografias, colores, tokens, logos, componentes con estado, sistema de contenido, integraciones, navegacion, configuracion y limitaciones.
+Sistema de diseño, principios, tipografías, colores, tokens, logos, componentes con estado, sistema de contenido, integraciones, navegación, configuración y limitaciones.
 
 #### frontend/components.md
 
-Catalogo y documentacion de componentes frontend.
+Catálogo y documentación de componentes frontend.
 
 #### frontend/development.md
 
-Guias de desarrollo, convenciones, procedimientos y comandos de validacion.
+Guías de desarrollo, convenciones, procedimientos y comandos de validación.
 
 ---
 
@@ -137,17 +137,17 @@ Guias de desarrollo, convenciones, procedimientos y comandos de validacion.
 
 ### docs/backend/
 
-Contiene la documentacion relacionada con el backend del proyecto.
+Contiene la documentación relacionada con el backend del proyecto.
 
-Actualmente se encuentra reservado para futuras implementaciones y documentacion tecnica.
+Actualmente se encuentra reservado para futuras implementaciones y documentación técnica.
 
 ---
 
 ### .agents/
 
-Contiene reglas, habilidades y lineamientos especificos para agentes IA que interactuan con el repositorio.
+Contiene reglas, habilidades y lineamientos específicos para agentes IA que interactúan con el repositorio.
 
-Estas instrucciones complementan, pero no reemplazan, la documentacion destinada a desarrolladores humanos.
+Estas instrucciones complementan, pero no reemplazan, la documentación destinada a desarrolladores humanos.
 
 ---
 
@@ -155,37 +155,37 @@ Estas instrucciones complementan, pero no reemplazan, la documentacion destinada
 
 ### Una responsabilidad por documento
 
-Cada documento debe tener una responsabilidad clara y especifica.
+Cada documento debe tener una responsabilidad clara y específica.
 
-Debe evitarse que un mismo tema se documente en multiples ubicaciones.
+Debe evitarse que un mismo tema se documente en múltiples ubicaciones.
 
 ---
 
-### Evitar duplicacion
+### Evitar duplicación
 
-La informacion no debe copiarse entre documentos.
+La información no debe copiarse entre documentos.
 
 Cuando sea necesario referenciar contenido existente, debe utilizarse un enlace hacia el documento correspondiente.
 
 ---
 
-### Jerarquia documental
+### Jerarquía documental
 
-Los documentos indice deben dirigir al lector hacia documentacion mas especifica.
+Los documentos índice deben dirigir al lector hacia documentación más específica.
 
-La informacion detallada debe mantenerse en documentos especializados.
+La información detallada debe mantenerse en documentos especializados.
 
 ---
 
 ### Consistencia de nombres
 
-Las carpetas y documentos deben utilizar nombres descriptivos, consistentes y preferiblemente en ingles cuando formen parte de documentacion tecnica.
+Las carpetas y documentos deben utilizar nombres descriptivos, consistentes y preferiblemente en inglés cuando formen parte de documentación técnica.
 
 ---
 
 ### Uso de TODO
 
-La informacion pendiente debe marcarse utilizando el formato:
+La información pendiente debe marcarse utilizando el formato:
 
 ```text
 TODO:
@@ -197,43 +197,43 @@ No deben utilizarse formatos alternativos para indicar contenido pendiente.
 
 ## Reglas de Mantenimiento
 
-### El codigo es la fuente de verdad
+### El código es la fuente de verdad
 
-La documentacion debe reflejar el estado real del repositorio.
+La documentación debe reflejar el estado real del repositorio.
 
-Si existe una diferencia entre documentacion y codigo, debe considerarse correcto el codigo hasta que la documentacion sea actualizada.
+Si existe una diferencia entre documentación y código, debe considerarse correcto el código hasta que la documentación sea actualizada.
 
 ---
 
-### Actualizacion obligatoria
+### Actualización obligatoria
 
 Todo cambio que afecte:
 
 * Arquitectura
 * Estructura de carpetas
-* Configuracion
-* Ejecucion
+* Configuración
+* Ejecución
 * Componentes principales
-* Flujos tecnicos
+* Flujos técnicos
 
-debe evaluar si requiere actualizacion documental.
-
----
-
-### Documentacion incremental
-
-La documentacion debe evolucionar junto con el proyecto.
-
-No es necesario documentar areas inexistentes, pero si debe mantenerse actualizada la documentacion de las areas implementadas.
+debe evaluar si requiere actualización documental.
 
 ---
 
-### Revisiones periodicas
+### Documentación incremental
 
-Se recomienda revisar la documentacion cuando se completen funcionalidades importantes o se realicen cambios estructurales relevantes.
+La documentación debe evolucionar junto con el proyecto.
+
+No es necesario documentar áreas inexistentes, pero sí debe mantenerse actualizada la documentación de las áreas implementadas.
 
 ---
 
-## Ultima actualizacion
+### Revisiones periódicas
 
-2026-06-11 — Actualizacion: DESIGN.md fusionado en frontend/design-system.md, eliminado DESIGN.md.
+Se recomienda revisar la documentación cuando se completen funcionalidades importantes o se realicen cambios estructurales relevantes.
+
+---
+
+## Última actualización
+
+2026-06-12 — Última actualización.

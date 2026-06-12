@@ -58,6 +58,37 @@ function ContactFormPanel({ content }: PanelProps) {
     message: string;
   } | null>(null);
 
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [messageError, setMessageError] = useState("");
+
+  function validateForm(name: string, email: string, message: string): boolean {
+    let valid = true;
+
+    if (name.length < 2) {
+      setNameError("El nombre debe tener al menos 2 caracteres.");
+      valid = false;
+    } else {
+      setNameError("");
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError("Ingresa un correo electrónico válido.");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (message.length < 10) {
+      setMessageError("El mensaje debe tener al menos 10 caracteres.");
+      valid = false;
+    } else {
+      setMessageError("");
+    }
+
+    return valid;
+  }
+
   function buildWhatsAppUrl({
     name,
     email,
@@ -83,6 +114,10 @@ function ContactFormPanel({ content }: PanelProps) {
     const email = (data.get("email") as string).trim();
     const message = (data.get("message") as string).trim();
 
+    if (!validateForm(name, email, message)) {
+      return;
+    }
+
     window.open(
       buildWhatsAppUrl({ name, email, message }),
       "_blank",
@@ -95,7 +130,7 @@ function ContactFormPanel({ content }: PanelProps) {
   return (
     <>
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-2xl border border-[var(--color-devs-silver)]/40 bg-white p-6 sm:p-10">
+        <div className="rounded-2xl border border-border/40 bg-white p-6 sm:p-10">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-5"
@@ -107,6 +142,7 @@ function ContactFormPanel({ content }: PanelProps) {
               type="text"
               field={content.fields.name}
               required
+              error={nameError}
             />
             <InputField
               id="contact-email"
@@ -114,12 +150,14 @@ function ContactFormPanel({ content }: PanelProps) {
               type="email"
               field={content.fields.email}
               required
+              error={emailError}
             />
             <TextareaField
               id="contact-message"
               name="message"
               field={content.fields.message}
               required
+              error={messageError}
             />
             <SubmitButton content={content} />
           </form>
@@ -150,9 +188,10 @@ type InputFieldProps = {
   type: "text" | "email";
   field: ContactFieldContent;
   required?: boolean;
+  error?: string;
 };
 
-function InputField({ id, name, type, field, required }: InputFieldProps) {
+function InputField({ id, name, type, field, required, error }: InputFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <label
@@ -167,9 +206,15 @@ function InputField({ id, name, type, field, required }: InputFieldProps) {
         type={type}
         required={required}
         aria-required={required}
+        aria-describedby={error ? `${id}-error` : undefined}
         placeholder={field.placeholder}
-        className="rounded-xl border border-[var(--color-devs-silver)]/40 bg-slate-50 px-4 py-3 text-sm text-[var(--color-runtime-black)] placeholder:text-[color:var(--color-runtime-black)]/30 transition-colors focus:border-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)]/20"
+        className="rounded-xl border border-border/40 bg-background px-4 py-3 text-sm text-[var(--color-runtime-black)] placeholder:text-[color:var(--color-runtime-black)]/30 transition-colors focus:border-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)]/20"
       />
+      {error && (
+        <p id={`${id}-error`} role="alert" className="text-xs text-red-500">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -179,6 +224,7 @@ type TextareaFieldProps = {
   name: string;
   field: ContactFieldContent;
   required?: boolean;
+  error?: string;
 };
 
 function TextareaField({
@@ -186,6 +232,7 @@ function TextareaField({
   name,
   field,
   required,
+  error,
 }: TextareaFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -200,10 +247,16 @@ function TextareaField({
         name={name}
         required={required}
         aria-required={required}
+        aria-describedby={error ? `${id}-error` : undefined}
         rows={4}
         placeholder={field.placeholder}
-        className="resize-y rounded-xl border border-[var(--color-devs-silver)]/40 bg-slate-50 px-4 py-3 text-sm text-[var(--color-runtime-black)] placeholder:text-[color:var(--color-runtime-black)]/30 transition-colors focus:border-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)]/20"
+        className="resize-y rounded-xl border border-border/40 bg-background px-4 py-3 text-sm text-[var(--color-runtime-black)] placeholder:text-[color:var(--color-runtime-black)]/30 transition-colors focus:border-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)]/20"
       />
+      {error && (
+        <p id={`${id}-error`} role="alert" className="text-xs text-red-500">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

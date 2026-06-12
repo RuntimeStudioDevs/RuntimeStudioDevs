@@ -190,13 +190,14 @@ Estado actual: **IMPLEMENTADO**
 
 ### `ProblemSection.tsx`
 
-Seccion para el problema.
+Sección del problema.
 
-Estado actual: **STUB**
+Estado actual: **IMPLEMENTADO**
 
 - `id="problema"`.
-- Solo muestra texto placeholder "Seccion Problema".
-- Sin contenido real ni datos externos.
+- Badge, título con highlight y descripción desde `@/content/problemContent`.
+- Grid de 4 tarjetas de problema, cada una con icono SVG inline único.
+- Datos desde `@/content/problemContent`.
 
 ### `SolutionSection.tsx`
 
@@ -265,7 +266,7 @@ Estado actual: **IMPLEMENTADO**
 
 - `id="faq"`, usa `"use client"` con `useState` para `activeIndex`.
 - Header con eyebrow, titulo y subtitulo desde `@/content/faqContent`.
-- Acordeon interactivo con 6 items (solo uno abierto a la vez).
+- Acordeon interactivo con 8 items (solo uno abierto a la vez).
 - Cada item: pregunta, preview, respuesta expandible, badge opcional.
 - Indicador +/- animado.
 - Accesibilidad: `aria-expanded`, `aria-controls`, `aria-labelledby`.

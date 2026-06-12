@@ -6,9 +6,9 @@ export type Benefit = {
 
 export const benefitsSectionContent = {
   eyebrow: "Beneficios",
-  title: "Mas que codigo, resultados que ordenan y hacen crecer tu negocio",
+  title: "Más que código, resultados que ordenan y hacen crecer tu negocio",
   description:
-    "Trabajar con RuntimeStudioDevs significa tener un equipo que no solo desarrolla, sino que tambien ayuda a ordenar la idea, definir prioridades y construir una solucion util.",
+    "Trabajar con RuntimeStudioDevs significa tener un equipo que no solo desarrolla, sino que también ayuda a ordenar la idea, definir prioridades y construir una solución útil.",
 };
 
 export const benefits: Benefit[] = [
@@ -16,43 +16,43 @@ export const benefits: Benefit[] = [
     id: "claridad",
     title: "Claridad desde el inicio",
     description:
-      "Ordenamos tu idea, definimos prioridades y convertimos la vision en un camino concreto.",
+      "Ordenamos tu idea, definimos prioridades y convertimos la visión en un camino concreto.",
   },
   {
     id: "personalizado",
     title: "Desarrollo personalizado",
     description:
-      "Construimos una solucion alineada a tu negocio, no una plantilla generica.",
+      "Construimos una solución alineada a tu negocio, no una plantilla genérica.",
   },
   {
     id: "comunicacion",
-    title: "Comunicacion constante",
+    title: "Comunicación constante",
     description:
-      "Mantienes visibilidad del avance, decisiones y proximos pasos durante el proyecto.",
+      "Mantienes visibilidad del avance, decisiones y próximos pasos durante el proyecto.",
   },
   {
     id: "escalable",
     title: "Preparado para crecer",
     description:
-      "Creamos una base tecnica solida para que tu producto pueda evolucionar.",
+      "Creamos una base técnica sólida para que tu producto pueda evolucionar.",
   },
   {
     id: "tecnologia",
-    title: "Tecnologia moderna",
+    title: "Tecnología moderna",
     description:
-      "Desarrollamos paginas, apps y sistemas con herramientas actuales y mantenibles.",
+      "Desarrollamos páginas, apps y sistemas con herramientas actuales y mantenibles.",
   },
   {
     id: "ia",
-    title: "Integracion con IA",
+    title: "Integración con IA",
     description:
-      "Incorporamos automatizacion e inteligencia artificial donde aporte valor real.",
+      "Incorporamos automatización e inteligencia artificial donde aporte valor real.",
   },
   {
     id: "eficiencia",
-    title: "Procesos mas eficientes",
+    title: "Procesos más eficientes",
     description:
-      "Digitalizamos tareas manuales para reducir friccion operativa.",
+      "Digitalizamos tareas manuales para reducir fricción operativa.",
   },
   {
     id: "tiempo",

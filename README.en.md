@@ -8,11 +8,12 @@ Single-page website built with Next.js showcasing custom software development, a
 
 ## Current Status
 
-Version 0.1.0 in development. The landing page has 10 sections, of which 6 are implemented with real content and 4 remain as placeholders.
+Version 0.1.0 in development. The landing page has 10 sections, of which 7 are implemented with real content and 3 remain as placeholders.
 
 ### Implemented sections
 
 - Hero (`inicio`)
+- Problem (`problema`)
 - Solution (`solucion`)
 - Services (`servicios`)
 - Benefits (`beneficios`)
@@ -21,7 +22,6 @@ Version 0.1.0 in development. The landing page has 10 sections, of which 6 are i
 
 ### Pending sections
 
-- Problem (`problema`)
 - How It Works (`como-funciona`)
 - Use Cases (`casos-de-uso`)
 - Final CTA (`cta-final`)
