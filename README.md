@@ -65,7 +65,7 @@ El proyecto se ejecuta en `http://localhost:3000`.
 - [docs/README.md](docs/README.md) — Indice documental del proyecto
 - [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) — Mapa documental, reglas organizativas y de mantenimiento
 - [docs/RUN.md](docs/RUN.md) — Ejecucion local, tecnologias, instalacion
-- [docs/DESIGN.md](docs/DESIGN.md) — Diseno del proyecto, tokens, colores, fuentes
+- [docs/frontend/design-system.md](docs/frontend/design-system.md) — Sistema de diseno, colores, fuentes, tokens y lineamientos visuales
 - [docs/frontend/README.md](docs/frontend/README.md) — Documentacion del frontend
 - [docs/backend/README.md](docs/backend/README.md) — Backend (reservado para futuro)
 

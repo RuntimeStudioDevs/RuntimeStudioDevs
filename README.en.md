@@ -65,7 +65,7 @@ The project runs at `http://localhost:3000`.
 - [docs/README.md](docs/README.md) — Project documentation index
 - [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) — Documentation map, organizational and maintenance rules
 - [docs/RUN.md](docs/RUN.md) — Local execution, technologies, installation
-- [docs/DESIGN.md](docs/DESIGN.md) — Project design, tokens, colors, fonts
+- [docs/frontend/design-system.md](docs/frontend/design-system.md) — Design system, colors, fonts, tokens and visual guidelines
 - [docs/frontend/README.md](docs/frontend/README.md) — Frontend documentation
 - [docs/backend/README.md](docs/backend/README.md) — Backend (reserved for future)
 

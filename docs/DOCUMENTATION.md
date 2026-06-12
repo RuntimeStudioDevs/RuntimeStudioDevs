@@ -22,7 +22,6 @@ El codigo es la fuente de verdad del proyecto. La documentacion debe reflejar el
 │   ├── README.md
 │   ├── DOCUMENTATION.md
 │   ├── RUN.md
-│   ├── DESIGN.md
 │   │
 │   ├── frontend/
 │   │   ├── README.md
@@ -122,7 +121,7 @@ Arquitectura, estructura de carpetas y organizacion tecnica del frontend.
 
 #### frontend/design-system.md
 
-Sistema de diseno, tipografias, colores, tokens y lineamientos visuales.
+Sistema de diseno, principios, tipografias, colores, tokens, logos, componentes con estado, sistema de contenido, integraciones, navegacion, configuracion y limitaciones.
 
 #### frontend/components.md
 
@@ -133,25 +132,6 @@ Catalogo y documentacion de componentes frontend.
 Guias de desarrollo, convenciones, procedimientos y comandos de validacion.
 
 ---
-
-### docs/DESIGN.md
-
-Documento de diseno del proyecto.
-
-Centraliza la informacion relacionada con:
-
-* Principios de diseno observables
-* Sistema de colores y tokens semanticos
-* Sistema de fuentes
-* Arbol de componentes
-* Componentes con estado local
-* Sistema de contenido
-* Integraciones (WhatsApp)
-* Navegacion
-* Decisiones de configuracion
-* Limitaciones actuales
-
-No debe contener aspiraciones ni funcionalidades no implementadas. Toda afirmacion debe estar respaldada por evidencia del codigo fuente.
 
 ---
 
@@ -256,4 +236,4 @@ Se recomienda revisar la documentacion cuando se completen funcionalidades impor
 
 ## Ultima actualizacion
 
-2026-06-09 — Actualizacion: se anadio DESIGN.md, se corrigio la estructura de .agents/skills/ y se completo la auditoria documental.
+2026-06-11 — Actualizacion: DESIGN.md fusionado en frontend/design-system.md, eliminado DESIGN.md.
