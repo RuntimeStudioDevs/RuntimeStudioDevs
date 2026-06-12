@@ -10,12 +10,6 @@ export type ServiceAudience =
   | "Empresas"
   | "Developers";
 
-export type Step = {
-  number: string;
-  verb: string;
-  description: string;
-};
-
 export type TrustContent = {
   logos: string[];
   testimonial: {
@@ -189,33 +183,6 @@ export const services: Service[] = [
     category: "Aplicaciones",
     audiences: ["Empresas", "Developers"],
     microCta: "Hablar con un ingeniero",
-  },
-];
-
-export const processSteps: Step[] = [
-  {
-    number: "01",
-    verb: "Diagnosticamos",
-    description:
-      "30 minutos para entender el problema, los usuarios y las restricciones.",
-  },
-  {
-    number: "02",
-    verb: "Diseñamos",
-    description:
-      "Alcance, plazo y precio fijo o por etapas. Sin sorpresas.",
-  },
-  {
-    number: "03",
-    verb: "Construimos",
-    description:
-      "Entregables quincenales, demo en vivo y feedback temprano.",
-  },
-  {
-    number: "04",
-    verb: "Lanzamos",
-    description:
-      "Despliegue, monitoreo y soporte post-entrega.",
   },
 ];
 

@@ -3,7 +3,6 @@
 import {
   servicesSectionContent,
   services,
-  processSteps,
   trustContent,
   servicesCtaContent,
   type Service,
@@ -23,7 +22,6 @@ export function ServicesSection() {
           <ServicesGrid services={services} />
         </div>
 
-        <ProcessBlock />
         <TrustBlock />
         <ServicesFinalCta />
       </div>
@@ -219,29 +217,6 @@ function ServiceCard({ service }: CardProps) {
           {service.microCta}
           <span aria-hidden="true">&rarr;</span>
         </a>
-      </div>
-    </div>
-  );
-}
-
-function ProcessBlock() {
-  return (
-    <div className="mx-auto max-w-4xl">
-      <p className="text-center text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-studio-blue)]">
-        C&oacute;mo trabajamos
-      </p>
-      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-        {processSteps.map((step) => (
-          <div key={step.number} className="text-center">
-            <span className="text-3xl font-bold tracking-tight text-[var(--color-studio-blue)] lg:text-4xl">
-              {step.number}
-            </span>
-            <p className="mt-1 text-sm font-semibold">{step.verb}</p>
-            <p className="mt-1 text-xs leading-5 text-[color:var(--color-runtime-black)]/60">
-              {step.description}
-            </p>
-          </div>
-        ))}
       </div>
     </div>
   );
