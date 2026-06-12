@@ -8,7 +8,7 @@ Centraliza la informacion necesaria para instalar, ejecutar y desarrollar el pro
 
 | Tecnologia | Version | Fuente |
 |---|---|---|
-| Node.js | PENDING: No fue posible verificar la version requerida desde el repositorio. No existe `.nvmrc` ni `engines` en `package.json`. | — |
+| Node.js | Requiere v20 o superior. Version verificada en ambiente de desarrollo: v22.22.2. | v22.22.2 |
 | Next.js | 16.2.7 | `package.json` → `dependencies.next` |
 | React | 19.2.4 | `package.json` → `dependencies.react` |
 | React DOM | 19.2.4 | `package.json` → `dependencies.react-dom` |
@@ -19,14 +19,12 @@ Centraliza la informacion necesaria para instalar, ejecutar y desarrollar el pro
 
 ## Requisitos previos
 
-- Node.js instalado (version exacta no especificada en el repositorio).
+- Node.js v20 o superior instalado.
 - npm (incluido con Node.js).
 
 ## Variables de entorno
 
-PENDING: No se detectaron archivos `.env*` en el repositorio. El archivo `.gitignore` incluye `.env*` como patron de exclusion. No fue posible determinar si existen variables de entorno requeridas para la ejecucion.
-
-Si se requieren variables de entorno, deben documentarse aqui.
+En este momento el proyecto no requiere variables de entorno. No existe archivo `.env` ni configuracion de entorno definida para la ejecucion local. Si en el futuro se agregan, deben documentarse en esta seccion.
 
 ## Instalacion
 
@@ -83,11 +81,9 @@ Ejecutar `npm run build` para verificar la compilacion completa. El proyecto usa
 
 ## Notas pendientes
 
-- PENDING: Version de Node.js requerida (no especificada en el repositorio).
-- PENDING: Variables de entorno necesarias (no detectadas).
 - PENDING: Scripts de testing (no existen).
 - PENDING: Configuracion de despliegue (no detectada).
 
 ## Ultima actualizacion
 
-2026-06-09 — Documentacion generada a partir de evidencia del repositorio.
+2026-06-11 — Actualizacion: version de Node.js, variables de entorno.
