@@ -22,7 +22,7 @@ export const heroContent: HeroContent = {
   badges: ["Hecho en Medellín, Colombia", "Desarrollo + IA + Producto"],
   primaryCTA: {
     label: "Agenda una llamada",
-    href: "/#contacto",
+    href: "#contacto",
     microText: "Sesión de diagnóstico gratis",
   }
 };
