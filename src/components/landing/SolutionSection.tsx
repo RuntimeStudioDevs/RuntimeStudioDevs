@@ -1,9 +1,7 @@
-﻿import {
+import {
   solutionContent,
   type SolutionContent,
-  type SolutionProcessStep,
 } from "@/content/solutionContent";
-import { processStepIcons } from "@/components/icons/SolutionIcons";
 
 export function SolutionSection() {
   return (
@@ -12,15 +10,11 @@ export function SolutionSection() {
       aria-labelledby="solution-title"
       className="bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
     >
-      <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-24 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 py-16 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
           <SolutionHeader content={solutionContent} />
           <SolutionVisual />
         </div>
-
-        <ProcessSection content={solutionContent} />
-
-        <SolutionFinalCta content={solutionContent} />
       </div>
     </section>
   );
@@ -32,7 +26,7 @@ function SolutionHeader({ content }: { content: SolutionContent }) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
-    <div className="mx-auto flex max-w-xl flex-col gap-5 text-center">
+    <div className="mx-auto flex max-w-xl flex-col gap-5 text-center lg:text-left">
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-studio-blue)]">
         {content.badge}
       </p>
@@ -177,98 +171,6 @@ function MetricCard({
       </div>
       <div className="mt-0.5 text-[9px] text-foreground/60 sm:text-[10px]">
         {label}
-      </div>
-    </div>
-  );
-}
-
-/* ── Process Section ─────────────── */
-
-function ProcessSection({ content }: { content: SolutionContent }) {
-  return (
-    <div className="rounded-3xl bg-background/50 px-4 py-12 sm:px-6 lg:px-8">
-      <h3 className="text-center text-2xl font-semibold tracking-tight text-[var(--color-runtime-black)] sm:text-3xl lg:text-4xl">
-        {content.processTitle}
-      </h3>
-
-      <div className="relative mt-14">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-[var(--color-devs-silver)]/25 to-transparent lg:block"
-        />
-
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
-          {content.processSteps.map((step) => (
-            <ProcessStepCard key={step.number} step={step} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProcessStepCard({ step }: { step: SolutionProcessStep }) {
-  return (
-    <article className="group relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
-      <ProcessStepIcon step={step} />
-
-      <span className="mb-2 text-xs font-semibold uppercase tracking-[0.04em] text-[var(--color-studio-blue)]">
-        PASO {step.number}
-      </span>
-
-      <h4 className="text-xl font-semibold tracking-tight text-[var(--color-runtime-black)]">
-        {step.verb}
-      </h4>
-
-      <p className="mt-3 max-w-[240px] text-sm leading-6 text-[color:var(--color-runtime-black)]/60">
-        {step.description}
-      </p>
-    </article>
-  );
-}
-
-/* ── Process Step Icons ──────────── */
-
-type ProcessStepIconProps = {
-  step: SolutionProcessStep;
-};
-
-function ProcessStepIcon({ step }: ProcessStepIconProps) {
-  const Icon = processStepIcons[step.icon];
-
-  return (
-    <div
-      className={[
-        "relative z-10 mb-5 flex size-16 items-center justify-center rounded-2xl border transition-all duration-300",
-        step.featured
-          ? "border-[var(--color-studio-blue)] bg-[var(--color-studio-blue)] text-[var(--color-runtime-white)] shadow-[0_12px_30px_rgba(0,140,249,0.28)]"
-          : "border-border/40 bg-white text-[var(--color-studio-blue)] group-hover:border-[var(--color-studio-blue)] group-hover:shadow-[0_12px_28px_rgba(0,140,249,0.14)]",
-      ].join(" ")}
-    >
-      <Icon className="size-7" />
-    </div>
-  );
-}
-
-
-/* ── Final CTA ───────────────────── */
-
-function SolutionFinalCta({ content }: { content: SolutionContent }) {
-  return (
-    <div className="mx-auto max-w-2xl text-center">
-      <h3 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">
-        {content.finalCta.title}
-      </h3>
-      <div className="mt-6">
-        <a
-          href={content.finalCta.buttonHref}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
-        >
-          {content.finalCta.buttonLabel}
-        </a>
-        <p className="mt-2 text-[11px] text-[color:var(--color-runtime-black)]/40">
-          {content.finalCta.microText}
-        </p>
       </div>
     </div>
   );
