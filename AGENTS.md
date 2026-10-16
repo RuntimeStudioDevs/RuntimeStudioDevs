@@ -33,6 +33,11 @@ Este documento rige el desarrollo y las modificaciones de código asistidas por 
 - Ningún texto o sección debe proyectar métricas comerciales falsas, testimonios ficticios o contadores simulados.
 - Todo reclamo técnico debe estar fundamentado en arquitectura verificable, estándares abiertos y código auditable.
 
+### Regla 5: Ciclo de Vida de Ramas y Disciplina Git
+- **Origen estricto:** Toda rama de funcionalidad (`feat/*`) o corrección (`fix/*`) debe originarse desde `develop`.
+- **Eliminación post-merge obligatoria:** Inmediatamente después de que un Pull Request sea integrado (mergeado) a `develop`, la rama de la funcionalidad debe ser eliminada sin excepción, tanto en el entorno local (`git branch -D <rama>`) como en el remoto (`git push origin --delete <rama>`). Las ramas de feature son efímeras.
+- **Commits atómicos y convencionales:** Respetar la especificación de Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`) para garantizar un historial trazable y limpio.
+
 ---
 
 ## 3. PROTOCOLO DE VERIFICACIÓN OBLIGATORIO

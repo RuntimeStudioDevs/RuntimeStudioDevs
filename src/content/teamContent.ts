@@ -37,6 +37,7 @@ export const teamContent: TeamContent = {
       primarySkills: ["TypeScript", "Next.js", "CI/CD", "Docker"],
       social: {
         github: "https://github.com/xDavidGamerx",
+        linkedin: "https://www.linkedin.com/in/davidrcampino/",
       },
     },
     {

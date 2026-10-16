@@ -22,7 +22,7 @@ export function SolutionSection() {
 
 /* ── Hero Block ──────────────────── */
 
-function SolutionHeader({ content }: { content: SolutionContent }) {
+function SolutionHeader({ content }: Readonly<{ content: SolutionContent }>) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
@@ -158,11 +158,11 @@ function MetricCard({
   accent,
   label,
   value,
-}: {
+}: Readonly<{
   accent: string;
   label: string;
   value: string;
-}) {
+}>) {
   return (
     <div className="rounded-xl border border-border/40 bg-background p-2.5 sm:p-3">
       <div className={`mb-1.5 h-1 w-6 rounded-full ${accent}`} />

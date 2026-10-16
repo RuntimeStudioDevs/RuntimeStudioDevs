@@ -20,7 +20,7 @@ export function TeamSection() {
   );
 }
 
-function TeamHeader({ content }: { content: TeamContent }) {
+function TeamHeader({ content }: Readonly<{ content: TeamContent }>) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
@@ -45,7 +45,7 @@ function TeamHeader({ content }: { content: TeamContent }) {
   );
 }
 
-function TeamGrid({ members }: { members: TeamMember[] }) {
+function TeamGrid({ members }: Readonly<{ members: TeamMember[] }>) {
   return (
     <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
       {members.map((member) => (
@@ -55,7 +55,7 @@ function TeamGrid({ members }: { members: TeamMember[] }) {
   );
 }
 
-function TeamMemberCard({ member }: { member: TeamMember }) {
+function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
   return (
     <article className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/40 bg-white p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-[0_16px_36px_rgba(0,140,249,0.14)] sm:p-7">
       <div className="flex flex-col">
