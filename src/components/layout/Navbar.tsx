@@ -19,7 +19,7 @@ export function Navbar() {
     >
       <div className="mx-auto grid w-full max-w-7xl items-center grid-cols-2 lg:grid-cols-[1fr_2fr_1fr] px-4 md:px-8">
         {/* LEFT: Logo */}
-        <a href="#" className="justify-self-start">
+        <a href="#inicio" className="justify-self-start">
           <LogoNegroRuntimeStudioDevs className="text-2xl" />
         </a>
 
