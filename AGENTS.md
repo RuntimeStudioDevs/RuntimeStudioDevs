@@ -39,8 +39,10 @@ Este documento rige el desarrollo y las modificaciones de código asistidas por 
 
 ### Regla 5: Ciclo de Vida de Ramas y Disciplina Git
 
-- **Origen estricto:** Toda rama de funcionalidad (`feat/*`) o corrección (`fix/*`) debe originarse desde `develop`.
-- **Eliminación post-merge obligatoria:** Inmediatamente después de que un Pull Request sea integrado (mergeado) a `develop`, la rama de la funcionalidad debe ser eliminada sin excepción, tanto en el entorno local (`git branch -D <rama>`) como en el remoto (`git push origin --delete <rama>`). Las ramas de feature son efímeras.
+- **Prohibición absoluta en develop:** Queda estrictamente prohibido realizar commits o cambios directos sobre la rama `develop`. Toda modificación de código debe ejecutarse dentro de una rama dedicada (`feat/*`, `fix/*`, `refactor/*`).
+- **Origen y sincronización limpia:** Toda nueva rama debe originarse desde la punta más reciente de `develop` (`git checkout develop && git pull origin develop && git checkout -b feat/...`). Nunca crear una nueva rama montada sobre otra rama de feature no mergeada.
+- **Transición estricta entre tareas/sprints:** Antes de iniciar una nueva tarea o sprint, el Pull Request previo debe haber sido integrado (mergeado) a `develop`, y el entorno local debe sincronizarse con `develop` antes de abrir la siguiente rama.
+- **Eliminación post-merge obligatoria:** Inmediatamente después de que un Pull Request sea integrado a `develop`, la rama de la funcionalidad debe ser eliminada sin excepción, tanto en el entorno local (`git branch -D <rama>`) como en el remoto (`git push origin --delete <rama>`). Las ramas de feature son efímeras.
 - **Commits atómicos y convencionales:** Respetar la especificación de Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`) para garantizar un historial trazable y limpio.
 - **Plantilla de Pull Request obligatoria:** Al finalizar una funcionalidad o sprint, el agente debe generar automáticamente una plantilla descriptiva en Markdown lista para copiar y pegar en GitHub, que contenga:
   1. _Resumen del cambio_ (contexto y motivación).
