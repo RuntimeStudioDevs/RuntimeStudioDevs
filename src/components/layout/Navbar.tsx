@@ -48,7 +48,7 @@ export function Navbar() {
 
           <a
             href="#contacto"
-            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary/90 active:scale-95"
+            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-[transform,background-color] duration-150 ease-out hover:bg-primary/90 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Contáctanos
           </a>

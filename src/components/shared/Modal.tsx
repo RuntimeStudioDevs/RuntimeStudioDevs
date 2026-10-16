@@ -98,7 +98,7 @@ export function Modal({
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-background text-foreground transition-[transform,background-color,border-color,color] duration-150 ease-out hover:border-primary hover:text-primary active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               aria-label="Cerrar modal"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">

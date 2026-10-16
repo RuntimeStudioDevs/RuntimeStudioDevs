@@ -1,4 +1,4 @@
-﻿import {
+import {
   heroContent,
   type HeroContent,
   type CtaContent,
@@ -9,9 +9,9 @@ export function HeroSection() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="h-[calc(100svh-72px)] bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="flex min-h-[calc(100svh-72px)] items-center bg-[var(--color-runtime-white)] py-12 text-[var(--color-runtime-black)] lg:py-0"
     >
-      <div className="mx-auto grid h-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
+      <div className="mx-auto grid w-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
         <HeroText content={heroContent} />
         <HeroVisual />
       </div>

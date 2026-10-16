@@ -30,10 +30,12 @@ export function MobileMenu({ links }: MobileMenuProps) {
     <>
       {/* Animated Hamburger Button */}
       <button
+        type="button"
         onClick={toggleMenu}
-        className="relative z-50 flex h-8 w-8 flex-col items-center justify-center gap-1.5 p-1 lg:hidden"
+        className="relative z-50 flex size-11 items-center justify-center rounded-lg p-2.5 transition-[transform,background-color] duration-150 ease-out active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:hidden"
         aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
       >
+        <span className="flex flex-col items-center justify-center gap-1.5">
         <span
           className={`h-[2px] w-6 bg-foreground transition-all duration-300 ${
             isOpen ? "translate-y-[8px] rotate-45" : ""
@@ -49,6 +51,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
             isOpen ? "-translate-y-[8px] -rotate-45" : ""
           }`}
         />
+        </span>
       </button>
 
       {/* Slide-down Panel (Apple Style) */}

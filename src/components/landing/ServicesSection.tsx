@@ -1,4 +1,4 @@
-﻿import {
+import {
   servicesSectionContent,
   services,
   trustContent,
@@ -76,7 +76,7 @@ function ServiceCardFeatured({ service }: CardProps) {
 
   return (
     <div
-      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
+      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
     >
       <span className="absolute right-3 top-3 rounded-full bg-[var(--color-studio-blue)]/10 px-2 py-0.5 text-[10px] font-semibold text-[var(--color-studio-blue)]">
         Destacado
@@ -150,7 +150,7 @@ function ServiceCard({ service }: CardProps) {
 
   return (
     <div
-      className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-all duration-200 hover:border-[var(--color-studio-blue)] hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-all duration-200 hover:border-[var(--color-studio-blue)] hover:shadow-md hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
     >
       <div className="flex items-start gap-3">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10">
