@@ -12,7 +12,7 @@ export function ServicesSection() {
     <section
       id="servicios"
       aria-labelledby="services-title"
-      className="bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-24 lg:px-8 lg:py-24">
         <ServicesHeader />
@@ -33,16 +33,16 @@ export function ServicesSection() {
 function ServicesHeader() {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-studio-blue)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
         {servicesSectionContent.eyebrow}
       </p>
       <h2
         id="services-title"
-        className="mt-2 text-2xl font-semibold tracking-tight sm:mt-3 sm:text-3xl lg:text-4xl"
+        className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:mt-3 sm:text-3xl lg:text-4xl"
       >
         {servicesSectionContent.title}
       </h2>
-      <p className="mt-2 text-sm leading-6 text-[color:var(--color-runtime-black)]/70 sm:mt-3 sm:text-base">
+      <p className="mt-2 text-sm leading-6 text-muted-foreground sm:mt-3 sm:text-base">
         {servicesSectionContent.description}
       </p>
     </header>
@@ -76,28 +76,28 @@ function ServiceCardFeatured({ service }: CardProps) {
 
   return (
     <div
-      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] bg-white p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/60 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.18),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
+      className="relative flex h-full flex-col rounded-2xl border-2 border-primary bg-card p-6 text-card-foreground shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/80 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.18),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-primary/30 active:ring-offset-2 sm:p-8"
     >
-      <span className="absolute right-3 top-3 rounded-full bg-[var(--color-studio-blue)]/10 px-2 py-0.5 text-[10px] font-semibold text-[var(--color-studio-blue)]">
+      <span className="absolute right-3 top-3 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary dark:bg-primary/20">
         Destacado
       </span>
 
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary dark:bg-primary/20">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
         <div className="min-w-0">
-          <h3 className="text-base font-semibold sm:text-lg">
+          <h3 className="text-base font-semibold text-foreground sm:text-lg">
             {service.name}
           </h3>
-          <span className="mt-0.5 inline-block rounded-full bg-[var(--color-studio-blue)]/10 px-2 py-[2px] text-[10px] font-semibold text-[var(--color-studio-blue)]">
+          <span className="mt-0.5 inline-block rounded-full bg-primary/10 px-2 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/20">
             {service.category}
           </span>
         </div>
       </div>
 
       <div className="mt-3 flex flex-1 flex-col sm:mt-4">
-        <p className="text-sm leading-6 text-[color:var(--color-runtime-black)]/70">
+        <p className="text-sm leading-6 text-muted-foreground">
           {service.tagline}
         </p>
 
@@ -105,17 +105,17 @@ function ServiceCardFeatured({ service }: CardProps) {
           {service.deliverables.map((d) => (
             <li
               key={d}
-              className="flex items-start gap-2 text-xs leading-5 text-[color:var(--color-runtime-black)]/70"
+              className="flex items-start gap-2 text-xs leading-5 text-muted-foreground"
             >
-              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-[var(--color-studio-blue)]" />
+              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-primary" />
               {d}
             </li>
           ))}
         </ul>
 
-        <p className="mt-3 text-xs font-medium text-[var(--color-studio-blue)]">
+        <p className="mt-3 text-xs font-medium text-primary">
           Resultado:{" "}
-          <span className="text-[color:var(--color-runtime-black)]/70">
+          <span className="text-muted-foreground">
             {service.outcome}
           </span>
         </p>
@@ -124,7 +124,7 @@ function ServiceCardFeatured({ service }: CardProps) {
           {service.idealFor.map((profile) => (
             <span
               key={profile}
-              className="rounded-full bg-[var(--color-devs-silver)]/20 px-2 py-[2px] text-[10px] font-medium text-[color:var(--color-runtime-black)]/60"
+              className="rounded-full bg-muted/60 px-2 py-[2px] text-[10px] font-medium text-muted-foreground"
             >
               {profile}
             </span>
@@ -135,7 +135,7 @@ function ServiceCardFeatured({ service }: CardProps) {
       <div className="mt-auto border-t border-border/40 pt-4">
         <a
           href={servicesCtaContent.primaryHref}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-studio-blue)] hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
         >
           {service.microCta}
           <span aria-hidden="true">&rarr;</span>
@@ -150,24 +150,24 @@ function ServiceCard({ service }: CardProps) {
 
   return (
     <div
-      className="flex h-full flex-col rounded-2xl border border-border/80 bg-white p-5 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] dark:border-border/40 dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-primary/30 active:ring-offset-2 sm:p-6"
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10 sm:rounded-xl">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary dark:bg-primary/20 sm:h-10 sm:w-10 sm:rounded-xl">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
         <div className="min-w-0">
-          <h3 className="text-sm font-semibold sm:text-base">
+          <h3 className="text-sm font-semibold text-foreground sm:text-base">
             {service.name}
           </h3>
-          <span className="mt-0.5 inline-block rounded-full bg-[var(--color-studio-blue)]/10 px-2 py-[2px] text-[10px] font-semibold text-[var(--color-studio-blue)]">
+          <span className="mt-0.5 inline-block rounded-full bg-primary/10 px-2 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/20">
             {service.category}
           </span>
         </div>
       </div>
 
       <div className="mt-3 flex flex-1 flex-col sm:mt-4">
-        <p className="text-xs leading-5 text-[color:var(--color-runtime-black)]/70 sm:text-sm sm:leading-6">
+        <p className="text-xs leading-5 text-muted-foreground sm:text-sm sm:leading-6">
           {service.tagline}
         </p>
 
@@ -175,23 +175,23 @@ function ServiceCard({ service }: CardProps) {
           {service.deliverables.slice(0, 4).map((d) => (
             <li
               key={d}
-              className="flex items-start gap-2 text-xs leading-5 text-[color:var(--color-runtime-black)]/70"
+              className="flex items-start gap-2 text-xs leading-5 text-muted-foreground"
             >
-              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-[var(--color-studio-blue)]" />
+              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-primary" />
               {d}
             </li>
           ))}
         </ul>
 
         {service.deliverables.length > 4 && (
-          <p className="mt-1 text-[10px] text-[color:var(--color-runtime-black)]/40">
+          <p className="mt-1 text-[10px] text-muted-foreground/60">
             +{service.deliverables.length - 4} entregables m&aacute;s
           </p>
         )}
 
-        <p className="mt-2 text-xs font-medium text-[var(--color-studio-blue)]">
+        <p className="mt-2 text-xs font-medium text-primary">
           Resultado:{" "}
-          <span className="text-[color:var(--color-runtime-black)]/70">
+          <span className="text-muted-foreground">
             {service.outcome}
           </span>
         </p>
@@ -200,7 +200,7 @@ function ServiceCard({ service }: CardProps) {
           {service.idealFor.slice(0, 3).map((profile) => (
             <span
               key={profile}
-              className="rounded-full bg-[var(--color-devs-silver)]/20 px-2 py-[2px] text-[10px] font-medium text-[color:var(--color-runtime-black)]/60"
+              className="rounded-full bg-muted/60 px-2 py-[2px] text-[10px] font-medium text-muted-foreground"
             >
               {profile}
             </span>
@@ -211,7 +211,7 @@ function ServiceCard({ service }: CardProps) {
       <div className="mt-auto border-t border-border/40 pt-3">
         <a
           href={servicesCtaContent.primaryHref}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-studio-blue)] hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
         >
           {service.microCta}
           <span aria-hidden="true">&rarr;</span>
@@ -235,7 +235,7 @@ function TrustBlock() {
           {trustContent.logos.map((logo) => (
             <span
               key={logo}
-              className="text-sm font-semibold text-[color:var(--color-runtime-black)]/70"
+              className="text-sm font-semibold text-muted-foreground"
             >
               {logo}
             </span>
@@ -245,12 +245,12 @@ function TrustBlock() {
 
       {hasTestimonial && trustContent.testimonial && (
         <div className="mt-8 rounded-2xl border border-border/40 p-6 text-center sm:p-8">
-          <p className="text-sm leading-6 italic text-[color:var(--color-runtime-black)]/80">
+          <p className="text-sm leading-6 italic text-muted-foreground">
             &ldquo;{trustContent.testimonial.quote}&rdquo;
           </p>
-          <p className="mt-3 text-xs font-semibold">
+          <p className="mt-3 text-xs font-semibold text-foreground">
             {trustContent.testimonial.author}
-            <span className="font-normal text-[color:var(--color-runtime-black)]/50">
+            <span className="font-normal text-muted-foreground">
               , {trustContent.testimonial.role} en{" "}
               {trustContent.testimonial.company}
             </span>
@@ -270,20 +270,20 @@ function TrustBlock() {
 function ServicesFinalCta() {
   return (
     <div className="mx-auto max-w-2xl text-center">
-      <h3 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">
+      <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl lg:text-3xl">
         {servicesCtaContent.title}
       </h3>
-      <p className="mt-3 text-sm leading-6 text-[color:var(--color-runtime-black)]/70">
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">
         {servicesCtaContent.description}
       </p>
       <div className="mt-6">
         <a
           href={servicesCtaContent.primaryHref}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {servicesCtaContent.primaryLabel}
         </a>
-        <p className="mt-2 text-[11px] text-[color:var(--color-runtime-black)]/40">
+        <p className="mt-2 text-[11px] text-muted-foreground/60">
           {servicesCtaContent.microcopy}
         </p>
       </div>

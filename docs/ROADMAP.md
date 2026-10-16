@@ -56,3 +56,4 @@ Actualmente la landing tiene 9 secciones en el flujo principal:
 - [x] Pipeline de CI/CD blindado con GitHub Actions (`ci.yml`).
 - [x] Rama `feature/core-sections-and-seo` integrada y mergeada en `develop`.
 - [x] Implementación de Tipografía Geist y Diseño Premium (`TeamSection`).
+- [x] Microinteracciones y Pulido de UI (Marquee, Touch Targets, Sombras).

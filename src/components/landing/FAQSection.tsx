@@ -9,7 +9,7 @@ export function FAQSection() {
     <section
       id="faq"
       aria-labelledby="faq-title"
-      className="bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
         <FAQHeader />
@@ -23,16 +23,16 @@ export function FAQSection() {
 function FAQHeader() {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-studio-blue)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
         {faqContent.eyebrow}
       </p>
       <h2
         id="faq-title"
-        className="mt-2 text-2xl font-semibold tracking-tight sm:mt-3 sm:text-3xl lg:text-4xl"
+        className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:mt-3 sm:text-3xl lg:text-4xl"
       >
         {faqContent.title}
       </h2>
-      <p className="mt-3 text-sm leading-6 text-[color:var(--color-runtime-black)]/60 sm:text-base">
+      <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
         {faqContent.subtitle}
       </p>
     </header>
@@ -83,16 +83,16 @@ function FAQAccordionItem({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border bg-white px-5 py-5 shadow-sm transition-[transform,box-shadow,border-color] duration-200 ease-out ${
+      className={`relative overflow-hidden rounded-2xl border bg-card px-5 py-5 text-card-foreground transition-[transform,box-shadow,border-color] duration-200 ease-out dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] ${
         isOpen
-          ? "border-[var(--color-studio-blue)]/40 shadow-[0_18px_50px_rgba(0,140,249,0.10)] motion-safe:-translate-y-0.5"
-          : "border-border/40 hover:border-[var(--color-studio-blue)]/40 hover:shadow-md"
+          ? "border-primary/50 shadow-[0_18px_50px_rgba(0,140,249,0.10)] motion-safe:-translate-y-0.5"
+          : "border-border/80 hover:border-primary/40 hover:shadow-md dark:border-border/40"
       }`}
     >
       {isOpen && (
         <div
           aria-hidden="true"
-          className="absolute left-0 top-5 bottom-5 w-1 rounded-full bg-[var(--color-studio-blue)]"
+          className="absolute left-0 top-5 bottom-5 w-1 rounded-full bg-primary"
         />
       )}
 
@@ -101,23 +101,22 @@ function FAQAccordionItem({
         aria-expanded={isOpen}
         aria-controls={answerId}
         onClick={onToggle}
-        className="flex w-full items-start justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2 rounded-lg"
+        className="flex w-full items-start justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
         type="button"
       >
         <div className="min-w-0 flex-1">
-          <span className="text-sm font-semibold text-[var(--color-runtime-black)] sm:text-base">
+          <span className="text-sm font-semibold text-foreground sm:text-base">
             {item.question}
           </span>
-          <p className="mt-1 text-sm leading-6 text-[color:var(--color-runtime-black)]/55">
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">
             {item.preview}
           </p>
         </div>
         <AccordionIndicator isOpen={isOpen} />
       </button>
 
-      <div
+      <section
         id={answerId}
-        role="region"
         aria-labelledby={questionId}
         className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
@@ -125,19 +124,19 @@ function FAQAccordionItem({
       >
         <div className="overflow-hidden">
           <div className="mt-4 border-t border-border/40 pt-4">
-            <p className="text-sm leading-6 text-[color:var(--color-runtime-black)]/65">
+            <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
               {item.answer}
             </p>
             {item.badge && (
               <div className="mt-3">
-                <span className="inline-flex items-center rounded-full border border-[var(--color-studio-blue)]/15 bg-[var(--color-studio-blue)]/10 px-3 py-1 text-xs font-semibold text-[var(--color-studio-blue)]">
+                <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary dark:bg-primary/20 dark:text-primary">
                   {item.badge}
                 </span>
               </div>
             )}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
@@ -146,10 +145,10 @@ function AccordionIndicator({ isOpen }: Readonly<{ isOpen: boolean }>) {
   return (
     <span
       aria-hidden="true"
-      className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-150 ease-out ${
+      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-150 ease-out ${
         isOpen
-          ? "border-[var(--color-studio-blue)] bg-[var(--color-studio-blue)] text-[var(--color-runtime-white)]"
-          : "border-[var(--color-studio-blue)]/30 bg-[var(--color-studio-blue)]/10 text-[var(--color-studio-blue)]"
+          ? "border-primary bg-primary text-white"
+          : "border-primary/30 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-primary"
       }`}
     >
       <svg
@@ -178,22 +177,22 @@ function AccordionIndicator({ isOpen }: Readonly<{ isOpen: boolean }>) {
 function FAQCta() {
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="rounded-3xl border border-border/40 bg-background/50 px-6 py-10 text-center sm:px-10 sm:py-12">
-        <h3 className="text-xl font-semibold tracking-tight text-[var(--color-runtime-black)] sm:text-2xl">
+      <div className="rounded-3xl border border-border/40 bg-card px-6 py-10 text-center shadow-sm dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] sm:px-10 sm:py-12">
+        <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
           {faqContent.cta.title}
         </h3>
-        <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-[color:var(--color-runtime-black)]/60">
+        <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-muted-foreground">
           {faqContent.cta.description}
         </p>
         <div className="mt-6">
           <a
             href={faqContent.cta.href}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-8 py-3.5 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity,box-shadow] duration-150 ease-out hover:opacity-90 hover:shadow-lg hover:shadow-[var(--color-studio-blue)]/25 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white transition-[transform,opacity,box-shadow] duration-150 ease-out hover:opacity-90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {faqContent.cta.label}
           </a>
         </div>
-        <p className="mx-auto mt-3 max-w-sm text-xs text-[color:var(--color-runtime-black)]/40">
+        <p className="mx-auto mt-3 max-w-sm text-xs text-muted-foreground/70">
           {faqContent.cta.meta}
         </p>
       </div>

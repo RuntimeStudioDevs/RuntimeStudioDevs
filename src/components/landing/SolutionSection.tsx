@@ -8,7 +8,7 @@ export function SolutionSection() {
     <section
       id="solucion"
       aria-labelledby="solution-title"
-      className="bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
@@ -42,14 +42,14 @@ function SolutionHeader({ content }: Readonly<{ content: SolutionContent }>) {
         {parts[1]}
       </h2>
 
-      <p className="text-sm leading-6 text-[color:var(--color-runtime-black)]/70 sm:text-base">
+      <p className="text-sm leading-6 text-muted-foreground sm:text-base">
         {content.description}
       </p>
 
       <div className="pt-2">
         <a
           href={content.primaryCta.href}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
           {content.primaryCta.label}
         </a>
@@ -75,7 +75,7 @@ function PlatformMockup() {
       className="relative mx-auto w-full max-w-[480px]"
       aria-label="Vista previa de plataforma empresarial con métricas y módulos"
     >
-      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/10 backdrop-blur-md sm:p-6">
+      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-card/90 p-5 shadow-2xl shadow-blue-200/10 backdrop-blur-md sm:p-6">
         {/* Window dots */}
         <div className="mb-5 flex items-center gap-2">
           <div className="flex gap-1.5">

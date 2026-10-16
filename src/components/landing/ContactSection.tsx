@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 
 import {
   contactContent,
@@ -14,7 +14,7 @@ export function ContactSection() {
     <section
       id="contacto"
       aria-labelledby="contact-title"
-      className="bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
         <ContactHeader content={contactContent} />
@@ -31,16 +31,16 @@ type HeaderProps = Readonly<{
 function ContactHeader({ content }: HeaderProps) {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-studio-blue)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
         {content.eyebrow}
       </p>
       <h2
         id="contact-title"
-        className="mt-2 text-2xl font-semibold tracking-tight sm:mt-3 sm:text-3xl lg:text-4xl"
+        className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:mt-3 sm:text-3xl lg:text-4xl"
       >
         {content.title}
       </h2>
-      <p className="mt-3 text-sm leading-6 text-[color:var(--color-runtime-black)]/70 sm:text-base">
+      <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
         {content.subtitle}
       </p>
     </header>
@@ -105,7 +105,7 @@ function ContactFormPanel({ content }: PanelProps) {
     return `https://wa.me/${content.whatsapp.phonePlaceholder}?text=${text}`;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -130,7 +130,7 @@ function ContactFormPanel({ content }: PanelProps) {
   return (
     <>
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-2xl border border-border/40 bg-white p-6 sm:p-10">
+        <div className="rounded-2xl border border-border/40 bg-card p-6 shadow-sm dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] sm:p-10">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-5"
@@ -196,7 +196,7 @@ function InputField({ id, name, type, field, required, error }: InputFieldProps)
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="text-xs font-semibold uppercase tracking-[0.12em] text-[color:var(--color-runtime-black)]/60"
+        className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"
       >
         {field.label}
       </label>
@@ -208,7 +208,7 @@ function InputField({ id, name, type, field, required, error }: InputFieldProps)
         aria-required={required}
         aria-describedby={error ? `${id}-error` : undefined}
         placeholder={field.placeholder}
-        className="rounded-xl border border-border/40 bg-background px-4 py-3 text-sm text-[var(--color-runtime-black)] placeholder:text-[color:var(--color-runtime-black)]/30 transition-colors focus:border-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)]/20"
+        className="rounded-xl border border-border/60 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
       />
       {error && (
         <p id={`${id}-error`} role="alert" className="text-xs text-red-500">
@@ -238,7 +238,7 @@ function TextareaField({
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="text-xs font-semibold uppercase tracking-[0.12em] text-[color:var(--color-runtime-black)]/60"
+        className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"
       >
         {field.label}
       </label>
@@ -250,7 +250,7 @@ function TextareaField({
         aria-describedby={error ? `${id}-error` : undefined}
         rows={4}
         placeholder={field.placeholder}
-        className="resize-y rounded-xl border border-border/40 bg-background px-4 py-3 text-sm text-[var(--color-runtime-black)] placeholder:text-[color:var(--color-runtime-black)]/30 transition-colors focus:border-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)]/20"
+        className="resize-y rounded-xl border border-border/60 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
       />
       {error && (
         <p id={`${id}-error`} role="alert" className="text-xs text-red-500">
@@ -270,11 +270,11 @@ function SubmitButton({ content }: SubmitButtonProps) {
     <div className="flex flex-col items-center gap-2 pt-2">
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+        className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
         {content.submitLabel}
       </button>
-      <p className="text-[11px] text-[color:var(--color-runtime-black)]/40">
+      <p className="text-[11px] text-muted-foreground/60">
         {content.trustText}
       </p>
     </div>
