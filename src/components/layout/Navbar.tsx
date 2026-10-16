@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: "Proceso", href: "#como-funciona" },
   { label: "Ventajas", href: "#beneficios" },
   { label: "Casos", href: "#casos-de-uso" },
+  { label: "Equipo", href: "#equipo" },
   { label: "FAQ", href: "#faq" },
 ];
 

@@ -10,9 +10,6 @@
   --foreground: #0f172a;
   --primary: var(--color-studio-blue);
   --border: var(--color-devs-silver);
-  --font-runtime-sans: "Clear Sans", Arial, Helvetica, sans-serif;
-  --font-runtime-logo: "Clear Sans Media", var(--font-runtime-sans);
-  --font-runtime-mono: "Courier New", Courier, monospace;
 }
 
 @theme inline {
@@ -24,9 +21,8 @@
   --color-runtime-black: var(--color-runtime-black);
   --color-studio-blue: var(--color-studio-blue);
   --color-devs-silver: var(--color-devs-silver);
-  --font-sans: var(--font-runtime-sans);
-  --font-logo: var(--font-runtime-logo);
-  --font-mono: var(--font-runtime-mono);
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 * {
@@ -42,7 +38,6 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-runtime-sans);
 }
 
 a {
