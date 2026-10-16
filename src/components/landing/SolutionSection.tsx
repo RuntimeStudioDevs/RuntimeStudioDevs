@@ -49,7 +49,7 @@ function SolutionHeader({ content }: Readonly<{ content: SolutionContent }>) {
       <div className="pt-2">
         <a
           href={content.primaryCta.href}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
         >
           {content.primaryCta.label}
         </a>
@@ -75,7 +75,7 @@ function PlatformMockup() {
       className="relative mx-auto w-full max-w-[480px]"
       aria-label="Vista previa de plataforma empresarial con métricas y módulos"
     >
-      <div className="rounded-3xl border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/10 backdrop-blur-md sm:p-6">
+      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/10 backdrop-blur-md sm:p-6">
         {/* Window dots */}
         <div className="mb-5 flex items-center gap-2">
           <div className="flex gap-1.5">

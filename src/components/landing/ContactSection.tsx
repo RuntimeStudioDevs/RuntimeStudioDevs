@@ -24,9 +24,9 @@ export function ContactSection() {
   );
 }
 
-type HeaderProps = {
+type HeaderProps = Readonly<{
   content: ContactContent;
-};
+}>;
 
 function ContactHeader({ content }: HeaderProps) {
   return (
@@ -47,9 +47,9 @@ function ContactHeader({ content }: HeaderProps) {
   );
 }
 
-type PanelProps = {
+type PanelProps = Readonly<{
   content: ContactContent;
-};
+}>;
 
 function ContactFormPanel({ content }: PanelProps) {
   const [submittedData, setSubmittedData] = useState<{
@@ -72,7 +72,7 @@ function ContactFormPanel({ content }: PanelProps) {
       setNameError("");
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^.\s@]+(?:\.[^.\s@]+)+$/.test(email)) {
       setEmailError("Ingresa un correo electrónico válido.");
       valid = false;
     } else {
@@ -182,14 +182,14 @@ function ContactFormPanel({ content }: PanelProps) {
   );
 }
 
-type InputFieldProps = {
+type InputFieldProps = Readonly<{
   id: string;
   name: string;
   type: "text" | "email";
   field: ContactFieldContent;
   required?: boolean;
   error?: string;
-};
+}>;
 
 function InputField({ id, name, type, field, required, error }: InputFieldProps) {
   return (
@@ -219,13 +219,13 @@ function InputField({ id, name, type, field, required, error }: InputFieldProps)
   );
 }
 
-type TextareaFieldProps = {
+type TextareaFieldProps = Readonly<{
   id: string;
   name: string;
   field: ContactFieldContent;
   required?: boolean;
   error?: string;
-};
+}>;
 
 function TextareaField({
   id,
@@ -261,16 +261,16 @@ function TextareaField({
   );
 }
 
-type SubmitButtonProps = {
+type SubmitButtonProps = Readonly<{
   content: ContactContent;
-};
+}>;
 
 function SubmitButton({ content }: SubmitButtonProps) {
   return (
     <div className="flex flex-col items-center gap-2 pt-2">
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+        className="inline-flex items-center justify-center rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
       >
         {content.submitLabel}
       </button>

@@ -36,7 +36,7 @@ export function Footer() {
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row lg:items-start">
               <a
                 href={FOOTER_CTA_HREF}
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-runtime-white transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
+                className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-runtime-white transition-[transform,background-color] duration-150 ease-out hover:bg-primary/90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
               >
                 Contactar al equipo
               </a>
@@ -44,7 +44,7 @@ export function Footer() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/88 transition-colors hover:border-white/40 hover:text-runtime-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/88 transition-[transform,border-color,color] duration-150 ease-out hover:border-white/40 hover:text-runtime-white active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
                 aria-label="Abrir WhatsApp para contactar a RuntimeStudioDevs"
               >
                 WhatsApp

@@ -8,6 +8,7 @@ import { ProblemSection } from "@/components/landing/ProblemSection";
 import { ServicesSection } from "@/components/landing/ServicesSection";
 import { SolutionSection } from "@/components/landing/SolutionSection";
 import { TeamSection } from "@/components/landing/TeamSection";
+import { TechStackMarquee } from "@/components/landing/TechStackMarquee";
 import { UseCasesSection } from "@/components/landing/UseCasesSection";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
@@ -18,6 +19,7 @@ export default function Home() {
       <Navbar />
       <main id="main-content">
         <HeroSection />
+        <TechStackMarquee />
         <ProblemSection />
         <SolutionSection />
         <ServicesSection />

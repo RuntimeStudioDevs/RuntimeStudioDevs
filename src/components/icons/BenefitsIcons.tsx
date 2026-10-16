@@ -1,8 +1,8 @@
 import type { ComponentType, SVGProps } from "react";
 
-export type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+export type IconComponent = ComponentType<Readonly<SVGProps<SVGSVGElement>>>;
 
-function IconLightbulb(props: SVGProps<SVGSVGElement>) {
+function IconLightbulb(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -20,7 +20,7 @@ function IconLightbulb(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconCode(props: SVGProps<SVGSVGElement>) {
+function IconCode(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -38,7 +38,7 @@ function IconCode(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconMessage(props: SVGProps<SVGSVGElement>) {
+function IconMessage(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -56,7 +56,7 @@ function IconMessage(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconTrendUp(props: SVGProps<SVGSVGElement>) {
+function IconTrendUp(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ function IconTrendUp(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconMonitor(props: SVGProps<SVGSVGElement>) {
+function IconMonitor(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -91,7 +91,7 @@ function IconMonitor(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconSparkle(props: SVGProps<SVGSVGElement>) {
+function IconSparkle(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -111,7 +111,7 @@ function IconSparkle(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconZap(props: SVGProps<SVGSVGElement>) {
+function IconZap(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -127,7 +127,7 @@ function IconZap(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function IconClock(props: SVGProps<SVGSVGElement>) {
+function IconClock(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -144,7 +144,7 @@ function IconClock(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function FallbackIcon(props: SVGProps<SVGSVGElement>) {
+export function FallbackIcon(props: Readonly<SVGProps<SVGSVGElement>>) {
   return (
     <svg
       viewBox="0 0 24 24"

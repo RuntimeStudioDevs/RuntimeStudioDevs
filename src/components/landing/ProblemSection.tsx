@@ -21,7 +21,7 @@ export function ProblemSection() {
   );
 }
 
-function ProblemHeader({ content }: { content: ProblemContent }) {
+function ProblemHeader({ content }: Readonly<{ content: ProblemContent }>) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
@@ -48,7 +48,7 @@ function ProblemHeader({ content }: { content: ProblemContent }) {
   );
 }
 
-function ProblemGrid({ cards }: { cards: ProblemCard[] }) {
+function ProblemGrid({ cards }: Readonly<{ cards: ProblemCard[] }>) {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
       {cards.map((card) => (
@@ -58,9 +58,9 @@ function ProblemGrid({ cards }: { cards: ProblemCard[] }) {
   );
 }
 
-function ProblemCard({ card }: { card: ProblemCard }) {
+function ProblemCard({ card }: Readonly<{ card: ProblemCard }>) {
   return (
-    <article className="group rounded-2xl border border-border/40 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-8">
+    <article className="group rounded-2xl border border-border/80 bg-white p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] sm:p-8">
       <ProblemIcon icon={card.icon} />
 
       <h3 className="mt-4 text-lg font-semibold tracking-tight text-foreground sm:text-xl">
@@ -74,7 +74,7 @@ function ProblemCard({ card }: { card: ProblemCard }) {
   );
 }
 
-function ProblemIcon({ icon }: { icon: ProblemIconType }) {
+function ProblemIcon({ icon }: Readonly<{ icon: ProblemIconType }>) {
   const Icon = iconMap[icon];
 
   return (

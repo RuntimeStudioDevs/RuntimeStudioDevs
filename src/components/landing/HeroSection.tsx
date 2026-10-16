@@ -1,4 +1,4 @@
-﻿import {
+import {
   heroContent,
   type HeroContent,
   type CtaContent,
@@ -9,9 +9,9 @@ export function HeroSection() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="h-[calc(100svh-72px)] bg-[var(--color-runtime-white)] text-[var(--color-runtime-black)]"
+      className="flex min-h-[calc(100svh-72px)] items-center bg-[var(--color-runtime-white)] py-12 text-[var(--color-runtime-black)] lg:py-0"
     >
-      <div className="mx-auto grid h-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
+      <div className="mx-auto grid w-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
         <HeroText content={heroContent} />
         <HeroVisual />
       </div>
@@ -19,9 +19,9 @@ export function HeroSection() {
   );
 }
 
-type HeroTextProps = {
+type HeroTextProps = Readonly<{
   content: HeroContent;
-};
+}>;
 
 function HeroText({ content }: HeroTextProps) {
   return (
@@ -50,9 +50,9 @@ function HeroText({ content }: HeroTextProps) {
   );
 }
 
-type BadgesProps = {
+type BadgesProps = Readonly<{
   badges: string[];
-};
+}>;
 
 function Badges({ badges }: BadgesProps) {
   return (
@@ -69,15 +69,15 @@ function Badges({ badges }: BadgesProps) {
   );
 }
 
-type CtaProps = {
+type CtaProps = Readonly<{
   cta: CtaContent;
-};
+}>;
 
 function CtaPrimary({ cta }: CtaProps) {
   return (
     <a
       href={cta.href}
-      className="inline-flex flex-col items-center justify-center rounded-lg bg-[var(--color-studio-blue)] px-6 py-3 font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+      className="inline-flex flex-col items-center justify-center rounded-lg bg-[var(--color-studio-blue)] px-6 py-3 font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2"
     >
       {cta.label}
       {cta.microText && (
@@ -101,9 +101,9 @@ function DashboardMockup() {
       className="relative mx-auto w-full max-w-[500px] overflow-visible"
       aria-label="Dashboard de desarrollo de software con flujo Idea, Diseño, Desarrollo y Lanzamiento"
     >
-      <div className="rounded-3xl border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-7">
+      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-6">
         {/* Window dots */}
-        <div className="mb-5 flex items-center gap-2 sm:mb-7">
+        <div className="mb-5 flex items-center gap-2 sm:mb-6">
           <div className="flex gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-red-400/50" />
             <div className="h-2.5 w-2.5 rounded-full bg-amber-400/50" />
@@ -115,7 +115,7 @@ function DashboardMockup() {
         {/* Upper grid: chart + progress ring */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
           {/* Chart box */}
-          <div className="col-span-1 rounded-2xl border border-border/40 bg-background p-4 sm:col-span-3">
+          <div className="col-span-1 rounded-xl border border-border/40 bg-background p-4 sm:col-span-3">
             <div className="mb-3 h-1.5 w-16 rounded-full bg-border/70" />
             <div className="flex h-20 items-end gap-2">
               {["bg-blue-900/60", "bg-blue-800/60", "bg-blue-600/70", "bg-blue-400/80"].map(
@@ -131,7 +131,7 @@ function DashboardMockup() {
           </div>
 
           {/* Progress ring box */}
-          <div className="col-span-1 flex items-center justify-center rounded-2xl border border-border/40 bg-background p-4 sm:col-span-2">
+          <div className="col-span-1 flex items-center justify-center rounded-xl border border-border/40 bg-background p-4 sm:col-span-2">
             <div className="relative flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16">
               <div className="absolute inset-0 rounded-full border-[3px] border-border/40" />
               <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-blue-400/80 border-r-blue-400/80 rotate-[135deg]" />

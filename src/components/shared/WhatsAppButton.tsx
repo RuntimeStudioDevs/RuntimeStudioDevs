@@ -1,7 +1,7 @@
 import { contactContent } from "@/content/contactContent";
 import { buildMessage } from "@/content/whatsappUtils";
 
-type WhatsAppButtonProps = {
+type WhatsAppButtonProps = Readonly<{
   name?: string;
   email?: string;
   idea?: string;
@@ -11,7 +11,7 @@ type WhatsAppButtonProps = {
   className?: string;
   variant?: "secondary" | "floating";
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-};
+}>;
 
 export function WhatsAppButton({
   name,
@@ -37,7 +37,7 @@ export function WhatsAppButton({
       onClick={onClick}
       aria-label={ariaLabel}
       className={[
-        "inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2",
+        "inline-flex items-center justify-center gap-2 rounded-full border ps-4 pe-5 py-3 text-sm font-semibold transition-[transform,background-color,border-color,color] duration-150 ease-out active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2",
         variant === "floating"
           ? "fixed right-4 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-50 border-[var(--color-studio-blue)] bg-[var(--color-studio-blue)] text-[var(--color-runtime-white)] shadow-lg hover:opacity-90 sm:right-6 sm:bottom-[calc(env(safe-area-inset-bottom)+1.5rem)]"
           : "border-[var(--color-studio-blue)] bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] hover:bg-[var(--color-studio-blue)] hover:text-[var(--color-runtime-white)]",
@@ -52,9 +52,9 @@ export function WhatsAppButton({
   );
 }
 
-type WhatsAppIconProps = {
+type WhatsAppIconProps = Readonly<{
   className?: string;
-};
+}>;
 
 function WhatsAppIcon({ className = "" }: WhatsAppIconProps) {
   return (

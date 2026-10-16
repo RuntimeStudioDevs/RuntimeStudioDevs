@@ -49,6 +49,14 @@ Este documento rige el desarrollo y las modificaciones de código asistidas por 
   2. _Lista detallada de modificaciones_ (componentes, contenido, configuración).
   3. _Checklist de verificación_ (`build`, `test`, `lint` aprobados).
 
+### Regla 6: Inmutabilidad de Props en Componentes React (TypeScript)
+
+- **CONTRATO:** ÚNICAMENTE los objetos, tipos o interfaces que definen las **propiedades de entrada (Props)** de los componentes de React deben declararse de forma obligatoria como `readonly`. Queda excluido el uso indiscriminado de `readonly` en variables locales, estados internos (`useState`) o lógicas de negocio mutables.
+- **Propósito:** Prevenir mutaciones accidentales en el flujo unidireccional de datos de React y silenciar alertas automáticas de análisis estático (como SonarQube `typescript:S6759`).
+- **Implementación Permitida:**
+  1. Envolver el tipo de las props utilizando la utilidad global `Readonly<T>`.
+  2. Agregar el modificador `readonly` de forma individual en interfaces de Props.
+
 ---
 
 ## 3. PROTOCOLO DE VERIFICACIÓN OBLIGATORIO
