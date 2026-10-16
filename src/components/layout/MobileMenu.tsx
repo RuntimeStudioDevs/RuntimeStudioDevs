@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-type NavLink = { label: string; href: string };
+type NavLink = Readonly<{ label: string; href: string }>;
 
-type MobileMenuProps = {
+type MobileMenuProps = Readonly<{
   links: NavLink[];
-};
+}>;
 
 export function MobileMenu({ links }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,27 +36,27 @@ export function MobileMenu({ links }: MobileMenuProps) {
         aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
       >
         <span className="flex flex-col items-center justify-center gap-1.5">
-        <span
-          className={`h-[2px] w-6 bg-foreground transition-all duration-300 ${
-            isOpen ? "translate-y-[8px] rotate-45" : ""
-          }`}
-        />
-        <span
-          className={`h-[2px] w-6 bg-foreground transition-all duration-300 ${
-            isOpen ? "opacity-0" : ""
-          }`}
-        />
-        <span
-          className={`h-[2px] w-6 bg-foreground transition-all duration-300 ${
-            isOpen ? "-translate-y-[8px] -rotate-45" : ""
-          }`}
-        />
+          <span
+            className={`h-[2px] w-6 bg-foreground transition-[transform,opacity] duration-200 ease-out ${
+              isOpen ? "translate-y-[8px] rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`h-[2px] w-6 bg-foreground transition-[transform,opacity] duration-200 ease-out ${
+              isOpen ? "opacity-0" : ""
+            }`}
+          />
+          <span
+            className={`h-[2px] w-6 bg-foreground transition-[transform,opacity] duration-200 ease-out ${
+              isOpen ? "-translate-y-[8px] -rotate-45" : ""
+            }`}
+          />
         </span>
       </button>
 
       {/* Slide-down Panel (Apple Style) */}
       <div
-        className={`fixed left-0 top-[72px] z-40 flex h-[calc(100vh-72px)] w-full flex-col bg-background/95 backdrop-blur-lg transition-all duration-300 ease-in-out lg:hidden ${
+        className={`fixed left-0 top-[72px] z-40 flex h-[calc(100vh-72px)] w-full flex-col bg-background/95 backdrop-blur-lg transition-[opacity,transform] duration-200 ease-out lg:hidden ${
           isOpen
             ? "pointer-events-auto opacity-100 translate-y-0"
             : "pointer-events-none opacity-0 -translate-y-4"
@@ -72,7 +72,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
               style={{
                 transitionDelay: isOpen ? `${index * 60 + 100}ms` : "0ms",
               }}
-              className={`text-2xl font-medium tracking-wide text-foreground/90 transition-all duration-500 ease-out transform ${
+              className={`text-2xl font-medium tracking-wide text-foreground/90 transition-[opacity,transform] duration-300 ease-out ${
                 isOpen
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 -translate-y-4"
@@ -88,7 +88,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
           style={{
             transitionDelay: isOpen ? `${links.length * 60 + 150}ms` : "0ms",
           }}
-          className={`mt-auto flex flex-col gap-4 px-8 pb-12 transition-all duration-500 ease-out transform ${
+          className={`mt-auto flex flex-col gap-4 px-8 pb-12 transition-[opacity,transform] duration-300 ease-out ${
             isOpen
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4"
@@ -96,7 +96,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
         >
           {/* Selector de idioma minimalista */}
           <div className="flex items-center gap-2 py-2 text-sm font-medium text-foreground/70">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
             </svg>
             <span>ES</span>
@@ -106,7 +106,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
           <a
             href="#contacto"
             onClick={close}
-            className="w-full rounded-full bg-primary py-3.5 text-center text-base font-semibold text-white transition-colors hover:bg-primary/90"
+            className="w-full rounded-full bg-primary py-3.5 text-center text-base font-semibold text-white transition-[transform,background-color] duration-150 ease-out hover:bg-primary/90 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Contáctanos
           </a>

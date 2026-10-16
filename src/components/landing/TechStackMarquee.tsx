@@ -59,7 +59,7 @@ function TechCard({
     <div
       aria-hidden={ariaHidden}
       tabIndex={ariaHidden ? -1 : 0}
-      className="group relative flex shrink-0 items-center gap-3.5 rounded-xl border border-slate-200/80 bg-slate-50/70 px-4 py-3 transition-[transform,opacity,box-shadow,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-white hover:shadow-[0_8px_20px_rgba(0,140,249,0.08)] active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      className="group relative flex shrink-0 items-center gap-3.5 rounded-xl border border-slate-200/80 bg-slate-50/70 px-4 py-3 transition-[transform,opacity,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/40 hover:bg-white hover:shadow-[0_8px_20px_rgba(0,140,249,0.08)] active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       <div className="flex size-8 shrink-0 items-center justify-center text-foreground/80 transition-colors duration-150 group-hover:text-primary">
         <svg

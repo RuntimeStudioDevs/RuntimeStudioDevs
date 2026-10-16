@@ -19,7 +19,7 @@ export function HowItWorksSection() {
   );
 }
 
-function HowItWorksHeader({ content }: { content: HowItWorksContent }) {
+function HowItWorksHeader({ content }: Readonly<{ content: HowItWorksContent }>) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
@@ -44,7 +44,7 @@ function HowItWorksHeader({ content }: { content: HowItWorksContent }) {
   );
 }
 
-function HowItWorksGrid({ steps }: { steps: HowItWorksStep[] }) {
+function HowItWorksGrid({ steps }: Readonly<{ steps: HowItWorksStep[] }>) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
       {steps.map((step) => (
@@ -54,9 +54,9 @@ function HowItWorksGrid({ steps }: { steps: HowItWorksStep[] }) {
   );
 }
 
-function HowItWorksCard({ step }: { step: HowItWorksStep }) {
+function HowItWorksCard({ step }: Readonly<{ step: HowItWorksStep }>) {
   return (
-    <article className="group relative flex flex-col justify-between rounded-2xl border border-border/40 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-8">
+    <article className="group relative flex flex-col justify-between rounded-2xl border border-border/40 bg-white p-6 transition-[transform,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-8">
       <div>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-black tracking-tight text-primary">

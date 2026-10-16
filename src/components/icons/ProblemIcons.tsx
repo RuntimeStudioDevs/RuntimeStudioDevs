@@ -1,7 +1,7 @@
 import type { SVGProps, ReactElement } from "react";
 import type { ProblemIconType } from "@/content/problemContent";
 
-export type IconComponent = (props: SVGProps<SVGSVGElement>) => ReactElement;
+export type IconComponent = (props: Readonly<SVGProps<SVGSVGElement>>) => ReactElement;
 
 export const iconMap: Record<ProblemIconType, IconComponent> = {
   disconnected: (props) => (

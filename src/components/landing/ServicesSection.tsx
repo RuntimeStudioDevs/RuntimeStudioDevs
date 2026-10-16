@@ -49,9 +49,9 @@ function ServicesHeader() {
   );
 }
 
-type ServicesGridProps = {
+type ServicesGridProps = Readonly<{
   services: Service[];
-};
+}>;
 
 function ServicesGrid({ services }: ServicesGridProps) {
   return (
@@ -67,16 +67,16 @@ function ServicesGrid({ services }: ServicesGridProps) {
   );
 }
 
-type CardProps = {
+type CardProps = Readonly<{
   service: Service;
-};
+}>;
 
 function ServiceCardFeatured({ service }: CardProps) {
   const Icon = iconMap[service.id];
 
   return (
     <div
-      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
+      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] p-6 transition-[transform,box-shadow,border-color] duration-150 ease-out hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
     >
       <span className="absolute right-3 top-3 rounded-full bg-[var(--color-studio-blue)]/10 px-2 py-0.5 text-[10px] font-semibold text-[var(--color-studio-blue)]">
         Destacado
@@ -150,7 +150,7 @@ function ServiceCard({ service }: CardProps) {
 
   return (
     <div
-      className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-all duration-200 hover:border-[var(--color-studio-blue)] hover:shadow-md hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-[var(--color-studio-blue)] hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
     >
       <div className="flex items-start gap-3">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10">
@@ -279,7 +279,7 @@ function ServicesFinalCta() {
       <div className="mt-6">
         <a
           href={servicesCtaContent.primaryHref}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90"
+          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {servicesCtaContent.primaryLabel}
         </a>
@@ -309,7 +309,7 @@ function ServicesSchema() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+        __html: JSON.stringify(schema).replace(/</g, String.raw`\u003c`),
       }}
     />
   );

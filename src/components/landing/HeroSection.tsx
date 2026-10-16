@@ -19,9 +19,9 @@ export function HeroSection() {
   );
 }
 
-type HeroTextProps = {
+type HeroTextProps = Readonly<{
   content: HeroContent;
-};
+}>;
 
 function HeroText({ content }: HeroTextProps) {
   return (
@@ -50,9 +50,9 @@ function HeroText({ content }: HeroTextProps) {
   );
 }
 
-type BadgesProps = {
+type BadgesProps = Readonly<{
   badges: string[];
-};
+}>;
 
 function Badges({ badges }: BadgesProps) {
   return (
@@ -69,15 +69,15 @@ function Badges({ badges }: BadgesProps) {
   );
 }
 
-type CtaProps = {
+type CtaProps = Readonly<{
   cta: CtaContent;
-};
+}>;
 
 function CtaPrimary({ cta }: CtaProps) {
   return (
     <a
       href={cta.href}
-      className="inline-flex flex-col items-center justify-center rounded-lg bg-[var(--color-studio-blue)] px-6 py-3 font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+      className="inline-flex flex-col items-center justify-center rounded-lg bg-[var(--color-studio-blue)] px-6 py-3 font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2"
     >
       {cta.label}
       {cta.microText && (

@@ -1,6 +1,6 @@
-type LogoNegroRuntimeStudioDevsProps = {
+type LogoNegroRuntimeStudioDevsProps = Readonly<{
   className?: string;
-};
+}>;
 
 export function LogoNegroRuntimeStudioDevs({
   className = "",

@@ -2,14 +2,14 @@
 
 import { useEffect, useId, useRef } from "react";
 
-type ModalProps = {
+type ModalProps = Readonly<{
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
   className?: string;
   showCloseButton?: boolean;
-};
+}>;
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',

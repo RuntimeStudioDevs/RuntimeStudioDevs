@@ -28,7 +28,7 @@ export function FinalCTASection() {
         <div className="mt-8 flex flex-col items-center gap-3">
           <a
             href={cta.href}
-            className="inline-flex items-center rounded-full bg-[var(--color-studio-blue)] px-8 py-3.5 text-sm font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+            className="inline-flex items-center rounded-full bg-[var(--color-studio-blue)] px-8 py-3.5 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
           >
             {cta.label}
           </a>

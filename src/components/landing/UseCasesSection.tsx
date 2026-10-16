@@ -19,7 +19,7 @@ export function UseCasesSection() {
   );
 }
 
-function UseCasesHeader({ content }: { content: UseCasesContent }) {
+function UseCasesHeader({ content }: Readonly<{ content: UseCasesContent }>) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
@@ -44,7 +44,7 @@ function UseCasesHeader({ content }: { content: UseCasesContent }) {
   );
 }
 
-function UseCasesGrid({ cases }: { cases: UseCaseCard[] }) {
+function UseCasesGrid({ cases }: Readonly<{ cases: UseCaseCard[] }>) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
       {cases.map((useCase) => (
@@ -54,9 +54,9 @@ function UseCasesGrid({ cases }: { cases: UseCaseCard[] }) {
   );
 }
 
-function UseCaseItem({ item }: { item: UseCaseCard }) {
+function UseCaseItem({ item }: Readonly<{ item: UseCaseCard }>) {
   return (
-    <article className="group flex flex-col justify-between rounded-2xl border border-border/40 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-8">
+    <article className="group flex flex-col justify-between rounded-2xl border border-border/40 bg-white p-6 transition-[transform,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-8">
       <div>
         <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
           {item.tag}

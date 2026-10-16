@@ -1,4 +1,4 @@
-﻿import {
+import {
   benefits,
   benefitsCtaContent,
   benefitsSectionContent,
@@ -41,9 +41,9 @@ function BenefitsHeader() {
   );
 }
 
-type BenefitsGridProps = {
+type BenefitsGridProps = Readonly<{
   benefits: Benefit[];
-};
+}>;
 
 function BenefitsGrid({ benefits }: BenefitsGridProps) {
   return (
@@ -55,15 +55,15 @@ function BenefitsGrid({ benefits }: BenefitsGridProps) {
   );
 }
 
-type BenefitCardProps = {
+type BenefitCardProps = Readonly<{
   benefit: Benefit;
-};
+}>;
 
 function BenefitCard({ benefit }: BenefitCardProps) {
   const Icon = iconMap[benefit.id] ?? FallbackIcon;
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-all duration-200 hover:border-[var(--color-studio-blue)] hover:shadow-md hover:-translate-y-0.5 sm:p-6">
+    <article className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-[var(--color-studio-blue)] hover:shadow-md motion-safe:hover:-translate-y-0.5 sm:p-6">
       <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
         <Icon aria-hidden="true" className="h-5 w-5" />
       </div>
@@ -83,7 +83,7 @@ function BenefitsCta() {
     <div className="mx-auto max-w-2xl text-center">
       <a
         href={benefitsCtaContent.href}
-        className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+        className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-6 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2"
       >
         {benefitsCtaContent.label}
       </a>

@@ -1,7 +1,7 @@
 import type { ReactElement, SVGProps } from "react";
 import type { SolutionProcessStepIcon } from "@/content/solutionContent";
 
-export type IconProps = SVGProps<SVGSVGElement>;
+export type IconProps = Readonly<SVGProps<SVGSVGElement>>;
 export type ProcessStepIconComponent = (props: IconProps) => ReactElement;
 
 export const processStepIcons: Record<

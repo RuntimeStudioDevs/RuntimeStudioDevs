@@ -7,7 +7,7 @@ import { Modal } from "./Modal";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { useState } from "react";
 
-type WhatsAppButtonWithConfirmationProps = {
+type WhatsAppButtonWithConfirmationProps = Readonly<{
   name?: string;
   email?: string;
   idea?: string;
@@ -22,7 +22,7 @@ type WhatsAppButtonWithConfirmationProps = {
   hideButton?: boolean;
   hideWhatsAppAction?: boolean;
   onClose?: () => void;
-};
+}>;
 
 export function WhatsAppButtonWithConfirmation({
   name,
@@ -96,7 +96,7 @@ export function WhatsAppButtonWithConfirmation({
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleCloseConfirmationModal}
-              className="inline-flex items-center justify-center rounded-full border border-[var(--color-studio-blue)] bg-[var(--color-studio-blue)] px-5 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full border border-[var(--color-studio-blue)] bg-[var(--color-studio-blue)] px-5 py-3 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
             >
               Continuar por WhatsApp
             </a>
@@ -106,7 +106,7 @@ export function WhatsAppButtonWithConfirmation({
             <a
               href={scheduleCallHref}
               onClick={handleCloseConfirmationModal}
-              className="inline-flex items-center justify-center rounded-full border border-[var(--color-studio-blue)] bg-[var(--color-runtime-white)] px-5 py-3 text-sm font-semibold text-[var(--color-studio-blue)] transition-colors hover:bg-[var(--color-studio-blue)] hover:text-[var(--color-runtime-white)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full border border-[var(--color-studio-blue)] bg-[var(--color-runtime-white)] px-5 py-3 text-sm font-semibold text-[var(--color-studio-blue)] transition-[transform,background-color,color] duration-150 ease-out hover:bg-[var(--color-studio-blue)] hover:text-[var(--color-runtime-white)] active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
             >
               Agendar llamada
             </a>
@@ -115,7 +115,7 @@ export function WhatsAppButtonWithConfirmation({
           <button
             type="button"
             onClick={handleCloseConfirmationModal}
-            className="inline-flex items-center justify-center rounded-full border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+            className="inline-flex items-center justify-center rounded-full border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground transition-[transform,background-color,border-color,color] duration-150 ease-out hover:border-[var(--color-studio-blue)] hover:text-[var(--color-studio-blue)] active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
           >
             Seguir explorando
           </button>

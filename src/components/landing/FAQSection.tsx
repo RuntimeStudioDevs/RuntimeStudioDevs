@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 
@@ -39,9 +39,9 @@ function FAQHeader() {
   );
 }
 
-type FAQAccordionProps = {
+type FAQAccordionProps = Readonly<{
   items: FaqItem[];
-};
+}>;
 
 function FAQAccordion({ items }: FAQAccordionProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -54,7 +54,7 @@ function FAQAccordion({ items }: FAQAccordionProps) {
     <div className="mx-auto max-w-4xl space-y-4">
       {items.map((item, index) => (
         <FAQAccordionItem
-          key={index}
+          key={item.question}
           item={item}
           index={index}
           isOpen={activeIndex === index}
@@ -65,12 +65,12 @@ function FAQAccordion({ items }: FAQAccordionProps) {
   );
 }
 
-type FAQAccordionItemProps = {
+type FAQAccordionItemProps = Readonly<{
   item: FaqItem;
   index: number;
   isOpen: boolean;
   onToggle: () => void;
-};
+}>;
 
 function FAQAccordionItem({
   item,
@@ -83,9 +83,9 @@ function FAQAccordionItem({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border bg-white px-5 py-5 shadow-sm transition-all duration-300 ${
+      className={`relative overflow-hidden rounded-2xl border bg-white px-5 py-5 shadow-sm transition-[transform,box-shadow,border-color] duration-200 ease-out ${
         isOpen
-          ? "border-[var(--color-studio-blue)]/40 shadow-[0_18px_50px_rgba(0,140,249,0.10)] -translate-y-0.5"
+          ? "border-[var(--color-studio-blue)]/40 shadow-[0_18px_50px_rgba(0,140,249,0.10)] motion-safe:-translate-y-0.5"
           : "border-border/40 hover:border-[var(--color-studio-blue)]/40 hover:shadow-md"
       }`}
     >
@@ -119,7 +119,7 @@ function FAQAccordionItem({
         id={answerId}
         role="region"
         aria-labelledby={questionId}
-        className={`grid transition-all duration-300 ease-in-out ${
+        className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
@@ -142,11 +142,11 @@ function FAQAccordionItem({
   );
 }
 
-function AccordionIndicator({ isOpen }: { isOpen: boolean }) {
+function AccordionIndicator({ isOpen }: Readonly<{ isOpen: boolean }>) {
   return (
     <span
       aria-hidden="true"
-      className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${
+      className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-150 ease-out ${
         isOpen
           ? "border-[var(--color-studio-blue)] bg-[var(--color-studio-blue)] text-[var(--color-runtime-white)]"
           : "border-[var(--color-studio-blue)]/30 bg-[var(--color-studio-blue)]/10 text-[var(--color-studio-blue)]"
@@ -166,7 +166,7 @@ function AccordionIndicator({ isOpen }: { isOpen: boolean }) {
           y1="8"
           x2="12"
           y2="16"
-          className={`transition-all duration-200 ${
+          className={`transition-[transform,opacity] duration-200 ease-out ${
             isOpen ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100"
           }`}
         />
@@ -188,7 +188,7 @@ function FAQCta() {
         <div className="mt-6">
           <a
             href={faqContent.cta.href}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-8 py-3.5 text-sm font-semibold text-[var(--color-runtime-white)] transition-all hover:opacity-90 hover:shadow-lg hover:shadow-[var(--color-studio-blue)]/25 focus:outline-none focus:ring-2 focus:ring-[var(--color-studio-blue)] focus:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-studio-blue)] px-8 py-3.5 text-sm font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity,box-shadow] duration-150 ease-out hover:opacity-90 hover:shadow-lg hover:shadow-[var(--color-studio-blue)]/25 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2"
           >
             {faqContent.cta.label}
           </a>
