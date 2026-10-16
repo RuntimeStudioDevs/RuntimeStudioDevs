@@ -41,8 +41,8 @@ Actualmente la landing tiene 9 secciones en el flujo principal:
 
 ### SPRINT 3: Dark Mode & Serverless Backend
 
-- Soporte nativo de tema claro / oscuro con variables semánticas.
-- Route Handler `/api/contact` con Zod, Rate Limit en Edge y envío transaccional (Resend/Discord Webhook).
+- [x] Soporte nativo de tema claro / oscuro con variables semánticas y toggle accesible.
+- [x] Route Handler `/api/contact` con Zod, Rate Limit defensivo por IP, Honeypot anti-spam y Webhook Embed.
 
 ---
 
@@ -57,3 +57,5 @@ Actualmente la landing tiene 9 secciones en el flujo principal:
 - [x] Rama `feature/core-sections-and-seo` integrada y mergeada en `develop`.
 - [x] Implementación de Tipografía Geist y Diseño Premium (`TeamSection`).
 - [x] Microinteracciones y Pulido de UI (Marquee, Touch Targets, Sombras).
+- [x] Dark Mode con tokens semánticos y contraste WCAG 2.2 AA.
+- [x] Endpoint serverless `/api/contact` blindado con validación Zod, rate limiting y pruebas unitarias.

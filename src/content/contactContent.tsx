@@ -8,6 +8,11 @@ export type ContactFieldContent = {
   placeholder: string;
 };
 
+export type ServiceOption = {
+  value: string;
+  label: string;
+};
+
 export type ContactContent = {
   eyebrow: string;
   title: string;
@@ -15,14 +20,35 @@ export type ContactContent = {
   fields: {
     name: ContactFieldContent;
     email: ContactFieldContent;
+    service: ContactFieldContent & { options: readonly ServiceOption[] };
     message: ContactFieldContent;
   };
   submitLabel: string;
+  submittingLabel: string;
   trustText: string;
+  statusMessages: {
+    successTitle: string;
+    successDescription: string;
+    sendAnother: string;
+    genericError: string;
+    rateLimitError: string;
+  };
   whatsapp: {
     phonePlaceholder: string;
+    heading: string;
+    subheading: string;
+    buttonLabel: string;
   };
 };
+
+export const contactServiceOptions: readonly ServiceOption[] = [
+  { value: "plataformas-a-medida", label: "Plataformas a la medida" },
+  { value: "sitios-web", label: "Sitios web y Landings de alto rendimiento" },
+  { value: "aplicaciones-web", label: "Aplicaciones web y SaaS" },
+  { value: "automatizacion-ia", label: "Automatización & Soluciones con IA" },
+  { value: "apis-backend", label: "APIs, Backend & Arquitectura Cloud" },
+  { value: "otro", label: "Otro requerimiento / Consultoría" },
+] as const;
 
 export const contactContent: ContactContent = {
   eyebrow: "Contacto",
@@ -38,15 +64,35 @@ export const contactContent: ContactContent = {
       label: "Correo electrónico",
       placeholder: "ejemplo@compañia.com",
     },
+    service: {
+      label: "Servicio de interés",
+      placeholder: "Selecciona el servicio que necesitas",
+      options: contactServiceOptions,
+    },
     message: {
       label: "Descripción del proyecto",
       placeholder:
-        "Cuéntanos un poco sobre los objetivos y desafíos de tu proyecto...",
+        "Cuéntanos un poco sobre los objetivos, alcance y desafíos de tu proyecto...",
     },
   },
   submitLabel: "Enviar mensaje",
-  trustText: "Respondemos en menos de 24 horas",
+  submittingLabel: "Enviando mensaje...",
+  trustText: "Respondemos en menos de 24 horas hábiles",
+  statusMessages: {
+    successTitle: "¡Mensaje recibido con éxito!",
+    successDescription:
+      "Gracias por escribirnos. Nuestro equipo de ingeniería ya está revisando tu proyecto y te responderá en menos de 24 horas hábiles.",
+    sendAnother: "Enviar otro mensaje",
+    genericError:
+      "Ocurrió un error al procesar tu solicitud. Por favor, intenta de nuevo o contáctanos directamente vía WhatsApp.",
+    rateLimitError:
+      "Has superado el límite de envíos permitidos temporalmente. Por favor, espera unos minutos antes de intentar de nuevo.",
+  },
   whatsapp: {
     phonePlaceholder: whatsappContactConfig.phoneNumber,
+    heading: "¿Prefieres comunicación directa e instantánea?",
+    subheading:
+      "Inicia una conversación directa por WhatsApp con uno de nuestros ingenieros principales.",
+    buttonLabel: "Hablar por WhatsApp",
   },
 };
