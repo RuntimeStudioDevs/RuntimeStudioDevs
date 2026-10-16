@@ -57,7 +57,7 @@ function TeamGrid({ members }: Readonly<{ members: TeamMember[] }>) {
 
 function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
   return (
-    <article className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/40 bg-white p-6 transition-[transform,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-[0_16px_36px_rgba(0,140,249,0.14)] sm:p-7">
+    <article className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-white p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] sm:p-7">
       <div className="flex flex-col">
         {/* Avatar header */}
         <div className="flex items-center justify-between">

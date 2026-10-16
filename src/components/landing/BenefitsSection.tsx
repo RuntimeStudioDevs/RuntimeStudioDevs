@@ -63,7 +63,7 @@ function BenefitCard({ benefit }: BenefitCardProps) {
   const Icon = iconMap[benefit.id] ?? FallbackIcon;
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-[var(--color-studio-blue)] hover:shadow-md motion-safe:hover:-translate-y-0.5 sm:p-6">
+    <article className="flex h-full flex-col rounded-2xl border border-border/80 bg-white p-5 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] sm:p-6">
       <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
         <Icon aria-hidden="true" className="h-5 w-5" />
       </div>

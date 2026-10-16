@@ -75,7 +75,7 @@ function PlatformMockup() {
       className="relative mx-auto w-full max-w-[480px]"
       aria-label="Vista previa de plataforma empresarial con métricas y módulos"
     >
-      <div className="rounded-3xl border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/10 backdrop-blur-md sm:p-6">
+      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/10 backdrop-blur-md sm:p-6">
         {/* Window dots */}
         <div className="mb-5 flex items-center gap-2">
           <div className="flex gap-1.5">

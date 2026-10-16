@@ -76,14 +76,14 @@ function ServiceCardFeatured({ service }: CardProps) {
 
   return (
     <div
-      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] p-6 transition-[transform,box-shadow,border-color] duration-150 ease-out hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
+      className="relative flex h-full flex-col rounded-2xl border-2 border-[var(--color-studio-blue)] bg-white p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/60 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.18),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-8"
     >
       <span className="absolute right-3 top-3 rounded-full bg-[var(--color-studio-blue)]/10 px-2 py-0.5 text-[10px] font-semibold text-[var(--color-studio-blue)]">
         Destacado
       </span>
 
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)]">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
         <div className="min-w-0">
@@ -150,10 +150,10 @@ function ServiceCard({ service }: CardProps) {
 
   return (
     <div
-      className="flex h-full flex-col rounded-2xl border border-border/40 p-5 transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-[var(--color-studio-blue)] hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-border/80 bg-white p-5 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-[var(--color-studio-blue)]/30 active:ring-offset-2 sm:p-6"
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-[var(--color-runtime-white)] text-[var(--color-studio-blue)] sm:h-10 sm:w-10 sm:rounded-xl">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
         <div className="min-w-0">
