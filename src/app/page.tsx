@@ -1,7 +1,5 @@
-import { BenefitsSection } from "@/components/landing/BenefitsSection";
 import { ContactSection } from "@/components/landing/ContactSection";
 import { FAQSection } from "@/components/landing/FAQSection";
-import { FinalCTASection } from "@/components/landing/FinalCTASection";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { ProblemSection } from "@/components/landing/ProblemSection";
@@ -23,13 +21,11 @@ export default function Home() {
         <ProblemSection />
         <SolutionSection />
         <ServicesSection />
-        <HowItWorksSection />
-        <BenefitsSection />
         <UseCasesSection />
+        <HowItWorksSection />
         <TeamSection />
         <FAQSection />
         <ContactSection />
-        <FinalCTASection />
       </main>
       <Footer />
     </>

@@ -14,7 +14,6 @@ export function FAQSection() {
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
         <FAQHeader />
         <FAQAccordion items={faqContent.items} />
-        <FAQCta />
       </div>
     </section>
   );
@@ -174,28 +173,4 @@ function AccordionIndicator({ isOpen }: Readonly<{ isOpen: boolean }>) {
   );
 }
 
-function FAQCta() {
-  return (
-    <div className="mx-auto max-w-3xl">
-      <div className="rounded-3xl border border-border/40 bg-card px-6 py-10 text-center shadow-sm dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] sm:px-10 sm:py-12">
-        <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          {faqContent.cta.title}
-        </h3>
-        <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-muted-foreground">
-          {faqContent.cta.description}
-        </p>
-        <div className="mt-6">
-          <a
-            href={faqContent.cta.href}
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white transition-[transform,opacity,box-shadow] duration-150 ease-out hover:opacity-90 hover:shadow-lg hover:shadow-primary/25 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          >
-            {faqContent.cta.label}
-          </a>
-        </div>
-        <p className="mx-auto mt-3 max-w-sm text-xs text-muted-foreground/70">
-          {faqContent.cta.meta}
-        </p>
-      </div>
-    </div>
-  );
-}
+

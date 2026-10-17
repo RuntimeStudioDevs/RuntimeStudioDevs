@@ -6,9 +6,8 @@ const NAV_LINKS = [
   { label: "Problema", href: "#problema" },
   { label: "Solución", href: "#solucion" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Proceso", href: "#como-funciona" },
-  { label: "Ventajas", href: "#beneficios" },
   { label: "Casos", href: "#casos-de-uso" },
+  { label: "Proceso", href: "#como-funciona" },
   { label: "Equipo", href: "#equipo" },
   { label: "FAQ", href: "#faq" },
 ];
