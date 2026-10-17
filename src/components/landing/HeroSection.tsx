@@ -9,7 +9,7 @@ export function HeroSection() {
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="flex min-h-[calc(100svh-72px)] items-center bg-[var(--color-runtime-white)] py-12 text-[var(--color-runtime-black)] lg:py-0"
+      className="flex min-h-[calc(100svh-72px)] items-center bg-background py-12 text-foreground lg:py-0"
     >
       <div className="mx-auto grid w-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
         <HeroText content={heroContent} />
@@ -35,11 +35,11 @@ function HeroText({ content }: HeroTextProps) {
         {content.heading}
       </h1>
 
-      <p className="text-base leading-relaxed text-[color:var(--color-runtime-black)]/70 sm:text-lg">
+      <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
         {content.subtitle}
       </p>
 
-      <p className="text-sm text-[color:var(--color-runtime-black)]/50">
+      <p className="text-sm text-muted-foreground/80">
         {content.supportText}
       </p>
 
@@ -60,7 +60,7 @@ function Badges({ badges }: BadgesProps) {
       {badges.map((badge) => (
         <span
           key={badge}
-          className="inline-flex items-center rounded-full border border-border/40 px-3 py-1 text-xs font-medium text-[var(--color-studio-blue)]"
+          className="inline-flex items-center rounded-full border border-border/40 px-3 py-1 text-xs font-medium text-primary"
         >
           {badge}
         </span>
@@ -77,7 +77,7 @@ function CtaPrimary({ cta }: CtaProps) {
   return (
     <a
       href={cta.href}
-      className="inline-flex flex-col items-center justify-center rounded-lg bg-[var(--color-studio-blue)] px-6 py-3 font-semibold text-[var(--color-runtime-white)] transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-studio-blue)] focus-visible:ring-offset-2"
+      className="inline-flex flex-col items-center justify-center rounded-lg bg-primary px-6 py-3 font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       {cta.label}
       {cta.microText && (
@@ -101,7 +101,7 @@ function DashboardMockup() {
       className="relative mx-auto w-full max-w-[500px] overflow-visible"
       aria-label="Dashboard de desarrollo de software con flujo Idea, Diseño, Desarrollo y Lanzamiento"
     >
-      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-white/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-6">
+      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-card/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-6">
         {/* Window dots */}
         <div className="mb-5 flex items-center gap-2 sm:mb-6">
           <div className="flex gap-1.5">
@@ -178,12 +178,12 @@ function WorkflowBadges() {
     {
       label: "Diseño",
       style:
-        "border border-border/40 bg-white text-foreground shadow-lg shadow-black/5",
+        "border border-border/40 bg-card text-foreground shadow-lg shadow-black/5",
     },
     {
       label: "Desarrollo",
       style:
-        "border border-border/40 bg-white text-foreground shadow-lg shadow-black/5 sm:translate-y-3",
+        "border border-border/40 bg-card text-foreground shadow-lg shadow-black/5 sm:translate-y-3",
     },
     {
       label: "Lanzamiento",

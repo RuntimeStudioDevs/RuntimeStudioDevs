@@ -57,7 +57,7 @@ function TeamGrid({ members }: Readonly<{ members: TeamMember[] }>) {
 
 function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
   return (
-    <article className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-white p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] sm:p-7">
+    <article className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-card p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] sm:p-7">
       <div className="flex flex-col">
         {/* Avatar header */}
         <div className="flex items-center justify-between">
@@ -131,7 +131,7 @@ function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
           {member.primarySkills.map((skill) => (
             <span
               key={skill}
-              className="rounded-md border border-slate-200/80 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-700 transition-colors group-hover:border-primary/20"
+              className="rounded-md border border-border/80 bg-muted/60 px-2.5 py-1 text-[11px] font-medium text-muted-foreground transition-colors group-hover:border-primary/30 group-hover:text-foreground"
             >
               {skill}
             </span>

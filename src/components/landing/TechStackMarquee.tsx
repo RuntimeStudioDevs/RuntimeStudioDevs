@@ -8,7 +8,7 @@ export function TechStackMarquee() {
   return (
     <section
       aria-label="Tecnologías y herramientas dominadas"
-      className="relative overflow-hidden border-y border-border/40 bg-white py-10 lg:py-14"
+      className="relative overflow-hidden border-y border-border/40 bg-background text-foreground py-10 lg:py-14"
     >
       <MarqueeHeader content={techStackContent} />
 
@@ -59,7 +59,7 @@ function TechCard({
     <div
       aria-hidden={ariaHidden}
       tabIndex={ariaHidden ? -1 : 0}
-      className="group relative flex shrink-0 items-center gap-3.5 rounded-xl border border-slate-200/80 bg-slate-50/70 px-4 py-3 transition-[transform,opacity,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/40 hover:bg-white hover:shadow-[0_8px_20px_rgba(0,140,249,0.08)] active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      className="group relative flex shrink-0 items-center gap-3.5 rounded-xl border border-border/80 bg-card px-4 py-3 text-card-foreground transition-[transform,opacity,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_8px_20px_rgba(0,140,249,0.08)] dark:border-border/40 dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_1px_3px_0_rgba(0,0,0,0.3)] active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       <div className="flex size-8 shrink-0 items-center justify-center text-foreground/80 transition-colors duration-150 group-hover:text-primary">
         <svg
@@ -72,10 +72,10 @@ function TechCard({
       </div>
 
       <div className="flex flex-col">
-        <span className="text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 group-hover:text-primary">
+        <span className="text-sm font-medium tracking-tight text-foreground transition-colors duration-150 group-hover:text-primary">
           {tech.name}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wider text-foreground/50">
+        <span className="text-xs uppercase tracking-wider text-muted-foreground">
           {tech.category}
         </span>
       </div>
