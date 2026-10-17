@@ -1,0 +1,159 @@
+name: Vercel Deployment Smoke Tests
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "URL del deployment en Vercel a validar (ej. https://runtimestudiodevs.vercel.app)"
+        required: true
+        type: string
+
+concurrency:
+  group: vercel-smoke-${{ github.event.deployment_status.environment || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke-test:
+    name: Validate Live Vercel Deployment
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DEPLOY_URL: ${{ github.event.inputs.target_url || github.event.deployment_status.target_url || github.event.deployment_status.environment_url }}
+      BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+    steps:
+      - name: Run Smoke Tests against Vercel URL
+        run: |
+          node --input-type=module << 'EOF'
+          import assert from "node:assert/strict";
+          import fs from "node:fs";
+
+          const rawUrl = process.env.DEPLOY_URL?.trim();
+          assert.ok(rawUrl, "No se recibió una URL de deployment (DEPLOY_URL vacía).");
+
+          const baseUrl = rawUrl.replace(/\/+$/, "");
+          const bypassSecret = process.env.BYPASS_SECRET?.trim();
+
+          const defaultHeaders = {
+            "User-Agent": "RuntimeStudioDevs-CI-SmokeTest/1.0",
+            ...(bypassSecret ? { "x-vercel-protection-bypass": bypassSecret } : {}),
+          };
+
+          console.log(`🔍 Validando deployment en: ${baseUrl}`);
+
+          // 1. Validar GET / (SSR, Status 200, SEO y Secciones principales)
+          const homeRes = await fetch(baseUrl, { headers: defaultHeaders });
+
+          if (homeRes.status === 401 || homeRes.status === 403) {
+            console.error(
+              `⚠️ El deployment devolvió HTTP ${homeRes.status} (Vercel Deployment Protection activo). ` +
+              `Configura el secret VERCEL_AUTOMATION_BYPASS_SECRET en GitHub si deseas auditar Previews protegidas.`
+            );
+            process.exit(1);
+          }
+
+          assert.equal(homeRes.status, 200, `Se esperaba HTTP 200 en GET /, pero se obtuvo ${homeRes.status}`);
+
+          const contentType = homeRes.headers.get("content-type") ?? "";
+          assert.ok(
+            contentType.includes("text/html"),
+            `Content-Type inesperado en GET /: ${contentType}`
+          );
+
+          const html = await homeRes.text();
+
+          assert.ok(html.includes('<main id="main-content">'), "Falta <main id=\"main-content\"> en el HTML renderizado.");
+          assert.ok(html.includes("Runtime Studio Devs"), "Falta el título de marca 'Runtime Studio Devs'.");
+          assert.ok(html.includes("application/ld+json"), "Falta el bloque de datos estructurados JSON-LD.");
+
+          const expectedSections = [
+            "inicio",
+            "problema",
+            "solucion",
+            "como-funciona",
+            "servicios",
+            "equipo",
+            "faq",
+            "contacto",
+          ];
+
+          for (const sectionId of expectedSections) {
+            assert.ok(
+              html.includes(`id="${sectionId}"`),
+              `Falta la sección ancla #${sectionId} en el DOM desplegado.`
+            );
+          }
+          console.log("✅ Check 1/3 superado: HTML SSR, SEO JSON-LD y las 8 secciones principales presentes.");
+
+          // 2. Validar rechazo de payload inválido en POST /api/contact (HTTP 400 + Zod + Cache-Control)
+          const invalidContactRes = await fetch(`${baseUrl}/api/contact`, {
+            method: "POST",
+            headers: {
+              ...defaultHeaders,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: "A", email: "invalido", message: "corto" }),
+          });
+
+          assert.equal(
+            invalidContactRes.status,
+            400,
+            `Se esperaba HTTP 400 para payload inválido en /api/contact, pero se obtuvo ${invalidContactRes.status}`
+          );
+
+          const cacheHeader = invalidContactRes.headers.get("cache-control") ?? "";
+          assert.ok(
+            cacheHeader.includes("no-store"),
+            `Falta cabecera Cache-Control: no-store en /api/contact (recibido: ${cacheHeader})`
+          );
+          console.log("✅ Check 2/3 superado: Validación Zod y cabeceras no-store activas en /api/contact.");
+
+          // 3. Validar flujo completo de /api/contact usando el Honeypot anti-spam (HTTP 200 sin enviar spam a Discord)
+          const honeypotContactRes = await fetch(`${baseUrl}/api/contact`, {
+            method: "POST",
+            headers: {
+              ...defaultHeaders,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: "CI Smoke Test",
+              email: "ci-smoke@runtimestudiodevs.com",
+              service: "plataformas-a-medida",
+              message: "Verificación automática post-deploy desde GitHub Actions.",
+              honeypot: "ci-verification-only",
+            }),
+          });
+
+          assert.equal(
+            honeypotContactRes.status,
+            200,
+            `Se esperaba HTTP 200 en prueba honeypot de /api/contact, pero se obtuvo ${honeypotContactRes.status}`
+          );
+
+          const honeypotJson = await honeypotContactRes.json();
+          assert.equal(honeypotJson.success, true, "La respuesta 200 de /api/contact no incluyó { success: true }.");
+          console.log("✅ Check 3/3 superado: Endpoint serverless /api/contact operativo de extremo a extremo.");
+
+          // Generar resumen en GitHub Actions
+          const summaryFile = process.env.GITHUB_STEP_SUMMARY;
+          if (summaryFile) {
+            const summary = [
+              "### 🚀 Vercel Deployment Smoke Tests — Aprobado",
+              "",
+              `- **URL validada:** ${baseUrl}`,
+              `- **Entorno:** \`${process.env.GITHUB_EVENT_NAME}\``,
+              "",
+              "| Prueba | Estado | Detalle |",
+              "| :--- | :---: | :--- |",
+              "| **GET `/` (SSR & SEO)** | ✅ `200 OK` | `<main>`, título y JSON-LD presentes |",
+              `| **Secciones de Landing** | ✅ \`8/8\` | \`${expectedSections.map((s) => `#${s}`).join("`, `")}\` |`,
+              "| **POST `/api/contact` (Zod Guard)** | ✅ `400 Bad Request` | Rechaza datos inválidos + `Cache-Control: no-store` |",
+              "| **POST `/api/contact` (Honeypot E2E)** | ✅ `200 OK` | Ejecución serverless completa sin disparar spam a Discord |",
+              "",
+            ].join("\n");
+            fs.appendFileSync(summaryFile, summary);
+          }
+          EOF
