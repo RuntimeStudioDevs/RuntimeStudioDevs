@@ -180,13 +180,9 @@ Seccion inicial de la landing.
 
 Estado actual: **IMPLEMENTADO**
 
-- `id="inicio"`, usa `"use client"`.
-- Altura calculada: `h-[calc(100svh-72px)]`.
-- Grid 2 columnas (texto + visual) en desktop.
-- Badges (Hecho en Medellin, Desarrollo + IA + Producto).
-- Heading, subtitle, supportText desde `@/content/heroContent`.
-- CTA primario ("Agenda una llamada") con microTexto.
-- Mockup visual con grafico de barras, progress ring y badges flotantes (Idea → Diseno → Desarrollo → Lanzamiento).
+- `id="inicio"`, Server Component puro.
+- Composición centrada de una sola columna: título H1 con highlight (`productos digitales`), párrafo descriptivo de ancho controlado y CTA (`Saber más`) desde `@/content/heroContent`.
+- Fondo limpio con íconos minimalistas tipo marca de agua (`aria-hidden="true"`) en los márgenes izquierdo y derecho alusivos a lenguajes de programación (Python, JavaScript, React, etiquetas HTML) y automatización (engranajes, nodos de conexión, flujos de datos, workflows) desde `@/components/icons/SolutionIcons`.
 
 ### `ProblemSection.tsx`
 
@@ -201,15 +197,13 @@ Estado actual: **IMPLEMENTADO**
 
 ### `SolutionSection.tsx`
 
-Seccion para la solucion.
+Seccion para la solucion (anteriormente Casos de Uso).
 
 Estado actual: **IMPLEMENTADO**
 
-- `id="solucion"`.
-- Header con badge, titulo con highlight y CTA desde `@/content/solutionContent`.
-- Mockup visual de plataforma con KPIs (Ingresos, Usuarios, Conversion), lista de proyectos y modulos.
-- Proceso en 5 pasos con iconos SVG inline (insights, diseno, codigo, rocket, tendencia).
-- CTA final con microTexto.
+- `id="solucion"`, Server Component puro.
+- Header con badge (`Nuestra Solución`), título H2 (`Soluciones reales para necesidades concretas`) y descripción desde `@/content/solutionContent`.
+- Grid de 3 tarjetas de soluciones verificables (MVPs & Prototipos Técnicos, Modernización Web & Core Web Vitals, Software Interno & Integraciones de API) con audiencia objetivo, impacto directo y puntos de prueba.
 
 ### `ServicesSection.tsx`
 

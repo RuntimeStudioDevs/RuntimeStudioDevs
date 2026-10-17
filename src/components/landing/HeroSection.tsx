@@ -1,214 +1,94 @@
 import {
   heroContent,
   type HeroContent,
-  type CtaContent,
+  type HeroWatermarkItem,
+  type HeroWatermarkTone,
 } from "@/content/heroContent";
+import { solutionWatermarkIcons } from "@/components/icons/SolutionIcons";
 
 export function HeroSection() {
   return (
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="flex min-h-[calc(100svh-72px)] items-center bg-background py-12 text-foreground lg:py-0"
+      className="relative flex min-h-[calc(100svh-72px)] items-center overflow-hidden bg-background py-16 text-foreground lg:py-24"
     >
-      <div className="mx-auto grid w-full max-w-7xl content-center px-4 py-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-12">
-        <HeroText content={heroContent} />
-        <HeroVisual />
+      <HeroBackgroundWatermarks items={heroContent.watermarks} />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <HeroHeader content={heroContent} />
       </div>
     </section>
   );
 }
 
-type HeroTextProps = Readonly<{
-  content: HeroContent;
-}>;
+/* ── Single-Column Centered Content ──────────────────── */
 
-function HeroText({ content }: HeroTextProps) {
+function HeroHeader({ content }: Readonly<{ content: HeroContent }>) {
+  const parts = content.title.split(content.highlightedPart);
+
   return (
-    <div className="flex flex-col gap-5">
-      <Badges badges={content.badges} />
-
+    <div className="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center">
       <h1
         id="hero-title"
-        className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+        className="max-w-2xl text-balance text-2xl font-semibold tracking-tight text-foreground sm:text-3xl lg:text-4xl"
       >
-        {content.heading}
+        {parts[0]}
+        <span className="text-[var(--color-studio-blue)]">
+          {content.highlightedPart}
+        </span>
+        {parts[1]}
       </h1>
 
-      <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-        {content.subtitle}
+      <p className="max-w-xl text-pretty text-sm leading-6 text-muted-foreground sm:text-base">
+        {content.description}
       </p>
 
-      <p className="text-sm text-muted-foreground/80">
-        {content.supportText}
-      </p>
-
-      <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-        <CtaPrimary cta={content.primaryCTA} />
-      </div>
-    </div>
-  );
-}
-
-type BadgesProps = Readonly<{
-  badges: string[];
-}>;
-
-function Badges({ badges }: BadgesProps) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {badges.map((badge) => (
-        <span
-          key={badge}
-          className="inline-flex items-center rounded-full border border-border/40 px-3 py-1 text-xs font-medium text-primary"
+      <div className="pt-2">
+        <a
+          href={content.primaryCta.href}
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
-          {badge}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-type CtaProps = Readonly<{
-  cta: CtaContent;
-}>;
-
-function CtaPrimary({ cta }: CtaProps) {
-  return (
-    <a
-      href={cta.href}
-      className="inline-flex flex-col items-center justify-center rounded-lg bg-primary px-6 py-3 font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-    >
-      {cta.label}
-      {cta.microText && (
-        <span className="mt-0.5 text-xs opacity-80">{cta.microText}</span>
-      )}
-    </a>
-  );
-}
-
-function HeroVisual() {
-  return (
-    <div className="mt-12 lg:mt-0">
-      <DashboardMockup />
-    </div>
-  );
-}
-
-function DashboardMockup() {
-  return (
-    <figure
-      className="relative mx-auto w-full max-w-[500px] overflow-visible"
-      aria-label="Dashboard de desarrollo de software con flujo Idea, Diseño, Desarrollo y Lanzamiento"
-    >
-      <div className="rounded-[32px] sm:rounded-[36px] border border-border/40 bg-card/90 p-5 shadow-2xl shadow-blue-200/15 backdrop-blur-md sm:p-6">
-        {/* Window dots */}
-        <div className="mb-5 flex items-center gap-2 sm:mb-6">
-          <div className="flex gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-red-400/50" />
-            <div className="h-2.5 w-2.5 rounded-full bg-amber-400/50" />
-            <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/50" />
-          </div>
-          <div className="ml-2 h-3 w-28 rounded-full bg-border/70 sm:w-36" />
-        </div>
-
-        {/* Upper grid: chart + progress ring */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
-          {/* Chart box */}
-          <div className="col-span-1 rounded-xl border border-border/40 bg-background p-4 sm:col-span-3">
-            <div className="mb-3 h-1.5 w-16 rounded-full bg-border/70" />
-            <div className="flex h-20 items-end gap-2">
-              {["bg-blue-900/60", "bg-blue-800/60", "bg-blue-600/70", "bg-blue-400/80"].map(
-                (color, i) => (
-                  <div
-                    key={i}
-                    style={{ height: `${[40, 55, 70, 100][i]}%` }}
-                    className={`flex-1 rounded-t-md ${color}`}
-                  />
-                ),
-              )}
-            </div>
-          </div>
-
-          {/* Progress ring box */}
-          <div className="col-span-1 flex items-center justify-center rounded-xl border border-border/40 bg-background p-4 sm:col-span-2">
-            <div className="relative flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16">
-              <div className="absolute inset-0 rounded-full border-[3px] border-border/40" />
-              <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-blue-400/80 border-r-blue-400/80 rotate-[135deg]" />
-              <span className="relative text-xs font-semibold text-foreground/70">
-                74%
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Skeleton rows */}
-        <div className="mt-4 space-y-3">
-          <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-background p-3">
-            <div className="h-5 w-5 flex-shrink-0 rounded-md bg-blue-500/20" />
-            <div className="h-2 w-3/5 rounded-full bg-border/70" />
-            <div className="h-2 w-1/4 rounded-full bg-border/50" />
-          </div>
-          <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-background p-3">
-            <div className="h-5 w-5 flex-shrink-0 rounded-md bg-emerald-500/20" />
-            <div className="h-2 w-1/2 rounded-full bg-border/70" />
-            <div className="h-2 w-1/5 rounded-full bg-border/50" />
-          </div>
-        </div>
+          {content.primaryCta.label}
+        </a>
       </div>
-
-      {/* Floating workflow badges */}
-      <WorkflowBadges />
-    </figure>
+    </div>
   );
 }
 
-type BadgeStep = {
-  label: string;
-  style: string;
+/* ── Background Watermarks (Automation & Development) ── */
+
+const toneClassMap: Record<HeroWatermarkTone, string> = {
+  blue: "text-primary/[0.08] dark:text-primary/[0.11]",
+  pearl: "text-muted-foreground/[0.09] dark:text-muted-foreground/[0.11]",
 };
 
-function WorkflowBadges() {
-  const steps: BadgeStep[] = [
-    {
-      label: "Idea",
-      style:
-        "bg-blue-500 text-white shadow-lg shadow-blue-500/25",
-    },
-    {
-      label: "Diseño",
-      style:
-        "border border-border/40 bg-card text-foreground shadow-lg shadow-black/5",
-    },
-    {
-      label: "Desarrollo",
-      style:
-        "border border-border/40 bg-card text-foreground shadow-lg shadow-black/5 sm:translate-y-3",
-    },
-    {
-      label: "Lanzamiento",
-      style:
-        "bg-indigo-600 text-white shadow-lg shadow-indigo-500/25",
-    },
-  ];
-
+function HeroBackgroundWatermarks({
+  items,
+}: Readonly<{
+  items: HeroWatermarkItem[];
+}>) {
   return (
     <div
-      className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 flex-wrap items-center justify-center gap-x-1.5 gap-y-1 px-2 sm:-bottom-6 sm:flex-nowrap sm:gap-2 sm:px-0"
       aria-hidden="true"
+      data-testid="hero-watermarks"
+      className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
     >
-      {steps.map((step, i) => (
-        <span key={step.label} className="flex items-center gap-1 sm:gap-2">
-          <span
-            className={`inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-semibold whitespace-nowrap sm:px-5 sm:py-2.5 sm:text-sm ${step.style}`}
-          >
-            {step.label}
-          </span>
-          {i < steps.length - 1 && (
-            <span className="text-[11px] text-foreground/60 sm:text-sm">→</span>
-          )}
-        </span>
-      ))}
+      <div className="relative mx-auto h-full max-w-7xl">
+        {items.map((item) => {
+          const IconComponent = solutionWatermarkIcons[item.icon];
+          return (
+            <div
+              key={item.id}
+              data-watermark-icon={item.icon}
+              data-watermark-tone={item.tone}
+              className={`absolute ${toneClassMap[item.tone]} ${item.className}`}
+            >
+              <IconComponent className="size-full" />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
