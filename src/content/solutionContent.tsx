@@ -5,18 +5,13 @@ export type SolutionProcessStepIcon =
   | "rocket"
   | "trend";
 
-export type SolutionProcessStep = {
-  number: string;
-  verb: string;
+export type SolutionCard = {
+  tag: string;
+  title: string;
+  targetAudience: string;
   description: string;
-  icon: SolutionProcessStepIcon;
-  featured?: boolean;
-};
-
-export type SolutionCta = {
-  label: string;
-  href: string;
-  microText?: string;
+  benefits: string[];
+  proofPoints: string;
 };
 
 export type SolutionContent = {
@@ -24,71 +19,60 @@ export type SolutionContent = {
   title: string;
   highlightedPart: string;
   description: string;
-  primaryCta: SolutionCta;
-  processTitle: string;
-  processSteps: SolutionProcessStep[];
-  finalCta: {
-    title: string;
-    buttonLabel: string;
-    buttonHref: string;
-    microText: string;
-  };
+  cases: SolutionCard[];
 };
 
 export const solutionContent: SolutionContent = {
   badge: "Nuestra Solución",
-  title:
-    "Traducimos tus ideas y desafíos en productos digitales a la medida",
-  highlightedPart: "productos digitales",
+  title: "Soluciones reales para necesidades concretas",
+  highlightedPart: "reales",
   description:
-    "Creamos software empresarial robusto, escalable y diseñado centrado en el usuario, optimizando cada proceso de tu negocio con tecnología de vanguardia.",
-  primaryCta: {
-    label: "Saber más",
-    href: "#servicios",
-  },
-  processTitle: "Nuestro Proceso",
-  processSteps: [
+    "Aplicamos disciplina de ingeniería en escenarios donde la calidad técnica, el rendimiento y la escalabilidad son indispensables.",
+  cases: [
     {
-      number: "01",
-      verb: "Analizar",
+      tag: "Startups & Nuevos Productos",
+      title: "MVPs & Prototipos Técnicos de Alto Nivel",
+      targetAudience:
+        "Fundadores y equipos que necesitan validar rápido sin acumular deuda técnica.",
       description:
-        "Entendemos tus necesidades de negocio y definimos el roadmap estratégico.",
-      icon: "insights",
+        "Construcción ágil de productos mínimos viables sobre arquitecturas limpias y tipadas que permiten iterar velozmente sin tener que reescribir la base a los tres meses.",
+      benefits: [
+        "Time-to-market acelerado",
+        "Base escalable y testeada",
+        "Cero dependencias innecesarias",
+      ],
+      proofPoints:
+        "Arquitectura modular lista para escalar o recibir inversión técnica.",
     },
     {
-      number: "02",
-      verb: "Diseñar",
+      tag: "Optimización & Refactor",
+      title: "Modernización Web & Core Web Vitals",
+      targetAudience:
+        "Plataformas con lentitud, mala accesibilidad o código legado difícil de mantener.",
       description:
-        "Prototipamos interfaces intuitivas que garantizan una experiencia de usuario superior.",
-      icon: "design",
+        "Diagnóstico y migración hacia tecnologías modernas, eliminando sobrecarga de JavaScript, optimizando LCP/INP/CLS y elevando el cumplimiento de accesibilidad.",
+      benefits: [
+        "Carga instantánea en el Edge",
+        "Accesibilidad WCAG 2.2 AA",
+        "Reducción drástica del bundle size",
+      ],
+      proofPoints:
+        "Auditorías de métricas con reportes reproducibles y métricas en verde.",
     },
     {
-      number: "03",
-      verb: "Desarrollar",
+      tag: "Herramientas de Operación",
+      title: "Software Interno & Integraciones de API",
+      targetAudience:
+        "Empresas con procesos manuales o flujos desconectados entre herramientas.",
       description:
-        "Construimos con código limpio, escalable y bajo estándares de seguridad internacional.",
-      icon: "code",
-    },
-    {
-      number: "04",
-      verb: "Lanzar",
-      description:
-        "Implementamos el producto en producción con monitoreo constante de rendimiento.",
-      icon: "rocket",
-    },
-    {
-      number: "05",
-      verb: "Mejorar",
-      description:
-        "Optimización continua basada en datos reales para maximizar el ROI de tu inversión.",
-      icon: "trend",
-      featured: true,
+        "Desarrollo de herramientas a medida, paneles utilitarios y conectores de API robustos que optimizan la productividad del equipo con tipado seguro de extremo a extremo.",
+      benefits: [
+        "Automatización de tareas repetitivas",
+        "Contratos de API seguros y tipados",
+        "Mantenibilidad a largo plazo",
+      ],
+      proofPoints:
+        "Código documentado y preparado para operar de forma autónoma.",
     },
   ],
-  finalCta: {
-    title: "¿Listo para escalar tu infraestructura digital?",
-    buttonLabel: "Iniciar un proyecto",
-    buttonHref: "#contacto",
-    microText: "Solicita tu sesión de descubrimiento sin costo",
-  },
 };

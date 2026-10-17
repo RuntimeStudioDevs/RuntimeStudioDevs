@@ -151,15 +151,14 @@ RootLayout (layout.tsx)
     ├── Navbar (sticky)
     ├── <main id="main-content">
     │   ├── HeroSection
+    │   ├── TechStackMarquee
     │   ├── ProblemSection
     │   ├── SolutionSection
+    │   ├── HowItWorksSection
     │   ├── ServicesSection
-    │   ├── HowItWorksSection (STUB)
-    │   ├── BenefitsSection
-    │   ├── UseCasesSection (STUB)
+    │   ├── TeamSection
     │   ├── FAQSection
-    │   ├── ContactSection
-    │   └── FinalCTASection (STUB)
+    │   └── ContactSection
     └── Footer
 ```
 
