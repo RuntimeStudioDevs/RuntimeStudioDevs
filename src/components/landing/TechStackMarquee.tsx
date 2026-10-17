@@ -8,11 +8,11 @@ export function TechStackMarquee() {
   return (
     <section
       aria-label="Tecnologías y herramientas dominadas"
-      className="relative overflow-hidden border-y border-border/40 bg-background text-foreground py-10 lg:py-14"
+      className="relative overflow-hidden bg-background text-foreground py-10 lg:py-14"
     >
       <MarqueeHeader content={techStackContent} />
 
-      <div className="mask-marquee relative mt-8 flex w-full overflow-hidden">
+      <div className="mask-marquee relative mt-4 flex w-full overflow-hidden py-4">
         <div className="animate-marquee items-center gap-6 pr-6 sm:gap-8 sm:pr-8">
           {/* Primer set de tecnologías */}
           {techStackContent.technologies.map((tech) => (
