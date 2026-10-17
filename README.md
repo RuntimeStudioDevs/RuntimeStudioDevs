@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Runtime Studio Devs
 
-## Getting Started
+Landing page de Runtime Studio Devs — agencia de desarrollo de software en Medellin, Colombia.
 
-First, run the development server:
+## Descripcion
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Sitio web single-page desarrollado con Next.js que presenta los servicios de desarrollo de software a medida, automatizacion e inteligencia artificial ofrecidos por Runtime Studio Devs.
+
+## Estado actual
+
+Version 0.1.0 en desarrollo. La landing page cuenta con 10 secciones, de las cuales 7 estan implementadas con contenido real y 3 permanecen como placeholders.
+
+### Secciones implementadas
+
+- Hero (`inicio`)
+- Problema (`problema`)
+- Solucion (`solucion`)
+- Servicios (`servicios`)
+- Beneficios (`beneficios`)
+- FAQ (`faq`)
+- Contacto (`contacto`)
+
+### Secciones pendientes
+
+- Como funciona (`como-funciona`)
+- Casos de uso (`casos-de-uso`)
+- CTA final (`cta-final`)
+
+## Stack tecnologico
+
+| Tecnologia | Version | Evidencia |
+|---|---|---|
+| Next.js | 16.2.7 | `package.json` |
+| React | 19.2.4 | `package.json` |
+| TypeScript | ^5 | `package.json` |
+| Tailwind CSS | ^4 | `package.json` |
+| ESLint | ^9 | `package.json` |
+
+## Estructura del repositorio
+
+```
+src/
+├── app/                  # Next.js App Router (layout, pagina, estilos globales)
+├── components/
+│   ├── brand/            # Logos (variantes claro/oscuro)
+│   ├── landing/          # Secciones de la landing page
+│   ├── layout/           # Navbar, Footer, MobileMenu
+│   └── shared/           # WhatsAppButton, Modal
+├── content/              # Datos tipados para cada seccion
+docs/                     # Documentacion del proyecto
+.agents/skills/           # Skills para agentes IA (pendientes de contenido)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como ejecutar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+El proyecto se ejecuta en `http://localhost:3000`.
 
-## Learn More
+## Documentacion
 
-To learn more about Next.js, take a look at the following resources:
+- [docs/README.md](docs/README.md) — Indice documental del proyecto
+- [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) — Mapa documental, reglas organizativas y de mantenimiento
+- [docs/RUN.md](docs/RUN.md) — Ejecucion local, tecnologias, instalacion
+- [docs/frontend/design-system.md](docs/frontend/design-system.md) — Sistema de diseno, colores, fuentes, tokens y lineamientos visuales
+- [docs/frontend/README.md](docs/frontend/README.md) — Documentacion del frontend
+- [docs/backend/README.md](docs/backend/README.md) — Backend (reservado para futuro)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notas para agentes IA
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- El archivo `AGENTS.md` es el punto de entrada para herramientas y agentes compatibles con el estandar AGENTS.md.
+- Las skills en `.agents/skills/` estan pendientes de contenido.
+- El codigo fuente es la fuente de verdad. La documentacion es derivada.
 
-## Deploy on Vercel
+## Ultima actualizacion
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2026-06-09 — Documentacion generada a partir de evidencia del repositorio.
