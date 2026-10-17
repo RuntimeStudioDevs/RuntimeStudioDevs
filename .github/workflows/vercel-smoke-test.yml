@@ -66,7 +66,8 @@ jobs:
           const html = await homeRes.text();
 
           assert.ok(html.includes('<main id="main-content">'), "Falta <main id=\"main-content\"> en el HTML renderizado.");
-          assert.ok(html.includes("Runtime Studio Devs"), "Falta el título de marca 'Runtime Studio Devs'.");
+          assert.ok(/<title>[^<]+<\/title>/.test(html), "Falta la etiqueta <title> en el HTML renderizado.");
+          assert.ok(html.includes("Runtime Studio Devs"), "Falta la identidad de marca 'Runtime Studio Devs' en el documento.");
           assert.ok(html.includes("application/ld+json"), "Falta el bloque de datos estructurados JSON-LD.");
 
           const expectedSections = [
