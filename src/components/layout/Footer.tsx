@@ -1,6 +1,5 @@
 import { LogoBlancoRuntimeStudioDevs } from "@/components/brand/Logo_Blanco-RuntimeStudioDevs";
 import { services } from "@/content/ContentServices";
-import { whatsappContactConfig } from "@/content/contactContent";
 
 const FOOTER_LOCATION = "Medellín, Colombia";
 const FOOTER_DESCRIPTION =
@@ -9,11 +8,6 @@ const FOOTER_CTA_HREF = "#contacto";
 const GITHUB_ORG_URL = "https://github.com/RuntimeStudioDevs";
 
 export function Footer() {
-  const normalizedPhoneNumber = whatsappContactConfig.phoneNumber.replace(/\D/g, "");
-  const whatsappHref = `https://wa.me/${normalizedPhoneNumber}`;
-  const whatsappLabel = normalizedPhoneNumber === "573194312060"
-    ? "+57 319 431 2060"
-    : `+${normalizedPhoneNumber}`;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -38,16 +32,7 @@ export function Footer() {
                 href={FOOTER_CTA_HREF}
                 className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-runtime-white transition-[transform,background-color] duration-150 ease-out hover:bg-primary/90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
               >
-                Contactar al equipo
-              </a>
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/88 transition-[transform,border-color,color] duration-150 ease-out hover:border-white/40 hover:text-runtime-white active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
-                aria-label="Abrir WhatsApp para contactar a RuntimeStudioDevs"
-              >
-                WhatsApp
+                Iniciar proyecto
               </a>
             </div>
           </section>
@@ -70,24 +55,16 @@ export function Footer() {
             <ul className="mt-5 space-y-3 text-sm text-white/78">
               <li>
                 <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-runtime-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
-                  aria-label="Contactar por WhatsApp al equipo de RuntimeStudioDevs"
-                >
-                  {whatsappLabel}
-                </a>
-              </li>
-              <li>
-                <a
                   href={FOOTER_CTA_HREF}
                   className="transition-colors hover:text-runtime-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0f172a]"
                 >
-                  Ir a la sección de contacto
+                  Formulario de contacto técnico
                 </a>
               </li>
-              <li>{FOOTER_LOCATION}</li>
+              <li>
+                <span className="text-white/60">Disponibilidad:</span>{" "}
+                <span>Remoto global / {FOOTER_LOCATION}</span>
+              </li>
             </ul>
 
             <div className="mt-8">
