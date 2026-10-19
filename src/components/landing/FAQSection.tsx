@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { faqContent, type FaqItem } from "@/content/faqContent";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function FAQSection() {
   return (
@@ -12,7 +13,9 @@ export function FAQSection() {
       className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
-        <FAQHeader />
+        <ScrollReveal>
+          <FAQHeader />
+        </ScrollReveal>
         <FAQAccordion items={faqContent.items} />
       </div>
     </section>
@@ -22,7 +25,11 @@ export function FAQSection() {
 function FAQHeader() {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {faqContent.eyebrow}
       </p>
       <h2
@@ -52,13 +59,14 @@ function FAQAccordion({ items }: FAQAccordionProps) {
   return (
     <div className="mx-auto max-w-4xl space-y-4">
       {items.map((item, index) => (
-        <FAQAccordionItem
-          key={item.question}
-          item={item}
-          index={index}
-          isOpen={activeIndex === index}
-          onToggle={() => toggleItem(index)}
-        />
+        <ScrollReveal key={item.question} delay={index * 60}>
+          <FAQAccordionItem
+            item={item}
+            index={index}
+            isOpen={activeIndex === index}
+            onToggle={() => toggleItem(index)}
+          />
+        </ScrollReveal>
       ))}
     </div>
   );

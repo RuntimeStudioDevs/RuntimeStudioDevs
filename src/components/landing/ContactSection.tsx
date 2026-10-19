@@ -7,6 +7,8 @@ import {
   type ContactFieldContent,
   type ServiceOption,
 } from "@/content/contactContent";
+import { SpotlightCard } from "@/components/shared/SpotlightCard";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function ContactSection() {
   return (
@@ -16,8 +18,12 @@ export function ContactSection() {
       className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
-        <ContactHeader content={contactContent} />
-        <ContactFormPanel content={contactContent} />
+        <ScrollReveal>
+          <ContactHeader content={contactContent} />
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <ContactFormPanel content={contactContent} />
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -30,7 +36,11 @@ type HeaderProps = Readonly<{
 function ContactHeader({ content }: HeaderProps) {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {content.eyebrow}
       </p>
       <h2
@@ -115,7 +125,7 @@ function ContactFormPanel({ content }: PanelProps) {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="rounded-2xl border border-border/40 bg-card p-6 shadow-sm dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] sm:p-10">
+      <SpotlightCard className="w-full">
         <div aria-live="polite" aria-atomic="true">
           {isSuccess ? (
             <SuccessFeedback content={content} onReset={handleReset} />
@@ -183,7 +193,7 @@ function ContactFormPanel({ content }: PanelProps) {
           </form>
         )}
         </div>
-      </div>
+      </SpotlightCard>
     </div>
   );
 }

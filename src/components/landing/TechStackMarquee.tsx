@@ -3,6 +3,7 @@ import {
   type TechItem,
   type TechStackContent,
 } from "@/content/techStackContent";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function TechStackMarquee() {
   return (
@@ -10,7 +11,9 @@ export function TechStackMarquee() {
       aria-label="Tecnologías y herramientas dominadas"
       className="relative overflow-hidden bg-background text-foreground py-10 lg:py-14"
     >
-      <MarqueeHeader content={techStackContent} />
+      <ScrollReveal>
+        <MarqueeHeader content={techStackContent} />
+      </ScrollReveal>
 
       <div className="mask-marquee relative mt-4 flex w-full overflow-hidden py-4">
         <div className="animate-marquee items-center gap-6 pr-6 sm:gap-8 sm:pr-8">
@@ -38,7 +41,11 @@ function MarqueeHeader({
 }: Readonly<{ content: TechStackContent }>) {
   return (
     <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {content.badge}
       </p>
       <h2 className="mt-2 text-lg font-semibold tracking-tight text-foreground sm:text-xl lg:text-2xl">
