@@ -6,6 +6,8 @@ import {
   type Service,
 } from "@/content/ContentServices";
 import { iconMap, FallbackIcon } from "@/components/icons/ServicesIcons";
+import { SpotlightCard } from "@/components/shared/SpotlightCard";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function ServicesSection() {
   return (
@@ -15,14 +17,20 @@ export function ServicesSection() {
       className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-24 lg:px-8 lg:py-24">
-        <ServicesHeader />
+        <ScrollReveal>
+          <ServicesHeader />
+        </ScrollReveal>
 
         <div>
           <ServicesGrid services={services} />
         </div>
 
-        <TrustBlock />
-        <ServicesFinalCta />
+        <ScrollReveal>
+          <TrustBlock />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ServicesFinalCta />
+        </ScrollReveal>
       </div>
 
       <ServicesSchema />
@@ -33,7 +41,11 @@ export function ServicesSection() {
 function ServicesHeader() {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {servicesSectionContent.eyebrow}
       </p>
       <h2
@@ -56,13 +68,19 @@ type ServicesGridProps = Readonly<{
 function ServicesGrid({ services }: ServicesGridProps) {
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8">
-      {services.map((service) =>
-        service.isFeatured ? (
-          <ServiceCardFeatured key={service.id} service={service} />
-        ) : (
-          <ServiceCard key={service.id} service={service} />
-        ),
-      )}
+      {services.map((service, index) => (
+        <ScrollReveal
+          key={service.id}
+          delay={index * 80}
+          className="h-full"
+        >
+          {service.isFeatured ? (
+            <ServiceCardFeatured service={service} />
+          ) : (
+            <ServiceCard service={service} />
+          )}
+        </ScrollReveal>
+      ))}
     </div>
   );
 }
@@ -75,24 +93,19 @@ function ServiceCardFeatured({ service }: CardProps) {
   const Icon = iconMap[service.id];
 
   return (
-    <div
-      className="relative flex h-full flex-col rounded-2xl border-2 border-primary bg-card p-6 text-card-foreground shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/80 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.18),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-primary/30 active:ring-offset-2 sm:p-8"
-    >
-      <span className="absolute right-3 top-3 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary dark:bg-primary/20">
-        Destacado
-      </span>
-
+    <SpotlightCard className="h-full border-2 border-primary/80">
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary dark:bg-primary/20">
           {Icon ? <Icon /> : <FallbackIcon />}
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <h3 className="text-base font-semibold text-foreground sm:text-lg">
             {service.name}
           </h3>
-          <span className="mt-0.5 inline-block rounded-full bg-primary/10 px-2 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/20">
-            {service.category}
-          </span>
+          <div className="mt-1 flex flex-wrap items-center gap-1.5">
+            <span className="rounded-full bg-primary/10 px-2 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/20">{service.category}</span>
+            <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/25"><span className="size-1 rounded-full bg-primary" />Destacado</span>
+          </div>
         </div>
       </div>
 
@@ -141,7 +154,7 @@ function ServiceCardFeatured({ service }: CardProps) {
           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }
 
@@ -149,9 +162,7 @@ function ServiceCard({ service }: CardProps) {
   const Icon = iconMap[service.id];
 
   return (
-    <div
-      className="flex h-full flex-col rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] dark:border-border/40 dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] active:scale-[0.96] active:ring-2 active:ring-primary/30 active:ring-offset-2 sm:p-6"
-    >
+    <SpotlightCard className="h-full">
       <div className="flex items-start gap-3">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary dark:bg-primary/20 sm:h-10 sm:w-10 sm:rounded-xl">
           {Icon ? <Icon /> : <FallbackIcon />}
@@ -217,7 +228,7 @@ function ServiceCard({ service }: CardProps) {
           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }
 
