@@ -27,22 +27,31 @@ Actualmente la landing tiene 9 secciones en el flujo principal:
 
 ## 2. SPRINTS DE EVOLUCIÓN TÉCNICA
 
-### SPRINT 1: Cimientos Tipográficos & Sección Equipo (En curso)
+### SPRINT 1: Cimientos Tipográficos & Sección Equipo
 
-- **Tipografía:** Integrar `next/font/google` (`Geist` y `Geist_Mono`) con variables CSS en `@theme` de Tailwind v4.
-- **Datos:** Modelado estricto en `src/content/teamContent.ts`.
-- **Componente:** `TeamSection.tsx` (Server Component puro con badges de skills y enlaces a GitHub/LinkedIn).
+- [x] Tipografía: Integrar `next/font/google` (`Geist` y `Geist_Mono`) con variables CSS en `@theme` de Tailwind v4.
+- [x] Datos: Modelado estricto en `src/content/teamContent.ts`.
+- [x] Componente: `TeamSection.tsx` (Server Component puro con badges de skills y enlaces a GitHub/LinkedIn).
 
 ### SPRINT 2: Microinteracciones & Estética Premium
 
-- Resplandor sutil corporativo en cards (`hover:shadow-[0_10px_30px_rgba(0,140,249,0.15)]`).
-- Suavizado de bordes y transiciones de botones.
-- Marquee de tecnologías dominadas (Tech Stack).
+- [x] Resplandor sutil corporativo en cards (`hover:shadow-[0_10px_30px_rgba(0,140,249,0.15)]`).
+- [x] Suavizado de bordes y transiciones de botones.
+- [x] Marquee de tecnologías dominadas (Tech Stack).
 
 ### SPRINT 3: Dark Mode & Serverless Backend
 
 - [x] Soporte nativo de tema claro / oscuro con variables semánticas y toggle accesible.
-- [x] Route Handler `/api/contact` con Zod, Rate Limit defensivo por IP, Honeypot anti-spam y Webhook Embed.
+- [x] Route Handler `/api/contact` con Zod, Rate Limit defensivo por IP, Honeypot anti-spam y Webhook Embed para Discord.
+
+### SPRINT 4: Máxima Conversión B2B, Notificaciones en Discord & Telemetría (En curso)
+
+- [x] Canal Único de Contacto (Core Conversion Goal): Retiro de WhatsApp y modal asociado para erradicar sobrecarga de elección (_choice overload_).
+- [x] Conexión de Notificación Discord: Configuración de variable de entorno `DISCORD_WEBHOOK_URL` segura sin filtrar secretos en el repositorio.
+- [x] Accesibilidad WCAG 2.2 AA & UX del Formulario (Marco EAS): Regiones `aria-live` para anuncios no disruptivos de estados y gestión de foco al fallar validación.
+- [x] Conector FAQ -> Contacto: Adaptar la última pregunta del acordeón para enlazar orgánicamente hacia el formulario adyacente.
+- [x] Casos de Estudio con métricas de arquitectura (Proof over Promises): Estructura Desafío-Solución-Resultado enfocada en ingeniería de sistemas y latencia.
+- [x] Telemetría Privacy-First & Deuda Técnica: Integración de `@vercel/analytics` y `@vercel/speed-insights` (cero cookies), eliminación de archivos muertos (`UseCasesSection.tsx`) y corrección de canonical.
 
 ---
 
@@ -53,9 +62,10 @@ Actualmente la landing tiene 9 secciones en el flujo principal:
 - [x] Secciones `HowItWorksSection` y `UseCasesSection` implementadas con tipado estricto.
 - [x] Suite de pruebas unitarias al 100% (Vitest).
 - [x] SEO técnico enriquecido: `metadataBase`, Open Graph, Twitter Cards y Schema.org JSON-LD.
-- [x] Pipeline de CI/CD blindado con GitHub Actions (`ci.yml`).
+- [x] Pipeline de CI/CD blindado con GitHub Actions (`ci.yml` y `vercel-smoke-test.yml`).
 - [x] Rama `feature/core-sections-and-seo` integrada y mergeada en `develop`.
 - [x] Implementación de Tipografía Geist y Diseño Premium (`TeamSection`).
 - [x] Microinteracciones y Pulido de UI (Marquee, Touch Targets, Sombras).
 - [x] Dark Mode con tokens semánticos y contraste WCAG 2.2 AA.
 - [x] Endpoint serverless `/api/contact` blindado con validación Zod, rate limiting y pruebas unitarias.
+- [x] Poda de arquitectura de información (eliminación de Final CTA redundante y poda de CTAs intermedios).

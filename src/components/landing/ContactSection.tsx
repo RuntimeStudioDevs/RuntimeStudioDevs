@@ -7,7 +7,8 @@ import {
   type ContactFieldContent,
   type ServiceOption,
 } from "@/content/contactContent";
-import { WhatsAppButtonWithConfirmation } from "@/components/shared/WhatsAppButtonWithConfirmation";
+import { SpotlightCard } from "@/components/shared/SpotlightCard";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function ContactSection() {
   return (
@@ -17,9 +18,12 @@ export function ContactSection() {
       className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
-        <ContactHeader content={contactContent} />
-        <ContactFormPanel content={contactContent} />
-        <DirectWhatsAppBlock content={contactContent} />
+        <ScrollReveal>
+          <ContactHeader content={contactContent} />
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <ContactFormPanel content={contactContent} />
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -32,7 +36,11 @@ type HeaderProps = Readonly<{
 function ContactHeader({ content }: HeaderProps) {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {content.eyebrow}
       </p>
       <h2
@@ -93,6 +101,12 @@ function ContactFormPanel({ content }: PanelProps) {
         setGeneralError(content.statusMessages.rateLimitError);
       } else if (response.status === 400 && result.details) {
         setFieldErrors(result.details);
+        // Focus en el primer campo con error de forma accesible
+        const firstErrorKey = Object.keys(result.details)[0];
+        if (firstErrorKey) {
+          const errorElement = form.querySelector<HTMLElement>(`[name="${firstErrorKey}"]`);
+          errorElement?.focus();
+        }
       } else {
         setGeneralError(result.error || content.statusMessages.genericError);
       }
@@ -111,29 +125,30 @@ function ContactFormPanel({ content }: PanelProps) {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="rounded-2xl border border-border/40 bg-card p-6 shadow-sm dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] sm:p-10">
-        {isSuccess ? (
-          <SuccessFeedback content={content} onReset={handleReset} />
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-            {/* Input trampa anti-spam invisible para humanos pero detectable por bots */}
-            <input
-              type="text"
-              name="honeypot"
-              aria-hidden="true"
-              tabIndex={-1}
-              autoComplete="off"
-              className="hidden"
-            />
+      <SpotlightCard className="w-full">
+        <div aria-live="polite" aria-atomic="true">
+          {isSuccess ? (
+            <SuccessFeedback content={content} onReset={handleReset} />
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+              {/* Input trampa anti-spam invisible para humanos pero detectable por bots */}
+              <input
+                type="text"
+                name="honeypot"
+                aria-hidden="true"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+              />
 
-            {generalError && (
-              <div
-                role="alert"
-                className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-600 dark:text-red-400"
-              >
-                {generalError}
-              </div>
-            )}
+              {generalError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-600 dark:text-red-400"
+                >
+                  {generalError}
+                </div>
+              )}
 
             <InputField
               id="contact-name"
@@ -177,7 +192,8 @@ function ContactFormPanel({ content }: PanelProps) {
             <SubmitButton content={content} isSubmitting={isSubmitting} />
           </form>
         )}
-      </div>
+        </div>
+      </SpotlightCard>
     </div>
   );
 }
@@ -409,30 +425,4 @@ function SubmitButton({ content, isSubmitting }: SubmitButtonProps) {
   );
 }
 
-type DirectWhatsAppBlockProps = Readonly<{
-  content: ContactContent;
-}>;
 
-function DirectWhatsAppBlock({ content }: DirectWhatsAppBlockProps) {
-  return (
-    <div className="mx-auto max-w-xl text-center">
-      <div className="rounded-2xl border border-border/40 bg-card/60 p-6 sm:p-8">
-        <h4 className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
-          {content.whatsapp.heading}
-        </h4>
-        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground sm:text-sm">
-          {content.whatsapp.subheading}
-        </p>
-        <div className="mt-4 flex justify-center">
-          <WhatsAppButtonWithConfirmation
-            name=""
-            email=""
-            idea=""
-            phoneNumber={content.whatsapp.phonePlaceholder}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-150 ease-out hover:bg-emerald-500 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-          />
-        </div>
-      </div>
-    </div>
-  );
-}

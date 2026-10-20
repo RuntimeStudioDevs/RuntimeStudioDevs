@@ -4,6 +4,8 @@ import {
   type TeamContent,
   type TeamMember,
 } from "@/content/teamContent";
+import { SpotlightCard } from "@/components/shared/SpotlightCard";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function TeamSection() {
   return (
@@ -24,8 +26,12 @@ function TeamHeader({ content }: Readonly<{ content: TeamContent }>) {
   const parts = content.title.split(content.highlightedPart);
 
   return (
-    <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
-      <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+    <ScrollReveal className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {content.badge}
       </p>
 
@@ -41,15 +47,21 @@ function TeamHeader({ content }: Readonly<{ content: TeamContent }>) {
       <p className="mt-4 text-sm leading-6 text-foreground/70 sm:text-base">
         {content.description}
       </p>
-    </div>
+    </ScrollReveal>
   );
 }
 
 function TeamGrid({ members }: Readonly<{ members: TeamMember[] }>) {
   return (
     <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-      {members.map((member) => (
-        <TeamMemberCard key={member.name} member={member} />
+      {members.map((member, index) => (
+        <ScrollReveal
+          key={member.name}
+          delay={index * 100}
+          className="h-full"
+        >
+          <TeamMemberCard member={member} />
+        </ScrollReveal>
       ))}
     </div>
   );
@@ -57,7 +69,7 @@ function TeamGrid({ members }: Readonly<{ members: TeamMember[] }>) {
 
 function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
   return (
-    <article className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-card p-6 shadow-[0_1px_3px_0_rgb(0_0_0_/_0.04),_0_1px_2px_-1px_rgb(0_0_0_/_0.04)] transition-[transform,box-shadow,border-color] duration-150 ease-out hover:border-primary/40 motion-safe:hover:-translate-y-1.5 hover:shadow-[0_8px_20px_-4px_rgba(0,140,249,0.12),_0_4px_8px_-2px_rgba(0,0,0,0.04)] sm:p-7">
+    <SpotlightCard className="h-full">
       <div className="flex flex-col">
         {/* Avatar header */}
         <div className="flex items-center justify-between">
@@ -138,6 +150,6 @@ function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
           ))}
         </div>
       </div>
-    </article>
+    </SpotlightCard>
   );
 }

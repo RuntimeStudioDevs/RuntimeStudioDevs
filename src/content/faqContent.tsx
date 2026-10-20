@@ -66,27 +66,27 @@ export const faqContent: FaqContent = {
       badge: "Soporte continuo",
     },
     {
-      question: "¿Cómo empiezo?",
+      question: "¿Cómo empiezo a trabajar con ustedes?",
       preview:
-        "Nos compartes tu idea y te proponemos los siguientes pasos con claridad.",
+        "El proceso inicia con el formulario adyacente. Analizamos tus requerimientos técnicos y te respondemos en menos de 24h.",
       answer:
-        "Puedes contactarnos desde el formulario o WhatsApp. Revisamos tu idea y te proponemos los siguientes pasos.",
+        "El proceso inicia directamente completando el formulario de contacto aquí abajo. Analizamos la arquitectura de tu idea o desafío técnico y te proponemos una sesión de diagnóstico sin costo con un ingeniero principal.",
       badge: "Diagnóstico inicial",
     },
     {
-      question: "¿Qué necesito para pedir una cotización?",
+      question: "¿Qué información necesitan para evaluar un proyecto?",
       preview:
-        "Solo necesitamos entender tu objetivo, problema, referencias y tiempos estimados.",
+        "Solo necesitamos entender tu objetivo de negocio, problema técnico actual y tiempos estimados.",
       answer:
-        "Solo necesitas contarnos qué quieres lograr, qué problema quieres resolver y si tienes referencias, funcionalidades o fechas estimadas.",
-      badge: "Sin compromiso",
+        "Solo necesitas describir brevemente qué deseas construir o resolver, tu stack de preferencia o restricciones técnicas, y si cuentas con fechas estimadas de entrega.",
+      badge: "Sin burocracia",
     },
     {
-      question: "¿Cuánto tiempo toma desarrollar un proyecto?",
+      question: "¿Cuánto tiempo toma desarrollar una solución?",
       preview:
-        "Resultados visibles en 2 a 4 semanas, con cronograma desde el día 1.",
+        "Primeros entregables funcionales en 2 a 4 semanas, con cronograma transparente desde el día 1.",
       answer:
-        "Depende del alcance, pero la mayoría de los proyectos tienen un primer entregable funcional en 2 a 4 semanas. Te damos un cronograma estimado durante el diagnóstico gratuito.",
+        "Depende del alcance técnico, pero la mayoría de nuestras implementaciones tienen un primer hito funcional probado en producción entre 2 y 4 semanas. Te entregamos un cronograma auditable desde la sesión inicial.",
       badge: "2-4 semanas",
     },
   ],
