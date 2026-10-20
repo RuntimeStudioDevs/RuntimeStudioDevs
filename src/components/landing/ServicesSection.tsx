@@ -91,6 +91,8 @@ type CardProps = Readonly<{
 
 function ServiceCardFeatured({ service }: CardProps) {
   const Icon = iconMap[service.id];
+  const serviceHref = `${servicesCtaContent.primaryHref}?service=${encodeURIComponent(service.id)}`;
+  const { labels } = servicesSectionContent;
 
   return (
     <SpotlightCard className="h-full border-2 border-primary/80">
@@ -104,7 +106,7 @@ function ServiceCardFeatured({ service }: CardProps) {
           </h3>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             <span className="rounded-full bg-primary/10 px-2 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/20">{service.category}</span>
-            <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/25"><span className="size-1 rounded-full bg-primary" />Destacado</span>
+            <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-[2px] text-[10px] font-semibold text-primary dark:bg-primary/25"><span className="size-1 rounded-full bg-primary" />{labels.featuredBadge}</span>
           </div>
         </div>
       </div>
@@ -127,7 +129,7 @@ function ServiceCardFeatured({ service }: CardProps) {
         </ul>
 
         <p className="mt-3 text-xs font-medium text-primary">
-          Resultado:{" "}
+          {labels.outcomePrefix}{" "}
           <span className="text-muted-foreground">
             {service.outcome}
           </span>
@@ -147,8 +149,8 @@ function ServiceCardFeatured({ service }: CardProps) {
 
       <div className="mt-auto border-t border-border/40 pt-4">
         <a
-          href={servicesCtaContent.primaryHref}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+          href={serviceHref}
+          className="inline-flex items-center gap-1.5 rounded-sm text-xs font-semibold text-primary transition-[transform,color] duration-150 ease-out hover:underline active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {service.microCta}
           <span aria-hidden="true">&rarr;</span>
@@ -160,6 +162,8 @@ function ServiceCardFeatured({ service }: CardProps) {
 
 function ServiceCard({ service }: CardProps) {
   const Icon = iconMap[service.id];
+  const serviceHref = `${servicesCtaContent.primaryHref}?service=${encodeURIComponent(service.id)}`;
+  const { labels } = servicesSectionContent;
 
   return (
     <SpotlightCard className="h-full">
@@ -196,12 +200,12 @@ function ServiceCard({ service }: CardProps) {
 
         {service.deliverables.length > 4 && (
           <p className="mt-1 text-[10px] text-muted-foreground/60">
-            +{service.deliverables.length - 4} entregables m&aacute;s
+            +{service.deliverables.length - 4} {labels.moreDeliverablesSuffix}
           </p>
         )}
 
         <p className="mt-2 text-xs font-medium text-primary">
-          Resultado:{" "}
+          {labels.outcomePrefix}{" "}
           <span className="text-muted-foreground">
             {service.outcome}
           </span>
@@ -221,8 +225,8 @@ function ServiceCard({ service }: CardProps) {
 
       <div className="mt-auto border-t border-border/40 pt-3">
         <a
-          href={servicesCtaContent.primaryHref}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+          href={serviceHref}
+          className="inline-flex items-center gap-1.5 rounded-sm text-xs font-semibold text-primary transition-[transform,color] duration-150 ease-out hover:underline active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {service.microCta}
           <span aria-hidden="true">&rarr;</span>
@@ -262,7 +266,8 @@ function TrustBlock() {
           <p className="mt-3 text-xs font-semibold text-foreground">
             {trustContent.testimonial.author}
             <span className="font-normal text-muted-foreground">
-              , {trustContent.testimonial.role} en{" "}
+              , {trustContent.testimonial.role}{" "}
+              {servicesSectionContent.labels.roleCompanyConnector}{" "}
               {trustContent.testimonial.company}
             </span>
           </p>
@@ -311,7 +316,7 @@ function ServicesSchema() {
       description: s.tagline,
       provider: {
         "@type": "Organization",
-        name: "Runtime Studio Devs",
+        name: servicesSectionContent.providerName,
       },
     })),
   };
@@ -325,4 +330,3 @@ function ServicesSchema() {
     />
   );
 }
-

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { layoutContent } from "@/content/layoutContent";
 
 type ThemeToggleProps = Readonly<{
   className?: string;
@@ -33,8 +34,13 @@ function getServerSnapshot() {
 
 export function ThemeToggle({ className = "" }: ThemeToggleProps) {
   const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const { themeToggle } = layoutContent;
 
   const toggleTheme = () => {
+    const style = document.createElement("style");
+    style.textContent = "*, *::before, *::after { transition: none !important; }";
+    document.head.append(style);
+
     const willBeDark = !document.documentElement.classList.contains("dark");
     if (willBeDark) {
       document.documentElement.classList.add("dark");
@@ -43,16 +49,24 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        style.remove();
+      });
+    });
   };
 
-  const title = isDark ? "Cambiar a tema claro" : "Cambiar a tema oscuro";
+  const title = isDark
+    ? themeToggle.switchToLightTitle
+    : themeToggle.switchToDarkTitle;
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className={`relative inline-flex size-11 items-center justify-center rounded-full border border-border/80 bg-background text-foreground/80 transition-[transform,background-color,border-color,color] duration-150 ease-out hover:border-primary hover:text-primary active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${className}`}
-      aria-label="Alternar tema visual"
+      className={`relative inline-flex size-11 items-center justify-center rounded-full border border-border/80 bg-background text-foreground/80 transition-[transform,background-color,border-color,color] duration-150 ease-out hover:border-primary hover:text-primary motion-safe:active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${className}`}
+      aria-label={themeToggle.toggleAriaLabel}
       title={title}
     >
       {/* Icono Sol (Modo Claro) */}

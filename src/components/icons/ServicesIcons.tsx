@@ -1,4 +1,5 @@
 import React from "react";
+import type { CatalogServiceId } from "@/lib/validations/contactSchema";
 
 function IconPlatforms() {
   return (
@@ -131,11 +132,11 @@ export function FallbackIcon() {
   );
 }
 
-export const iconMap: Record<string, React.FC> = {
-  plataformas: IconPlatforms,
+export const iconMap: Record<CatalogServiceId, React.FC> = {
+  "plataformas-a-medida": IconPlatforms,
   "sitios-web": IconWebsites,
   "aplicaciones-web": IconApps,
   automatizaciones: IconAutomation,
-  ia: IconIA,
-  "apis-backends": IconAPIs,
+  "automatizacion-ia": IconIA,
+  "apis-backend": IconAPIs,
 };

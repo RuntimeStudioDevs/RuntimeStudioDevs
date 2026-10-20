@@ -17,6 +17,11 @@ export type TeamContent = {
   title: string;
   highlightedPart: string;
   description: string;
+  labels: {
+    avatarAltPrefix: string;
+    linkedinAriaPrefix: string;
+    githubAriaPrefix: string;
+  };
   members: TeamMember[];
 };
 
@@ -26,7 +31,13 @@ export const teamContent: TeamContent = {
   highlightedPart: "detrás de cada solución",
   description:
     "Somos un colectivo de 4 desarrolladores de software en Medellín, Colombia. Comunicación directa sin intermediarios, arquitectura auditable y código de alto nivel.",
+  labels: {
+    avatarAltPrefix: "Avatar de",
+    linkedinAriaPrefix: "Ver perfil de LinkedIn de",
+    githubAriaPrefix: "Ver perfil de GitHub de",
+  },
   members: [
+
     {
       name: "David",
       role: "Lead Systems & Architecture",

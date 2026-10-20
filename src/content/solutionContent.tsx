@@ -19,6 +19,10 @@ export type SolutionContent = {
   title: string;
   highlightedPart: string;
   description: string;
+  labels: {
+    targetAudiencePrefix: string;
+    directImpact: string;
+  };
   cases: SolutionCard[];
 };
 
@@ -28,7 +32,12 @@ export const solutionContent: SolutionContent = {
   highlightedPart: "reales",
   description:
     "Aplicamos disciplina de ingeniería en escenarios donde la calidad técnica, el rendimiento y la escalabilidad son indispensables.",
+  labels: {
+    targetAudiencePrefix: "Para:",
+    directImpact: "Impacto directo:",
+  },
   cases: [
+
     {
       tag: "Startups & Nuevos Productos",
       title: "MVPs & Prototipos Técnicos de Alto Nivel",

@@ -79,7 +79,7 @@ function SolutionItem({ item }: Readonly<{ item: SolutionCard }>) {
         </h3>
 
         <p className="mt-2 text-xs font-medium italic text-foreground/60 break-words">
-          Para: {item.targetAudience}
+          {solutionContent.labels.targetAudiencePrefix} {item.targetAudience}
         </p>
 
         <p className="mt-4 text-sm leading-6 text-foreground/70 break-words">
@@ -89,8 +89,9 @@ function SolutionItem({ item }: Readonly<{ item: SolutionCard }>) {
 
       <div className="mt-6 border-t border-border/30 pt-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-foreground/50">
-          Impacto directo:
+          {solutionContent.labels.directImpact}
         </p>
+
         <ul className="mt-2 space-y-1.5 text-xs text-foreground/80">
           {item.benefits.map((benefit) => (
             <li key={benefit} className="flex items-center gap-1.5">
@@ -100,7 +101,7 @@ function SolutionItem({ item }: Readonly<{ item: SolutionCard }>) {
           ))}
         </ul>
 
-        <p className="mt-4 rounded-xl border border-border/30 bg-background p-3 text-xs font-medium text-foreground/70">
+        <p className="mt-4 rounded-lg border border-border/30 bg-background p-3 text-xs font-medium text-foreground/70">
           ✓ {item.proofPoints}
         </p>
       </div>

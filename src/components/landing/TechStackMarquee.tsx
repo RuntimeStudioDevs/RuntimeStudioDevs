@@ -8,7 +8,7 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 export function TechStackMarquee() {
   return (
     <section
-      aria-label="Tecnologías y herramientas dominadas"
+      aria-label={techStackContent.sectionAriaLabel}
       className="relative overflow-hidden bg-background text-foreground py-10 lg:py-14"
     >
       <ScrollReveal>
@@ -64,9 +64,8 @@ function TechCard({
 }>) {
   return (
     <div
-      aria-hidden={ariaHidden}
-      tabIndex={ariaHidden ? -1 : 0}
-      className="group relative flex shrink-0 items-center gap-3.5 rounded-xl border border-border/80 bg-card px-4 py-3 text-card-foreground transition-[transform,opacity,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_8px_20px_rgba(0,140,249,0.08)] dark:border-border/40 dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_1px_3px_0_rgba(0,0,0,0.3)] active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      aria-hidden={ariaHidden || undefined}
+      className="group relative flex shrink-0 items-center gap-3.5 rounded-xl border border-border/80 bg-card px-4 py-3 text-card-foreground transition-[opacity,box-shadow,border-color] motion-safe:transition-[transform,opacity,box-shadow,border-color] duration-150 ease-out motion-safe:hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_8px_20px_rgba(0,140,249,0.08)] dark:border-border/40 dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_1px_3px_0_rgba(0,0,0,0.3)]"
     >
       <div className="flex size-8 shrink-0 items-center justify-center text-foreground/80 transition-colors duration-150 group-hover:text-primary">
         <svg
