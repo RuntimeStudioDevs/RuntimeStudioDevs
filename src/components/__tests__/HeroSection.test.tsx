@@ -31,20 +31,29 @@ describe("HeroSection", () => {
     expect(screen.queryByText("Lanzamiento")).toBeNull();
   });
 
-  it("renders the decorative background watermarks for programming languages and automation with aria-hidden", () => {
+  it("renders the decorative background watermarks with magnetic parallax depth and motion wrappers", () => {
     const { container } = render(<HeroSection />);
 
     const watermarkContainer = screen.getByTestId("hero-watermarks");
     expect(watermarkContainer.getAttribute("aria-hidden")).toBe("true");
+    expect(watermarkContainer.className).toContain("pointer-events-none");
 
     const watermarkNodes = container.querySelectorAll("[data-watermark-icon]");
     expect(watermarkNodes.length).toBe(heroContent.watermarks.length);
+
+    const motionNodes = container.querySelectorAll(
+      '[data-watermark-motion="true"]',
+    );
+    expect(motionNodes.length).toBe(heroContent.watermarks.length);
 
     heroContent.watermarks.forEach((wm) => {
       const iconEl = container.querySelector(
         `[data-watermark-icon="${wm.icon}"]`,
       );
       expect(iconEl).not.toBeNull();
+      expect(iconEl?.getAttribute("data-watermark-depth")).toBe(
+        String(wm.depth),
+      );
     });
   });
 });

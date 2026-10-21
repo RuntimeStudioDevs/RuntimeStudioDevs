@@ -1,10 +1,8 @@
 import {
   heroContent,
   type HeroContent,
-  type HeroWatermarkItem,
-  type HeroWatermarkTone,
 } from "@/content/heroContent";
-import { solutionWatermarkIcons } from "@/components/icons/SolutionIcons";
+import { HeroBackgroundWatermarks } from "@/components/landing/HeroBackgroundWatermarks";
 
 export function HeroSection() {
   return (
@@ -74,43 +72,6 @@ function HeroHeader({ content }: Readonly<{ content: HeroContent }>) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
           </svg>
         </a>
-      </div>
-    </div>
-  );
-}
-
-/* ── Background Watermarks (Automation & Development) ── */
-
-const toneClassMap: Record<HeroWatermarkTone, string> = {
-  blue: "text-primary/[0.08] dark:text-primary/[0.11]",
-  pearl: "text-muted-foreground/[0.09] dark:text-muted-foreground/[0.11]",
-};
-
-function HeroBackgroundWatermarks({
-  items,
-}: Readonly<{
-  items: HeroWatermarkItem[];
-}>) {
-  return (
-    <div
-      aria-hidden="true"
-      data-testid="hero-watermarks"
-      className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
-    >
-      <div className="relative mx-auto h-full max-w-7xl">
-        {items.map((item) => {
-          const IconComponent = solutionWatermarkIcons[item.icon];
-          return (
-            <div
-              key={item.id}
-              data-watermark-icon={item.icon}
-              data-watermark-tone={item.tone}
-              className={`absolute ${toneClassMap[item.tone]} ${item.className}`}
-            >
-              <IconComponent className="size-full" />
-            </div>
-          );
-        })}
       </div>
     </div>
   );
