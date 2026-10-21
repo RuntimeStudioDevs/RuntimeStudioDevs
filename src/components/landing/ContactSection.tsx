@@ -1,14 +1,27 @@
 "use client";
 
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import {
   contactContent,
+  resolveContactServiceOption,
   type ContactContent,
   type ContactFieldContent,
   type ServiceOption,
 } from "@/content/contactContent";
 import { SpotlightCard } from "@/components/shared/SpotlightCard";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
+
+function extractServiceFromHash(hash: string): string | null {
+  if (!hash.startsWith("#contacto")) {
+    return null;
+  }
+  const queryIndex = hash.indexOf("?");
+  if (queryIndex === -1) {
+    return null;
+  }
+  const params = new URLSearchParams(hash.slice(queryIndex + 1));
+  return resolveContactServiceOption(params.get("service"));
+}
 
 export function ContactSection() {
   return (
@@ -65,6 +78,53 @@ function ContactFormPanel({ content }: PanelProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[] | undefined>>({});
+  const [selectedService, setSelectedService] = useState("");
+
+  useEffect(() => {
+    const syncFromLocation = () => {
+      const fromHash = extractServiceFromHash(window.location.hash);
+      if (fromHash) {
+        setSelectedService(fromHash);
+      }
+    };
+
+    const handleDocumentClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const anchor = target?.closest<HTMLAnchorElement>('a[href*="#contacto?service="]');
+      if (!anchor) {
+        return;
+      }
+
+      const rawHref = anchor.getAttribute("href") ?? "";
+      const hashIndex = rawHref.indexOf("#contacto");
+      if (hashIndex === -1) {
+        return;
+      }
+
+      const hashPart = rawHref.slice(hashIndex);
+      const resolvedService = extractServiceFromHash(hashPart);
+      if (resolvedService) {
+        setSelectedService(resolvedService);
+        const contactElement = document.getElementById("contacto");
+        if (contactElement && typeof contactElement.scrollIntoView === "function") {
+          event.preventDefault();
+          window.history.replaceState(null, "", hashPart);
+          contactElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    syncFromLocation();
+    window.addEventListener("hashchange", syncFromLocation);
+    window.addEventListener("popstate", syncFromLocation);
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      window.removeEventListener("hashchange", syncFromLocation);
+      window.removeEventListener("popstate", syncFromLocation);
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
 
   async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -96,6 +156,7 @@ function ContactFormPanel({ content }: PanelProps) {
 
       if (response.ok) {
         setIsSuccess(true);
+        setSelectedService("");
         form.reset();
       } else if (response.status === 429) {
         setGeneralError(content.statusMessages.rateLimitError);
@@ -175,6 +236,8 @@ function ContactFormPanel({ content }: PanelProps) {
               name="service"
               field={content.fields.service}
               options={content.fields.service.options}
+              value={selectedService}
+              onChange={setSelectedService}
               required
               disabled={isSubmitting}
               error={fieldErrors.service?.[0]}
@@ -231,7 +294,7 @@ function SuccessFeedback({ content, onReset }: SuccessFeedbackProps) {
       <button
         type="button"
         onClick={onReset}
-        className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full border border-border/80 bg-background px-6 py-2.5 text-xs font-semibold tracking-wide text-foreground transition-[transform,background-color,border-color] duration-150 ease-out hover:border-primary/40 hover:bg-muted/40 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full border border-border/80 bg-background px-6 py-2.5 text-xs font-semibold tracking-wide text-foreground transition-[transform,background-color,border-color] duration-150 ease-out hover:border-primary/40 hover:bg-muted/40 enabled:active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         {content.statusMessages.sendAnother}
       </button>
@@ -291,6 +354,8 @@ type SelectFieldProps = Readonly<{
   name: string;
   field: ContactFieldContent;
   options: readonly ServiceOption[];
+  value: string;
+  onChange: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
   error?: string;
@@ -301,6 +366,8 @@ function SelectField({
   name,
   field,
   options,
+  value,
+  onChange,
   required,
   disabled,
   error,
@@ -319,7 +386,8 @@ function SelectField({
           name={name}
           required={required}
           disabled={disabled}
-          defaultValue=""
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
           aria-required={required}
           aria-describedby={error ? `${id}-error` : undefined}
           className="w-full appearance-none rounded-xl border border-border/60 bg-background px-4 py-3 pr-10 text-sm text-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-60"
@@ -411,7 +479,7 @@ function SubmitButton({ content, isSubmitting }: SubmitButtonProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 enabled:active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting && (
           <span className="size-4 animate-spin rounded-full border-2 border-white/20 border-t-white" />
@@ -424,5 +492,3 @@ function SubmitButton({ content, isSubmitting }: SubmitButtonProps) {
     </div>
   );
 }
-
-

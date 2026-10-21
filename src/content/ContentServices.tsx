@@ -1,3 +1,5 @@
+import type { CatalogServiceId } from "@/lib/validations/contactSchema";
+
 export type ServiceCategory =
   | "Web"
   | "Aplicaciones"
@@ -23,7 +25,7 @@ export type TrustContent = {
 };
 
 export type Service = {
-  id: string;
+  id: CatalogServiceId;
   name: string;
   tagline: string;
   problem: string;
@@ -36,16 +38,36 @@ export type Service = {
   isFeatured?: boolean;
 };
 
-export const servicesSectionContent = {
+export type ServicesSectionContent = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  providerName: string;
+  labels: {
+    featuredBadge: string;
+    outcomePrefix: string;
+    moreDeliverablesSuffix: string;
+    roleCompanyConnector: string;
+  };
+};
+
+export const servicesSectionContent: ServicesSectionContent = {
   eyebrow: "Servicios",
   title: "Software a medida que paga su costo",
   description:
     "Diseñamos, construimos y operamos productos digitales — desde una web que convierte, hasta plataformas internas, automatizaciones e IA — para empresas y startups que necesitan velocidad sin perder calidad de ingeniería.",
+  providerName: "Runtime Studio Devs",
+  labels: {
+    featuredBadge: "Destacado",
+    outcomePrefix: "Resultado:",
+    moreDeliverablesSuffix: "entregables más",
+    roleCompanyConnector: "en",
+  },
 };
 
 export const services: Service[] = [
   {
-    id: "plataformas",
+    id: "plataformas-a-medida",
     name: "Plataformas & software a medida",
     tagline:
       "Sistemas completos con módulos, roles, integraciones y datos que escalan con tu operación.",
@@ -134,7 +156,7 @@ export const services: Service[] = [
     microCta: "Automatizar mi operación",
   },
   {
-    id: "ia",
+    id: "automatizacion-ia",
     name: "Soluciones con IA",
     tagline:
       "Asistentes, agentes y análisis con IA conectados a tus datos.",
@@ -158,7 +180,7 @@ export const services: Service[] = [
     microCta: "Explorar IA para mi caso",
   },
   {
-    id: "apis-backends",
+    id: "apis-backend",
     name: "APIs, backends y herramientas para developers",
     tagline:
       "Servicios backend, integraciones y servidores MCP para equipos técnicos.",

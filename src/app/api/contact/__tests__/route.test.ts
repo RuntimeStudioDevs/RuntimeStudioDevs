@@ -1,15 +1,29 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { NextRequest } from "next/server";
-import { POST } from "../route";
+import { POST, MAX_BODY_SIZE_BYTES } from "../route";
 import { clearRateLimitStore } from "@/lib/rateLimit";
 
 describe("POST /api/contact", () => {
+  const originalWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+
   beforeEach(() => {
     clearRateLimitStore();
     vi.restoreAllMocks();
+    delete process.env.DISCORD_WEBHOOK_URL;
   });
 
-  function createRequest(body: unknown, headers: Record<string, string> = {}): NextRequest {
+  afterEach(() => {
+    if (originalWebhookUrl === undefined) {
+      delete process.env.DISCORD_WEBHOOK_URL;
+    } else {
+      process.env.DISCORD_WEBHOOK_URL = originalWebhookUrl;
+    }
+  });
+
+  function createRequest(
+    body: unknown,
+    headers: Record<string, string> = {},
+  ): NextRequest {
     return new NextRequest("http://localhost:3000/api/contact", {
       method: "POST",
       headers: {
@@ -17,7 +31,7 @@ describe("POST /api/contact", () => {
         "x-forwarded-for": "192.168.1.100",
         ...headers,
       },
-      body: JSON.stringify(body),
+      body: typeof body === "string" ? body : JSON.stringify(body),
     });
   }
 
@@ -36,6 +50,31 @@ describe("POST /api/contact", () => {
     const data = await res.json();
     expect(data.success).toBe(true);
     expect(res.headers.get("Cache-Control")).toContain("no-store");
+  });
+
+  it("retorna HTTP 415 si el header content-type no es application/json", async () => {
+    const req = createRequest(
+      { name: "Juan" },
+      { "content-type": "text/plain" },
+    );
+    const res = await POST(req);
+
+    expect(res.status).toBe(415);
+    const data = await res.json();
+    expect(data.error).toContain("Content-Type");
+  });
+
+  it("retorna HTTP 413 si el tamaño del body excede MAX_BODY_SIZE_BYTES", async () => {
+    const oversizedMessage = "a".repeat(MAX_BODY_SIZE_BYTES + 100);
+    const req = createRequest({
+      name: "Juan Perez",
+      email: "juan@empresa.com",
+      service: "sitios-web",
+      message: oversizedMessage,
+    });
+
+    const res = await POST(req);
+    expect(res.status).toBe(413);
   });
 
   it("retorna HTTP 400 si el email es inválido", async () => {
@@ -104,7 +143,6 @@ describe("POST /api/contact", () => {
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.success).toBe(true);
-    // El bot no debe haber disparado el despacho de notificación
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
@@ -117,14 +155,12 @@ describe("POST /api/contact", () => {
       message: "Requerimos arquitectura backend con escalabilidad cloud.",
     };
 
-    // Realizar 5 peticiones exitosas (límite máximo permitido)
     for (let i = 0; i < 5; i++) {
       const req = createRequest(payload, { "x-forwarded-for": ip });
       const res = await POST(req);
       expect(res.status).toBe(200);
     }
 
-    // La 6ta petición debe ser bloqueada por rate limit
     const blockedReq = createRequest(payload, { "x-forwarded-for": ip });
     const blockedRes = await POST(blockedReq);
 
@@ -132,5 +168,69 @@ describe("POST /api/contact", () => {
     expect(blockedRes.headers.get("Retry-After")).toBeDefined();
     const data = await blockedRes.json();
     expect(data.error).toContain("límite");
+  });
+
+  it("prioriza x-vercel-forwarded-for sobre x-forwarded-for para mitigar IP spoofing", async () => {
+    const realVercelIp = "198.51.100.77";
+    const payload = {
+      name: "Carlos Lopez",
+      email: "carlos@empresa.com",
+      service: "apis-backend",
+      message: "Requerimos arquitectura backend con escalabilidad cloud.",
+    };
+
+    for (let i = 0; i < 5; i++) {
+      const req = createRequest(payload, {
+        "x-vercel-forwarded-for": realVercelIp,
+        "x-forwarded-for": `10.0.0.${i}`,
+      });
+      const res = await POST(req);
+      expect(res.status).toBe(200);
+    }
+
+    // Aunque falsifique x-forwarded-for, x-vercel-forwarded-for mantiene su identidad real
+    const spoofedReq = createRequest(payload, {
+      "x-vercel-forwarded-for": realVercelIp,
+      "x-forwarded-for": "10.0.0.250",
+    });
+    const blockedRes = await POST(spoofedReq);
+    expect(blockedRes.status).toBe(429);
+  });
+
+  it("sanitiza backticks triples y caracteres de control, añade allowed_mentions vacías y registra warning si el webhook falla", async () => {
+    process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
+
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(new Response(null, { status: 502 }));
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const payload = {
+      name: "Juan\u0000 ```Admin```",
+      email: "juan@empresa.com",
+      service: "automatizaciones",
+      message: "Hola @everyone ```script malicioso```\u0007 necesito cotización.",
+    };
+
+    const req = createRequest(payload);
+    const res = await POST(req);
+
+    expect(res.status).toBe(200);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+    const [, fetchInit] = fetchSpy.mock.calls[0];
+    expect(fetchInit?.signal).toBeDefined();
+
+    const sentDiscordBody = JSON.parse(fetchInit?.body as string);
+    expect(sentDiscordBody.allowed_mentions).toEqual({ parse: [] });
+
+    const fields = sentDiscordBody.embeds[0].fields;
+    expect(fields[0].value).toBe("Juan '''Admin'''");
+    expect(fields[3].value).toBe(
+      ">>> Hola @everyone '''script malicioso''' necesito cotización.",
+    );
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("HTTP 502"),
+    );
   });
 });

@@ -77,7 +77,7 @@ function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
             {member.avatarUrl ? (
               <Image
                 src={member.avatarUrl}
-                alt={`Avatar de ${member.name}`}
+                alt={`${teamContent.labels.avatarAltPrefix} ${member.name}`}
                 width={96}
                 height={96}
                 loading="lazy"
@@ -96,7 +96,7 @@ function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
                 href={member.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Ver perfil de LinkedIn de ${member.name}`}
+                aria-label={`${teamContent.labels.linkedinAriaPrefix} ${member.name}`}
                 className="flex size-9 items-center justify-center rounded-full border border-border/40 text-foreground/60 transition-[transform,background-color,border-color,color] duration-150 ease-out hover:border-primary hover:bg-primary/5 hover:text-primary active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <svg className="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -109,7 +109,7 @@ function TeamMemberCard({ member }: Readonly<{ member: TeamMember }>) {
               href={member.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Ver perfil de GitHub de ${member.name}`}
+              aria-label={`${teamContent.labels.githubAriaPrefix} ${member.name}`}
               className="flex size-9 items-center justify-center rounded-full border border-border/40 text-foreground/60 transition-[transform,background-color,border-color,color] duration-150 ease-out hover:border-primary hover:bg-primary/5 hover:text-primary active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <svg className="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">

@@ -1,15 +1,37 @@
 import { z } from "zod";
 
-export const SERVICE_OPTIONS = [
+export const CATALOG_SERVICE_IDS = [
   "plataformas-a-medida",
   "sitios-web",
   "aplicaciones-web",
+  "automatizaciones",
   "automatizacion-ia",
   "apis-backend",
+] as const;
+
+export type CatalogServiceId = (typeof CATALOG_SERVICE_IDS)[number];
+
+export const SERVICE_OPTIONS = [
+  ...CATALOG_SERVICE_IDS,
   "otro",
 ] as const;
 
 export type ServiceType = (typeof SERVICE_OPTIONS)[number];
+
+export const SERVICE_ID_TO_OPTION_MAP: Readonly<
+  Record<string, ServiceType>
+> = {
+  plataformas: "plataformas-a-medida",
+  "plataformas-a-medida": "plataformas-a-medida",
+  "sitios-web": "sitios-web",
+  "aplicaciones-web": "aplicaciones-web",
+  automatizaciones: "automatizaciones",
+  ia: "automatizacion-ia",
+  "automatizacion-ia": "automatizacion-ia",
+  "apis-backends": "apis-backend",
+  "apis-backend": "apis-backend",
+  otro: "otro",
+};
 
 export const contactSchema = z.object({
   name: z

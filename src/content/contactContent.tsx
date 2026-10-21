@@ -1,5 +1,13 @@
+import {
+  SERVICE_ID_TO_OPTION_MAP,
+  type ServiceType,
+} from "@/lib/validations/contactSchema";
+
+export const DEFAULT_WHATSAPP_PHONE = "573194312060";
+
 export const whatsappContactConfig = {
-  phoneNumber: process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "",
+  phoneNumber:
+    process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.trim() || DEFAULT_WHATSAPP_PHONE,
   greeting: "Hola,",
 };
 
@@ -9,8 +17,17 @@ export type ContactFieldContent = {
 };
 
 export type ServiceOption = {
-  value: string;
+  value: ServiceType;
   label: string;
+};
+
+export type WhatsAppConfirmationModalContent = {
+  title: string;
+  description: string;
+  secondaryDescription: string;
+  continueLabel: string;
+  scheduleCallLabel: string;
+  keepExploringLabel: string;
 };
 
 export type ContactContent = {
@@ -38,6 +55,8 @@ export type ContactContent = {
     heading: string;
     subheading: string;
     buttonLabel: string;
+    buttonAriaLabel: string;
+    confirmationModal: WhatsAppConfirmationModalContent;
   };
 };
 
@@ -45,10 +64,20 @@ export const contactServiceOptions: readonly ServiceOption[] = [
   { value: "plataformas-a-medida", label: "Plataformas a la medida" },
   { value: "sitios-web", label: "Sitios web y Landings de alto rendimiento" },
   { value: "aplicaciones-web", label: "Aplicaciones web y SaaS" },
+  { value: "automatizaciones", label: "Automatizaciones e integraciones" },
   { value: "automatizacion-ia", label: "Automatización & Soluciones con IA" },
   { value: "apis-backend", label: "APIs, Backend & Arquitectura Cloud" },
   { value: "otro", label: "Otro requerimiento / Consultoría" },
 ] as const;
+
+export function resolveContactServiceOption(
+  rawService: string | null | undefined,
+): ServiceType | null {
+  if (!rawService) {
+    return null;
+  }
+  return SERVICE_ID_TO_OPTION_MAP[rawService.trim().toLowerCase()] ?? null;
+}
 
 export const contactContent: ContactContent = {
   eyebrow: "Contacto",
@@ -94,5 +123,17 @@ export const contactContent: ContactContent = {
     subheading:
       "Inicia una conversación directa por WhatsApp con uno de nuestros ingenieros principales.",
     buttonLabel: "Hablar por WhatsApp",
+    buttonAriaLabel:
+      "Abrir WhatsApp para iniciar una conversación sobre tu proyecto",
+    confirmationModal: {
+      title: "Gracias por dar este primer paso",
+      description:
+        "Gracias por escribirnos por WhatsApp. Tomaste una gran decisión y nos alegra empezar a conocer tu proyecto.",
+      secondaryDescription:
+        "Mientras hablamos contigo, puedes seguir explorando RuntimeStudioDevs.",
+      continueLabel: "Continuar por WhatsApp",
+      scheduleCallLabel: "Agendar llamada",
+      keepExploringLabel: "Seguir explorando",
+    },
   },
 };

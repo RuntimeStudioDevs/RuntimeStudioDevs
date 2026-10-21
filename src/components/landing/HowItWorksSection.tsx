@@ -92,8 +92,9 @@ function HowItWorksCard({ step }: Readonly<{ step: HowItWorksStep }>) {
 
       <div className="mt-6 border-t border-border/30 pt-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-foreground/50">
-          Entregables:
+          {howItWorksContent.deliverablesLabel}
         </p>
+
         <ul className="mt-2 space-y-1.5 text-xs text-foreground/80">
           {step.deliverables.map((item) => (
             <li key={item} className="flex items-center gap-1.5">

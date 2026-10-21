@@ -9,15 +9,18 @@ export type TechItem = {
 };
 
 export type TechStackContent = {
+  sectionAriaLabel: string;
   badge: string;
   title: string;
   technologies: TechItem[];
 };
 
 export const techStackContent: TechStackContent = {
+  sectionAriaLabel: "Tecnologías y herramientas dominadas",
   badge: "Stack Tecnológico Oficial",
   title: "Herramientas de ingeniería y estándares modernos de alto rendimiento",
   technologies: [
+
     {
       name: "Next.js",
       category: "core",
