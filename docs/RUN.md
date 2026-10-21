@@ -67,7 +67,20 @@ npm run start   # Servir build de produccion
 
 ## Comandos de testing
 
-PENDING: No se detectaron scripts de testing en `package.json`. No existen dependencias de testing (jest, vitest, playwright, testing-library) en el proyecto.
+```bash
+npm test        # Ejecuta la suite de pruebas unitarias con Vitest
+```
+
+El proyecto utiliza Vitest y React Testing Library con cobertura completa sobre componentes de landing, utilidades compartidas y endpoints de API.
+
+## Revision asistida por IA en Pull Requests (Qodo / PR-Agent)
+
+El repositorio cuenta con la integracion de **Qodo** (PR-Agent). Al abrir un Pull Request, el bot genera un analisis automatico. Tambien puedes interactuar mediante los siguientes comandos en los comentarios del PR:
+
+- `/review` — Realiza un analisis exhaustivo de seguridad, rendimiento y posibles bugs logicos.
+- `/improve` — Sugiere bloques de codigo listos para aplicar con el boton "Commit suggestion".
+- `/describe` — Genera automaticamente el titulo, resumen y walkthrough de los archivos modificados.
+- `/ask <pregunta>` — Responde preguntas en lenguaje natural sobre las implicaciones del diff.
 
 ## Problemas frecuentes
 
@@ -79,11 +92,6 @@ Ejecutar `npm install` para instalar las dependencias.
 
 Ejecutar `npm run build` para verificar la compilacion completa. El proyecto usa `strict: true` en `tsconfig.json`.
 
-## Notas pendientes
-
-- PENDING: Scripts de testing (no existen).
-- PENDING: Configuracion de despliegue (no detectada).
-
 ## Ultima actualizacion
 
-2026-06-11 — Actualizacion: version de Node.js, variables de entorno.
+2026-10-21 — Actualizacion: suite de pruebas Vitest y flujo de revision con Qodo (PR-Agent).
