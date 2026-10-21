@@ -15,6 +15,10 @@ export type HeroWatermarkItem = {
   icon: HeroWatermarkIconId;
   tone: HeroWatermarkTone;
   className: string;
+  depth: number;
+  floatSpeed: number;
+  floatAmplitude: number;
+  phase: number;
 };
 
 export type CtaContent = {
@@ -48,6 +52,10 @@ export const heroContent: HeroContent = {
       tone: "blue",
       className:
         "left-[3%] top-[10%] size-11 -rotate-12 sm:left-[6%] sm:size-13 lg:left-[9%] lg:size-16",
+      depth: 0.45,
+      floatSpeed: 1.1,
+      floatAmplitude: 9,
+      phase: 0.2,
     },
     {
       id: "wm-gear-left",
@@ -55,6 +63,10 @@ export const heroContent: HeroContent = {
       tone: "pearl",
       className:
         "left-[10%] top-[36%] size-9 rotate-12 sm:left-[14%] sm:size-11 lg:left-[18%] lg:size-13",
+      depth: 0.25,
+      floatSpeed: 0.85,
+      floatAmplitude: 7,
+      phase: 1.4,
     },
     {
       id: "wm-html-tags",
@@ -62,6 +74,10 @@ export const heroContent: HeroContent = {
       tone: "blue",
       className:
         "left-[4%] bottom-[24%] size-10 rotate-6 sm:left-[7%] sm:size-12 lg:left-[11%] lg:size-14",
+      depth: 0.55,
+      floatSpeed: 1.25,
+      floatAmplitude: 10,
+      phase: 2.6,
     },
     {
       id: "wm-nodes-left",
@@ -69,6 +85,10 @@ export const heroContent: HeroContent = {
       tone: "pearl",
       className:
         "left-[12%] bottom-[8%] size-10 -rotate-6 sm:left-[16%] sm:size-12 lg:left-[20%] lg:size-14",
+      depth: 0.35,
+      floatSpeed: 0.95,
+      floatAmplitude: 8,
+      phase: 3.8,
     },
     {
       id: "wm-react",
@@ -76,6 +96,10 @@ export const heroContent: HeroContent = {
       tone: "blue",
       className:
         "right-[3%] top-[12%] size-11 rotate-12 sm:right-[6%] sm:size-13 lg:right-[9%] lg:size-16",
+      depth: 0.5,
+      floatSpeed: 1.15,
+      floatAmplitude: 9,
+      phase: 0.9,
     },
     {
       id: "wm-data-flow",
@@ -83,6 +107,10 @@ export const heroContent: HeroContent = {
       tone: "pearl",
       className:
         "right-[10%] top-[38%] size-9 -rotate-6 sm:right-[14%] sm:size-11 lg:right-[18%] lg:size-13",
+      depth: 0.2,
+      floatSpeed: 0.8,
+      floatAmplitude: 6,
+      phase: 2.1,
     },
     {
       id: "wm-javascript",
@@ -90,6 +118,10 @@ export const heroContent: HeroContent = {
       tone: "pearl",
       className:
         "right-[4%] bottom-[26%] size-10 -rotate-12 sm:right-[7%] sm:size-12 lg:right-[11%] lg:size-14",
+      depth: 0.6,
+      floatSpeed: 1.3,
+      floatAmplitude: 10,
+      phase: 3.3,
     },
     {
       id: "wm-workflow-right",
@@ -97,6 +129,10 @@ export const heroContent: HeroContent = {
       tone: "blue",
       className:
         "right-[12%] bottom-[9%] size-10 rotate-6 sm:right-[16%] sm:size-12 lg:right-[20%] lg:size-14",
+      depth: 0.3,
+      floatSpeed: 1.0,
+      floatAmplitude: 8,
+      phase: 4.5,
     },
   ],
 };
