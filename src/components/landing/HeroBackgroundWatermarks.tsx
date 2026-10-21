@@ -8,8 +8,8 @@ import type {
 import { solutionWatermarkIcons } from "@/components/icons/SolutionIcons";
 
 const toneClassMap: Record<HeroWatermarkTone, string> = {
-  blue: "text-primary/[0.08] dark:text-primary/[0.11]",
-  pearl: "text-muted-foreground/[0.09] dark:text-muted-foreground/[0.11]",
+  blue: "text-primary/24 dark:text-primary/28",
+  pearl: "text-muted-foreground/24 dark:text-muted-foreground/28",
 };
 
 const MAX_PARALLAX_OFFSET_PX = 36;
