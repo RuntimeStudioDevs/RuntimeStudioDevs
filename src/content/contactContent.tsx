@@ -3,14 +3,6 @@ import {
   type ServiceType,
 } from "@/lib/validations/contactSchema";
 
-export const DEFAULT_WHATSAPP_PHONE = "573194312060";
-
-export const whatsappContactConfig = {
-  phoneNumber:
-    process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.trim() || DEFAULT_WHATSAPP_PHONE,
-  greeting: "Hola,",
-};
-
 export type ContactFieldContent = {
   label: string;
   placeholder: string;
@@ -19,15 +11,6 @@ export type ContactFieldContent = {
 export type ServiceOption = {
   value: ServiceType;
   label: string;
-};
-
-export type WhatsAppConfirmationModalContent = {
-  title: string;
-  description: string;
-  secondaryDescription: string;
-  continueLabel: string;
-  scheduleCallLabel: string;
-  keepExploringLabel: string;
 };
 
 export type ContactContent = {
@@ -47,16 +30,9 @@ export type ContactContent = {
     successTitle: string;
     successDescription: string;
     sendAnother: string;
+    closeModalLabel: string;
     genericError: string;
     rateLimitError: string;
-  };
-  whatsapp: {
-    phonePlaceholder: string;
-    heading: string;
-    subheading: string;
-    buttonLabel: string;
-    buttonAriaLabel: string;
-    confirmationModal: WhatsAppConfirmationModalContent;
   };
 };
 
@@ -112,28 +88,10 @@ export const contactContent: ContactContent = {
     successDescription:
       "Gracias por escribirnos. Nuestro equipo de ingeniería ya está revisando tu proyecto y te responderá en menos de 24 horas hábiles.",
     sendAnother: "Enviar otro mensaje",
+    closeModalLabel: "Entendido, cerrar",
     genericError:
-      "Ocurrió un error al procesar tu solicitud. Por favor, intenta de nuevo o contáctanos directamente vía WhatsApp.",
+      "Ocurrió un error al procesar tu solicitud. Por favor, intenta de nuevo en unos momentos.",
     rateLimitError:
       "Has superado el límite de envíos permitidos temporalmente. Por favor, espera unos minutos antes de intentar de nuevo.",
-  },
-  whatsapp: {
-    phonePlaceholder: whatsappContactConfig.phoneNumber,
-    heading: "¿Prefieres comunicación directa e instantánea?",
-    subheading:
-      "Inicia una conversación directa por WhatsApp con uno de nuestros ingenieros principales.",
-    buttonLabel: "Hablar por WhatsApp",
-    buttonAriaLabel:
-      "Abrir WhatsApp para iniciar una conversación sobre tu proyecto",
-    confirmationModal: {
-      title: "Gracias por dar este primer paso",
-      description:
-        "Gracias por escribirnos por WhatsApp. Tomaste una gran decisión y nos alegra empezar a conocer tu proyecto.",
-      secondaryDescription:
-        "Mientras hablamos contigo, puedes seguir explorando RuntimeStudioDevs.",
-      continueLabel: "Continuar por WhatsApp",
-      scheduleCallLabel: "Agendar llamada",
-      keepExploringLabel: "Seguir explorando",
-    },
   },
 };
