@@ -119,6 +119,7 @@ html {
   background: var(--background);
   scroll-behavior: smooth;
   scroll-padding-top: 72px;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -132,6 +133,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
+  overflow-x: clip;
 }
 
 a {

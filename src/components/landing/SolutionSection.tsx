@@ -52,12 +52,12 @@ function SolutionHeader({ content }: Readonly<{ content: SolutionContent }>) {
 
 function SolutionGrid({ cases }: Readonly<{ cases: SolutionCard[] }>) {
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
       {cases.map((solutionItem, index) => (
         <ScrollReveal
           key={solutionItem.title}
           delay={index * 100}
-          className="h-full"
+          className={`h-full ${index === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}
         >
           <SolutionItem item={solutionItem} />
         </ScrollReveal>
