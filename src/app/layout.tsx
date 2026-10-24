@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { layoutContent } from "@/content/layoutContent";
-import { getSiteEnvConfig } from "@/lib/env";
 
 import "./globals.css";
 
@@ -16,16 +15,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const { siteUrl, siteTitle, isProduction } = getSiteEnvConfig();
+const siteUrl = "https://runtimestudiodevs.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: siteTitle,
+  title: "Runtime Studio Devs | Colectivo de Ingeniería y Desarrollo de Software",
   description:
     "Desarrollo de software a la medida, aplicaciones web de alto rendimiento, modernización y soluciones con IA. Ingeniería rigurosa y código auditable.",
-  robots: isProduction
-    ? { index: true, follow: true }
-    : { index: false, follow: false },
   keywords: [
     "Desarrollo de software",
     "Next.js",
@@ -41,14 +37,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CO",
     url: siteUrl,
-    title: siteTitle,
+    title: "Runtime Studio Devs | Colectivo de Ingeniería de Software",
     description:
       "Convertimos ideas en productos digitales reales con arquitectura limpia, tipado estricto y alto rendimiento.",
     siteName: "Runtime Studio Devs",
   },
   twitter: {
     card: "summary_large_image",
-    title: siteTitle,
+    title: "Runtime Studio Devs | Desarrollo de Software",
     description: "Ingeniería predecible, software a medida y Core Web Vitals en verde.",
   },
 };

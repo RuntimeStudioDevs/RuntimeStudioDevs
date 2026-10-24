@@ -18,7 +18,7 @@ export function Navbar() {
           aria-label={navbar.logoAriaLabel}
           className="justify-self-start"
         >
-          <LogoNegroRuntimeStudioDevs className="text-2xl" />
+          <LogoNegroRuntimeStudioDevs className="text-xl sm:text-2xl" />
         </a>
 
         {/* CENTER: Desktop nav */}

@@ -10,6 +10,7 @@ import {
 } from "@/content/contactContent";
 import { SpotlightCard } from "@/components/shared/SpotlightCard";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { Modal } from "@/components/shared/Modal";
 
 function extractServiceFromHash(hash: string): string | null {
   if (!hash.startsWith("#contacto")) {
@@ -75,7 +76,7 @@ type PanelProps = Readonly<{
 
 function ContactFormPanel({ content }: PanelProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[] | undefined>>({});
   const [selectedService, setSelectedService] = useState("");
@@ -155,7 +156,7 @@ function ContactFormPanel({ content }: PanelProps) {
       const result = await response.json();
 
       if (response.ok) {
-        setIsSuccess(true);
+        setShowSuccessModal(true);
         setSelectedService("");
         form.reset();
       } else if (response.status === 429) {
@@ -178,126 +179,114 @@ function ContactFormPanel({ content }: PanelProps) {
     }
   }
 
-  function handleReset() {
-    setIsSuccess(false);
-    setGeneralError(null);
-    setFieldErrors({});
-  }
-
   return (
     <div className="mx-auto max-w-2xl">
       <SpotlightCard className="w-full">
-        <div aria-live="polite" aria-atomic="true">
-          {isSuccess ? (
-            <SuccessFeedback content={content} onReset={handleReset} />
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-              {/* Input trampa anti-spam invisible para humanos pero detectable por bots */}
-              <input
-                type="text"
-                name="honeypot"
-                aria-hidden="true"
-                tabIndex={-1}
-                autoComplete="off"
-                className="hidden"
-              />
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+          {/* Input trampa anti-spam invisible para humanos pero detectable por bots */}
+          <input
+            type="text"
+            name="honeypot"
+            aria-hidden="true"
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+          />
 
-              {generalError && (
-                <div
-                  role="alert"
-                  className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-600 dark:text-red-400"
-                >
-                  {generalError}
-                </div>
-              )}
+          {generalError && (
+            <div
+              role="alert"
+              className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-600 dark:text-red-400"
+            >
+              {generalError}
+            </div>
+          )}
 
-            <InputField
-              id="contact-name"
-              name="name"
-              type="text"
-              field={content.fields.name}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.name?.[0]}
-            />
+          <InputField
+            id="contact-name"
+            name="name"
+            type="text"
+            field={content.fields.name}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.name?.[0]}
+          />
 
-            <InputField
-              id="contact-email"
-              name="email"
-              type="email"
-              field={content.fields.email}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.email?.[0]}
-            />
+          <InputField
+            id="contact-email"
+            name="email"
+            type="email"
+            field={content.fields.email}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.email?.[0]}
+          />
 
-            <SelectField
-              id="contact-service"
-              name="service"
-              field={content.fields.service}
-              options={content.fields.service.options}
-              value={selectedService}
-              onChange={setSelectedService}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.service?.[0]}
-            />
+          <SelectField
+            id="contact-service"
+            name="service"
+            field={content.fields.service}
+            options={content.fields.service.options}
+            value={selectedService}
+            onChange={setSelectedService}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.service?.[0]}
+          />
 
-            <TextareaField
-              id="contact-message"
-              name="message"
-              field={content.fields.message}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.message?.[0]}
-            />
+          <TextareaField
+            id="contact-message"
+            name="message"
+            field={content.fields.message}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.message?.[0]}
+          />
 
-            <SubmitButton content={content} isSubmitting={isSubmitting} />
-          </form>
-        )}
-        </div>
+          <SubmitButton content={content} isSubmitting={isSubmitting} />
+        </form>
       </SpotlightCard>
-    </div>
-  );
-}
 
-type SuccessFeedbackProps = Readonly<{
-  content: ContactContent;
-  onReset: () => void;
-}>;
-
-function SuccessFeedback({ content, onReset }: SuccessFeedbackProps) {
-  return (
-    <div className="flex flex-col items-center py-6 text-center">
-      <div className="flex size-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 dark:bg-emerald-500/20">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="size-7"
-          aria-hidden="true"
-        >
-          <path d="M20 6L9 17l-5-5" />
-        </svg>
-      </div>
-
-      <h3 className="mt-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-        {content.statusMessages.successTitle}
-      </h3>
-      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-        {content.statusMessages.successDescription}
-      </p>
-
-      <button
-        type="button"
-        onClick={onReset}
-        className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full border border-border/80 bg-background px-6 py-2.5 text-xs font-semibold tracking-wide text-foreground transition-[transform,background-color,border-color] duration-150 ease-out hover:border-primary/40 hover:bg-muted/40 enabled:active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      {/* Popup / Modal de feedback inmediato al enviar mensaje */}
+      <Modal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title={content.statusMessages.successTitle}
+        showTitle={false}
+        className="max-w-md"
       >
-        {content.statusMessages.sendAnother}
-      </button>
+        <div className="flex flex-col items-center py-2 text-center sm:py-4">
+          <div className="flex size-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 ring-8 ring-emerald-500/5 dark:bg-emerald-500/20 dark:ring-emerald-500/10">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-8"
+              aria-hidden="true"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
+
+          <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            {content.statusMessages.successTitle}
+          </h3>
+          <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {content.statusMessages.successDescription}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setShowSuccessModal(false)}
+            className="mt-6 inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-primary px-8 py-2.5 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 enabled:active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:w-auto"
+          >
+            {content.statusMessages.closeModalLabel}
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -479,14 +468,14 @@ function SubmitButton({ content, isSubmitting }: SubmitButtonProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 enabled:active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-[44px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 enabled:active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting && (
           <span className="size-4 animate-spin rounded-full border-2 border-white/20 border-t-white" />
         )}
         <span>{isSubmitting ? content.submittingLabel : content.submitLabel}</span>
       </button>
-      <p className="text-[11px] text-muted-foreground/60">
+      <p className="text-center text-[11px] text-muted-foreground/60">
         {content.trustText}
       </p>
     </div>

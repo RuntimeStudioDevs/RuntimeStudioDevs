@@ -1,54 +1,29 @@
-# Desarrollo Frontend
+# Guía de Desarrollo Frontend
 
-## Alias de Imports
+## Reglas Arquitectónicas Clave
 
-El proyecto usa el alias `@/*` apuntando a `./src/*`.
+1. **Alias de Imports:** Usar siempre `@/*` apuntando a `./src/*` (ej. `import { Navbar } from "@/components/layout/Navbar"`).
+2. **Separación de Contenido (Regla 1):** Nunca quemar textos en los componentes de `src/components/`. Crear o actualizar primero el archivo tipado en `src/content/`.
+3. **Server Components por Defecto (Regla 2):** No agregar `"use client"` a menos que el componente utilice hooks interactivos (`useState`, `useEffect`, `useRef`).
+4. **Inmutabilidad de Props (Regla 6):** Declarar las props de entrada de los componentes React usando `Readonly<T>` o propiedades `readonly`.
 
-Ejemplo:
+## Cómo Agregar o Modificar una Sección
 
-```tsx
-import { Navbar } from "@/components/layout/Navbar";
-```
+1. Modelar los tipos e información en `src/content/<seccion>Content.ts(x)`.
+2. Crear o actualizar el componente en `src/components/landing/<Seccion>Section.tsx` asegurando un `<section id="...">` semántico y accesible.
+3. Si es una sección nueva, importarla y ubicarla en `src/app/page.tsx`.
+4. Crear o actualizar su prueba unitaria en `src/components/__tests__/<Seccion>Section.test.tsx`.
 
-Esto evita imports relativos largos como:
+## Protocolo de Validación Obligatorio
 
-```tsx
-import { Navbar } from "../../components/layout/Navbar";
-```
-
-## Cómo Agregar una Nueva Sección
-
-Para agregar una nueva sección en la estructura actual:
-
-1. Crear un archivo en `src/components/landing`.
-2. Crear dentro del componente una etiqueta `<section>` con su `id`.
-3. Agregar las clases base para delimitarla visualmente.
-4. Exportar la función del componente.
-5. Importarla en `src/app/page.tsx`.
-6. Ubicarla en el orden deseado dentro del `<main>`.
-
-Ver `components.md` para patrones reales de componentes existentes.
-
-## Cómo Editar una Sección Existente
-
-Para trabajar una sección específica:
-
-1. Abrir su archivo dentro de `src/components/landing`.
-2. Mantener el `id` si ya se está usando para navegación interna.
-3. Reemplazar el contenido interno del `<section>`.
-4. Ajustar las clases del `<section>` según el diseño de esa sección.
-5. Evitar modificar `page.tsx` si solo cambia el contenido interno de la sección.
-
-## Comandos de Validación
-
-Antes de considerar terminado un cambio de frontend, ejecutar:
+Antes de realizar cualquier commit o abrir un Pull Request, los siguientes 3 comandos deben ejecutarse y pasar sin errores:
 
 ```bash
-npm run lint
+npm run lint     # Verifica reglas de ESLint y Next.js
+npm test         # Ejecuta la suite de pruebas unitarias e integración con Vitest
+npm run build    # Compila para producción y valida TypeScript en modo estricto
 ```
 
-Para validar compilación de producción:
+## Última actualización
 
-```bash
-npm run build
-```
+2026-10-23 — Inclusión de reglas de inmutabilidad, testing con Vitest y protocolo de verificación.

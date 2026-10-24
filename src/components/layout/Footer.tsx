@@ -9,8 +9,8 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-footer-bg text-runtime-white">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="grid gap-10 py-16 text-center lg:grid-cols-4 lg:gap-8 lg:text-left">
-          <section className="lg:col-span-2">
+        <div className="grid gap-10 py-16 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-4 lg:gap-8">
+          <section className="sm:col-span-2 lg:col-span-2">
             <a
               href={footer.homeHref}
               aria-label={footer.logoAriaLabel}

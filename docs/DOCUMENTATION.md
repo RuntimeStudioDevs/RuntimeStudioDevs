@@ -21,6 +21,7 @@ El código es la fuente de verdad del proyecto. La documentación debe reflejar 
 ├── docs/
 │   ├── README.md
 │   ├── DOCUMENTATION.md
+│   ├── ROADMAP.md
 │   ├── RUN.md
 │   │
 │   ├── frontend/
@@ -35,13 +36,9 @@ El código es la fuente de verdad del proyecto. La documentación debe reflejar 
 │
 └── .agents/
     └── skills/
-        ├── documentation/
+        ├── better-ui/
         │   └── SKILL.md
-        ├── frontend/
-        │   └── SKILL.md
-        ├── backend/
-        │   └── SKILL.md
-        └── skill-governance/
+        └── pull-request/
             └── SKILL.md
 ```
 
@@ -137,9 +134,7 @@ Guías de desarrollo, convenciones, procedimientos y comandos de validación.
 
 ### docs/backend/
 
-Contiene la documentación relacionada con el backend del proyecto.
-
-Actualmente se encuentra reservado para futuras implementaciones y documentación técnica.
+Contiene la documentación de la capa serverless (`POST /api/contact`), esquemas de validación Zod, rate limiting por IP e integración con Webhook de Discord.
 
 ---
 
@@ -236,4 +231,4 @@ Se recomienda revisar la documentación cuando se completen funcionalidades impo
 
 ## Última actualización
 
-2026-06-12 — Última actualización.
+2026-10-23 — Sincronización con estructura actual de docs y `.agents/skills`.
