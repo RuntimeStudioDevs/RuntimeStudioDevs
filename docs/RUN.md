@@ -24,7 +24,11 @@ Centraliza la informacion necesaria para instalar, ejecutar y desarrollar el pro
 
 ## Variables de entorno
 
-En este momento el proyecto no requiere variables de entorno. No existe archivo `.env` ni configuracion de entorno definida para la ejecucion local. Si en el futuro se agregan, deben documentarse en esta seccion.
+El proyecto puede levantarse en local sin variables de entorno obligatorias. Para habilitar el despacho de leads del formulario de contacto (`POST /api/contact`) hacia Discord, configura en tu archivo `.env` (basado en `.env.example`):
+
+| Variable | Alcance | Descripcion |
+|---|---|---|
+| `DISCORD_WEBHOOK_URL` | Server-only (Opcional en local) | URL del Webhook de Discord para recibir notificaciones de leads del formulario de contacto. |
 
 ## Instalacion
 

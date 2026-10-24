@@ -1,212 +1,144 @@
 # Arquitectura Frontend
 
-El proyecto usa Next.js con App Router dentro de `src/app`. La pagina actual es una single page compuesta por secciones independientes. Cada seccion se delimita directamente en su propio archivo usando una etiqueta `<section>`.
+El proyecto utiliza **Next.js 16 (App Router)** y **React 19** dentro de `src/`. La aplicación es una landing page B2B de alto rendimiento compuesta por secciones modulares y un endpoint serverless para la recepción de leads (`POST /api/contact`).
 
 ## Estructura Actual
 
 ```txt
 src/
 |- app/
+|  |- api/
+|  |  |- contact/
+|  |     |- __tests__/route.test.ts
+|  |     |- route.ts
 |  |- favicon.ico
 |  |- globals.css
+|  |- icon.png
+|  |- icon.svg
 |  |- layout.tsx
 |  |- page.tsx
 |
 |- components/
+|  |- __tests__/
+|  |  |- FAQSection.test.tsx
+|  |  |- HeroSection.test.tsx
+|  |  |- HowItWorksSection.test.tsx
+|  |  |- MobileMenu.test.tsx
+|  |  |- Modal.test.tsx
+|  |  |- ScrollReveal.test.tsx
+|  |  |- ServicesContactFlow.test.tsx
+|  |  |- SolutionSection.test.tsx
+|  |  |- SpotlightCard.test.tsx
+|  |  |- TeamSection.test.tsx
+|  |  |- TechStackMarquee.test.tsx
+|  |  |- ThemeToggle.test.tsx
+|  |
 |  |- brand/
 |  |  |- Logo_Blanco-RuntimeStudioDevs.tsx
 |  |  |- Logo_Negro-RuntimeStudioDevs.tsx
 |  |
+|  |- icons/
+|  |  |- ProblemIcons.tsx
+|  |  |- ServicesIcons.tsx
+|  |  |- SolutionIcons.tsx
+|  |
 |  |- landing/
-|  |  |- BenefitsSection.tsx
 |  |  |- ContactSection.tsx
 |  |  |- FAQSection.tsx
-|  |  |- FinalCTASection.tsx
+|  |  |- HeroBackgroundWatermarks.tsx
 |  |  |- HeroSection.tsx
 |  |  |- HowItWorksSection.tsx
 |  |  |- ProblemSection.tsx
 |  |  |- ServicesSection.tsx
 |  |  |- SolutionSection.tsx
-|  |  |- UseCasesSection.tsx
+|  |  |- TeamSection.tsx
+|  |  |- TechStackMarquee.tsx
 |  |
 |  |- layout/
 |  |  |- Footer.tsx
-|  |  |- Navbar.tsx
 |  |  |- MobileMenu.tsx
+|  |  |- Navbar.tsx
 |  |
 |  |- shared/
 |     |- Modal.tsx
-|     |- WhatsAppButton.tsx
-|     |- WhatsAppButtonWithConfirmation.tsx
+|     |- ScrollReveal.tsx
+|     |- SpotlightCard.tsx
+|     |- ThemeToggle.tsx
 |
 |- content/
-   |- benefitsContent.tsx
-   |- contactContent.tsx
-   |- ContentServices.tsx
-   |- faqContent.tsx
-   |- heroContent.tsx
-   |- solutionContent.tsx
+|  |- contactContent.tsx
+|  |- ContentServices.tsx
+|  |- faqContent.tsx
+|  |- heroContent.tsx
+|  |- howItWorksContent.ts
+|  |- layoutContent.ts
+|  |- problemContent.tsx
+|  |- solutionContent.tsx
+|  |- teamContent.ts
+|  |- techStackContent.ts
+|
+|- lib/
+   |- __tests__/rateLimit.test.ts
+   |- rateLimit.ts
+   |- validations/contactSchema.ts
 ```
 
 ## `src/app`
 
-Carpeta principal de Next.js para el App Router.
-
 ### `src/app/layout.tsx`
 
-Define el layout raiz de la aplicacion.
+Define el `RootLayout` de la aplicación:
 
-Responsabilidades actuales:
-
-- Configura el idioma del documento como `es`.
-- Importa los estilos globales desde `./globals.css`.
-- Define metadata basica del sitio.
-- Renderiza el contenido recibido mediante `children`.
-
-Uso recomendado:
-
-- Mantener aqui configuraciones globales del documento.
-- No colocar secciones de la landing aqui.
-- No colocar contenido especifico de una pagina aqui.
-- No cargar fuentes desde este archivo mientras la fuente base este controlada desde `globals.css`.
+- Configura el idioma del documento (`lang="es"`) y `scroll-smooth`.
+- Carga las fuentes `Geist` (`--font-geist-sans`) y `Geist_Mono` (`--font-geist-mono`) mediante `next/font/google`.
+- Inyecta el script síncrono de inicialización de tema (`themeScript`) para evitar parpadeos de hidratación (*FOUC*) en modo oscuro.
+- Define el objeto `metadata` oficial con `metadataBase` (`https://runtimestudiodevs.com`), Open Graph, Twitter Cards y datos estructurados Schema.org (`Organization` JSON-LD).
+- Renderiza el enlace de accesibilidad *Skip to content* (`#main-content`) consumiendo `layoutContent`.
 
 ### `src/app/page.tsx`
 
-Es la pagina principal `/`.
-
-Responsabilidades actuales:
-
-- Importa el `Navbar`.
-- Importa todas las secciones de la landing.
-- Importa el `Footer`.
-- Ensambla la pagina en el orden comercial definido.
-
-Orden actual de renderizado:
+Ensambla la página principal `/` en el orden estratégico del embudo B2B:
 
 ```txt
 Navbar
-Hero
-Seccion Problema
-Seccion Solucion
-Seccion Servicios
-Seccion Como Funciona
-Seccion Beneficios
-Seccion Casos de Uso
-Seccion FAQ
-Seccion Formulario de Contacto
-Seccion CTA Final
+<main id="main-content">
+  1. HeroSection (#inicio)
+  2. TechStackMarquee
+  3. ProblemSection (#problema)
+  4. SolutionSection (#solucion)
+  5. HowItWorksSection (#como-funciona)
+  6. ServicesSection (#servicios)
+  7. TeamSection (#equipo)
+  8. FAQSection (#faq)
+  9. ContactSection (#contacto)
+</main>
 Footer
 ```
 
-Uso recomendado:
-
-- Usar este archivo solo para ordenar y ensamblar secciones.
-- Evitar escribir aqui el contenido interno de cada seccion.
-- Si se agrega, elimina o reordena una seccion, hacerlo desde este archivo.
-
 ### `src/app/globals.css`
 
-Archivo de estilos globales.
+Archivo de estilos globales y configuración de **Tailwind CSS v4** (`@import "tailwindcss"`):
 
-Responsabilidades actuales:
-
-- Importa Tailwind CSS.
-- Define los colores de marca y los tokens semanticos globales.
-- Define la fuente base global.
-- Configura el tema inline de Tailwind.
-- Aplica `box-sizing: border-box` global.
-- Define estilos base para `html`, `body` y `a`.
-
-Uso recomendado:
-
-- Usar este archivo para estilos base realmente globales.
-- Usar este archivo para cambiar colores globales de la landing.
-- Usar este archivo para cambiar la fuente base global.
-- Evitar estilos especificos de una seccion aqui.
-- Los estilos propios de cada seccion deben vivir en su componente correspondiente.
-
-### `src/app/favicon.ico`
-
-Icono del sitio usado por Next.js.
+- Declara la variante `@custom-variant dark (&:where(.dark, .dark *))`.
+- Define las variables CSS semánticas en `:root` (Light Mode) y `.dark` (Dark Mode): `--background`, `--foreground`, `--primary`, `--border`, `--card`, `--card-foreground`, `--muted`, `--muted-foreground`, `--shadow-border` y `--shadow-border-hover`.
+- Expone todos los tokens a Tailwind mediante `@theme inline`.
+- Declara las animaciones `@keyframes marquee` y `.mask-marquee` con soporte para `prefers-reduced-motion: reduce`.
 
 ## `src/content`
 
-Carpeta de datos tipados para cada seccion de la landing.
+Cumple la **Regla 1 de AGENTS.md** (Separación Absoluta de Contenido y Presentación). Ningún componente en `src/components/` contiene texto quemado en JSX; todo proviene de estos 10 módulos tipados:
 
-Contiene 6 archivos con tipos y objetos de contenido:
+- `layoutContent.ts` — Textos de accesibilidad, enlaces de navegación, `Navbar`, `MobileMenu`, `Footer`, `ThemeToggle` y `Modal`.
+- `heroContent.tsx` — Título, descripción, CTAs y configuración de marcas de agua técnicas del Hero (`HERO_WATERMARK_ITEMS`).
+- `techStackContent.ts` — Lista tipada de tecnologías e íconos del carrusel infinito.
+- `problemContent.tsx` — Tarjetas de dolores frecuentes del cliente e íconos asociados.
+- `solutionContent.tsx` — Pilares de solución y casos de estudio técnicos (*Desafío / Solución / Resultado*).
+- `howItWorksContent.ts` — Los 4 pasos del proceso de ingeniería predecible.
+- `ContentServices.tsx` — Catálogo de servicios, entregables, resultados esperados y etiquetas de interfaz.
+- `teamContent.ts` — Perfiles del equipo fundador, roles, especialidades y enlaces profesionales (GitHub / LinkedIn).
+- `faqContent.tsx` — Preguntas frecuentes del acordeón y conector directo hacia `#contacto`.
+- `contactContent.tsx` — Textos, etiquetas, placeholders, opciones de servicio y mensajes de estado del formulario de contacto.
 
-- `heroContent.tsx` — Tipos `HeroContent`, `CtaContent` y datos del Hero
-- `solutionContent.tsx` — Tipos `SolutionContent`, `SolutionProcessStep` y datos de Solucion
-- `ContentServices.tsx` — Tipos `Service`, `ServiceCategory`, servicios, pasos de proceso y CTAs
-- `benefitsContent.tsx` — Tipos `Benefit`, beneficios y CTA de beneficios
-- `faqContent.tsx` — Tipos `FaqItem` y datos del FAQ
-- `contactContent.tsx` — Tipos `ContactContent`, configuracion de WhatsApp y datos del formulario
+## Última actualización
 
-Uso recomendado:
-
-- Mantener aqui los datos de contenido separados de los componentes de presentacion.
-- Cada archivo debe exportar sus tipos y el objeto de datos correspondiente.
-- No colocar logica de renderizado ni componentes en esta carpeta.
-
-## `public`
-
-Carpeta publica de Next.js.
-
-Los archivos dentro de `public` se pueden servir desde la raiz del sitio.
-
-Ejemplo:
-
-```txt
-public/images/hero/example.png
-```
-
-Se referencia como:
-
-```txt
-/images/hero/example.png
-```
-
-### `public/icons`
-
-Carpeta para iconos publicos.
-
-Estado actual:
-
-- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
-- No hay iconos usados actualmente.
-
-### `public/images/brand`
-
-Carpeta para imagenes de marca.
-
-Estado actual:
-
-- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
-- No hay imagenes usadas actualmente.
-
-### `public/images/hero`
-
-Carpeta para imagenes relacionadas con la seccion Hero.
-
-Estado actual:
-
-- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
-- No hay imagenes usadas actualmente.
-
-### `public/images/services`
-
-Carpeta para imagenes relacionadas con servicios.
-
-Estado actual:
-
-- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
-- No hay imagenes usadas actualmente.
-
-### `public/images/use-cases`
-
-Carpeta para imagenes relacionadas con casos de uso.
-
-Estado actual:
-
-- Sin archivos (`.gitkeep` eliminado en reestructuracion documental).
-- No hay imagenes usadas actualmente.
+2026-10-23 — Actualización integral de árbol de archivos, módulos de contenido y flujo de secciones.

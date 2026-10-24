@@ -1,329 +1,75 @@
-# Componentes
+# Catálogo de Componentes
 
 ## `src/components/brand`
 
-Contiene componentes reutilizables de marca.
+Componentes vectoriales tipográficos de identidad de marca:
 
-### `src/components/brand/Logo_Negro-RuntimeStudioDevs.tsx`
+- **`LogoNegroRuntimeStudioDevs`** (`Logo_Negro-RuntimeStudioDevs.tsx`): Adapta automáticamente el color de `"Runtime"` a `text-runtime-black` (oscuro en Light Mode, claro en Dark Mode), `"Studio"` en `text-studio-blue` y `"Devs"` en `text-devs-silver`.
+- **`LogoBlancoRuntimeStudioDevs`** (`Logo_Blanco-RuntimeStudioDevs.tsx`): Variante con `"Runtime"` fijo en blanco para fondos permanentemente oscuros como el `Footer`.
 
-Componente de logo para usar sobre fondo blanco o claro.
-
-Nombre exportado:
-
-```tsx
-LogoNegroRuntimeStudioDevs
-```
-
-Uso:
-
-```tsx
-import { LogoNegroRuntimeStudioDevs } from "@/components/brand/Logo_Negro-RuntimeStudioDevs";
-
-export function Example() {
-  return <LogoNegroRuntimeStudioDevs />;
-}
-```
-
-Colores actuales:
-
-- `Runtime`: negro, `text-runtime-black`, en bold.
-- `Studio`: azul, `text-studio-blue`, normal.
-- `Devs`: plata, `text-devs-silver`, normal.
-
-Reglas actuales:
-
-- Usar este logo cuando el fondo sea blanco o claro.
-- No usar este logo sobre fondo negro si `Runtime` pierde contraste.
-
-### `src/components/brand/Logo_Blanco-RuntimeStudioDevs.tsx`
-
-Componente de logo para usar sobre fondo negro u oscuro.
-
-Nombre exportado:
-
-```tsx
-LogoBlancoRuntimeStudioDevs
-```
-
-Uso:
-
-```tsx
-import { LogoBlancoRuntimeStudioDevs } from "@/components/brand/Logo_Blanco-RuntimeStudioDevs";
-
-export function Example() {
-  return <LogoBlancoRuntimeStudioDevs />;
-}
-```
-
-Colores actuales:
-
-- `Runtime`: blanco, `text-runtime-white`, en bold.
-- `Studio`: azul, `text-studio-blue`, normal.
-- `Devs`: plata, `text-devs-silver`, normal.
-
-Reglas actuales:
-
-- Usar este logo cuando el fondo sea negro u oscuro.
-- No usar este logo sobre fondo blanco porque `Runtime` no tendria contraste.
-
-### Estilo Actual Del Logo
-
-Ambos componentes usan la misma base visual:
-
-```tsx
-className="inline-flex items-center justify-center font-logo text-3xl leading-[0.55] tracking-[-0.1em]"
-```
-
-Equivalencias actuales con la referencia de Canva:
-
-- Fuente: `Clear Sans Media` mediante `font-logo`.
-- Interletrado: `tracking-[-0.1em]`, equivalente aproximado a `-100`.
-- Interlineado: `leading-[0.55]`, equivalente a `0.55`.
-- Alineacion de caja: `inline-flex items-center justify-center`.
-- `Runtime`: `font-bold`.
-- `Studio` y `Devs`: `font-normal`.
-
-Ambos componentes aceptan `className` para ajustar tamano o espaciado desde el lugar donde se usen.
-
-Ejemplo:
-
-```tsx
-<LogoNegroRuntimeStudioDevs className="text-4xl" />
-```
-
-Nota sobre nombres:
-
-- Los archivos conservan los nombres solicitados con guion: `Logo_Negro-RuntimeStudioDevs.tsx` y `Logo_Blanco-RuntimeStudioDevs.tsx`.
-- Los exports usan nombres validos de React/TypeScript en PascalCase: `LogoNegroRuntimeStudioDevs` y `LogoBlancoRuntimeStudioDevs`.
+---
 
 ## `src/components/layout`
 
-Componentes de estructura general que envuelven la pagina.
+### `Navbar.tsx` (Server Component)
+- Barra superior fija (`sticky top-0 z-50`) con efecto *glassmorphism* (`backdrop-blur-md`).
+- Renderiza logo, enlaces de navegación desde `layoutContent.navbar`, `ThemeToggle`, CTA hacia `#contacto` y `MobileMenu`.
 
-### `src/components/layout/Navbar.tsx`
+### `MobileMenu.tsx` (`"use client"`)
+- Menú desplegable para dispositivos móviles con control de estado `isOpen`, bloqueo de scroll en `<body>`, cierre con tecla `Escape` y retorno automático de foco al botón disparador.
 
-Barra de navegacion superior sticky.
+### `Footer.tsx` (Server Component)
+- Pie de página corporativo sobre fondo oscuro (`bg-footer-bg`) con navegación de servicios (`services` de `ContentServices`), enlace directo al formulario técnico (`#contacto`), ubicación y repositorio oficial en GitHub.
 
-Estado actual:
-
-- Implementado completamente.
-- Incluye logo (`LogoNegroRuntimeStudioDevs`) + 7 enlaces de navegacion con hover animado.
-- Selector de idioma visual (ES/EN) — no funcional, sin i18n real.
-- CTA "Contactanos" estilo boton azul.
-- Hamburguesa animada que abre `MobileMenu` en mobile.
-- Clases: `sticky top-0 z-50`, glass-morphism con `backdrop-blur`.
-
-Uso recomendado:
-
-- Mantener aqui todo lo relacionado con la barra de navegacion.
-- No mezclar contenido de secciones de la landing dentro del Navbar.
-
-### `src/components/layout/MobileMenu.tsx`
-
-Menu movil animado tipo Apple.
-
-Estado actual:
-
-- Implementado completamente.
-- Hamburguesa animada (3 lineas → X) con `useState`.
-- Overlay slide-down con links escalonados.
-- Selector de idioma visual (no funcional).
-- Scroll lock en `<body>` cuando esta abierto (`useEffect`).
-- CTA "Contactanos".
-
-### `src/components/layout/Footer.tsx`
-
-Pie de pagina.
-
-Estado actual:
-
-- Implementado con logo blanco, links de servicios, navegacion y CTA de WhatsApp.
-- Contiene 3 TODOs pendientes:
-  - Redes sociales: muestra "Pendiente por definir".
-  - Links legales: muestra "Links legales pendientes por definir".
-  - Selector de idioma: visual unicamente, sin i18n real.
-- Consume `services` de `@/content/ContentServices` para los links de servicios.
-- Consume `whatsappContactConfig` de `@/content/contactContent` para el CTA.
-
-Uso recomendado:
-
-- Mantener aqui el contenido propio del footer.
+---
 
 ## `src/components/landing`
 
-Contiene las secciones principales de la landing page.
+### `HeroSection.tsx` (Server Component) & `HeroBackgroundWatermarks.tsx` (`"use client"`)
+- **`HeroSection`** (`#inicio`): Composición centrada de alto impacto con título `H1`, propuesta de valor y CTA principal.
+- **`HeroBackgroundWatermarks`**: Capa decorativa (`aria-hidden="true"`) con íconos técnicos (Python, React, Next.js, TypeScript, Base de Datos, Automatización, Nodos) que combinan flotación orgánica CSS con **parallax magnético** reactivo al puntero acelerado por GPU (`requestAnimationFrame`).
 
-### Estructura de secciones
+### `TechStackMarquee.tsx` (Server Component)
+- Carrusel horizontal continuo de tecnologías (`animate-marquee` + `mask-marquee`) con pausa automática en hover y soporte para `prefers-reduced-motion`.
 
-Cada archivo representa una seccion independiente con su propio `<section>` e `id`. Las secciones implementadas usan datos de `src/content/`. Las secciones stub usan la estructura base placeholder.
+### `ProblemSection.tsx` (Server Component)
+- Sección `#problema` con tarjetas envueltas en `SpotlightCard` y `ScrollReveal`, ilustrando los 4 riesgos principales al contratar desarrollo de software.
 
-Estructura base de una seccion stub:
+### `SolutionSection.tsx` (Server Component)
+- Sección `#solucion` que presenta los pilares de ingeniería de Runtime Studio Devs y casos de estudio con estructura verificable (*Desafío → Solución → Resultado*).
 
-```tsx
-export function ExampleSection() {
-  return (
-    <section
-      id="ejemplo"
-      className="flex min-h-screen items-center justify-center border border-border bg-background"
-    >
-      <h2 className="text-center text-3xl font-semibold text-foreground">
-        Seccion Ejemplo
-      </h2>
-    </section>
-  );
-}
-```
+### `HowItWorksSection.tsx` (Server Component)
+- Sección `#como-funciona` que expone la metodología de trabajo en 4 fases numeradas con conectores visuales y microinteracciones.
 
-### `HeroSection.tsx`
+### `ServicesSection.tsx` (`"use client"`)
+- Sección `#servicios` con grid de servicios técnicos, modal accesible (`Modal`) para inspeccionar entregables en detalle y botón de conversión que preselecciona automáticamente el servicio en `#contact-service` y desplaza suavemente hacia `#contacto`.
 
-Seccion inicial de la landing.
+### `TeamSection.tsx` (Server Component)
+- Sección `#equipo` que presenta a los 4 ingenieros fundadores, su rol arquitectónico, avatares optimizados con `next/image`, insignias de especialización y enlaces verificables a GitHub y LinkedIn.
 
-Estado actual: **IMPLEMENTADO**
+### `FAQSection.tsx` (`"use client"`)
+- Sección `#faq` con acordeón interactivo accesible (`aria-expanded`, `aria-controls`, transiciones `grid-rows`) y enlace conector en la última pregunta hacia el formulario de contacto.
 
-- `id="inicio"`, Server Component puro.
-- Composición centrada de una sola columna: título H1 con highlight (`productos digitales`), párrafo descriptivo de ancho controlado y CTA (`Saber más`) desde `@/content/heroContent`.
-- Fondo limpio con íconos minimalistas tipo marca de agua (`aria-hidden="true"`) en los márgenes izquierdo y derecho alusivos a lenguajes de programación (Python, JavaScript, React, etiquetas HTML) y automatización (engranajes, nodos de conexión, flujos de datos, workflows) desde `@/components/icons/SolutionIcons`.
+### `ContactSection.tsx` (`"use client"`)
+- Sección `#contacto` y único canal de conversión B2B.
+- Gestiona validación por campo, manejo automático de foco hacia el primer campo con error, regiones `aria-live` para lectores de pantalla, trampa pasiva *honeypot* y envío asíncrono a `POST /api/contact`.
 
-### `ProblemSection.tsx`
-
-Sección del problema.
-
-Estado actual: **IMPLEMENTADO**
-
-- `id="problema"`.
-- Badge, título con highlight y descripción desde `@/content/problemContent`.
-- Grid de 4 tarjetas de problema, cada una con icono SVG inline único.
-- Datos desde `@/content/problemContent`.
-
-### `SolutionSection.tsx`
-
-Seccion para la solucion (anteriormente Casos de Uso).
-
-Estado actual: **IMPLEMENTADO**
-
-- `id="solucion"`, Server Component puro.
-- Header con badge (`Nuestra Solución`), título H2 (`Soluciones reales para necesidades concretas`) y descripción desde `@/content/solutionContent`.
-- Grid de 3 tarjetas de soluciones verificables (MVPs & Prototipos Técnicos, Modernización Web & Core Web Vitals, Software Interno & Integraciones de API) con audiencia objetivo, impacto directo y puntos de prueba.
-
-### `ServicesSection.tsx`
-
-Seccion de servicios.
-
-Estado actual: **IMPLEMENTADO**
-
-- `id="servicios"`, usa `"use client"` con `useState` para `activeCategory`.
-- 6 servicios con filtro por categoria (Web, Aplicaciones, Automatizacion & IA, Plataformas).
-- Grid responsivo con tarjeta destacada (featured) + tarjetas regulares.
-- Cada tarjeta: nombre, tagline, problema, entregables, outcome, publico ideal, CTA.
-- Seccion de proceso (4 pasos).
-- Seccion de confianza (logos, testimonial, metrica — actualmente vacios).
-- CTA final con microcopy.
-- Schema JSON-LD estructurado para SEO.
-- Datos desde `@/content/ContentServices`.
-
-### `HowItWorksSection.tsx`
-
-Seccion de como funciona.
-
-Estado actual: **STUB**
-
-- `id="como-funciona"`.
-- Solo muestra texto placeholder "Seccion Como Funciona".
-- Sin contenido real ni datos externos.
-
-### `BenefitsSection.tsx`
-
-Seccion de beneficios.
-
-Estado actual: **IMPLEMENTADO**
-
-- `id="beneficios"`, usa `"use client"`.
-- Header con eyebrow, titulo y descripcion desde `@/content/benefitsContent`.
-- Grid de 8 tarjetas de beneficios, cada una con icono SVG inline unico.
-- CTA final desde `benefitsCtaContent`.
-
-### `UseCasesSection.tsx`
-
-Seccion de casos de uso.
-
-Estado actual: **STUB**
-
-- `id="casos-de-uso"`.
-- Solo muestra texto placeholder "Seccion Casos de Uso".
-- Sin contenido real ni datos externos.
-
-### `FAQSection.tsx`
-
-Seccion de preguntas frecuentes.
-
-Estado actual: **IMPLEMENTADO**
-
-- `id="faq"`, usa `"use client"` con `useState` para `activeIndex`.
-- Header con eyebrow, titulo y subtitulo desde `@/content/faqContent`.
-- Acordeon interactivo con 8 items (solo uno abierto a la vez).
-- Cada item: pregunta, preview, respuesta expandible, badge opcional.
-- Indicador +/- animado.
-- Accesibilidad: `aria-expanded`, `aria-controls`, `aria-labelledby`.
-- CTA final con meta texto.
-
-### `ContactSection.tsx`
-
-Seccion del formulario de contacto.
-
-Estado actual: **IMPLEMENTADO**
-
-- `id="contacto"`, usa `"use client"` con `useState` para `formSubmitted`.
-- Header con eyebrow, titulo y subtitulo desde `@/content/contactContent`.
-- Formulario con campos: nombre, correo, mensaje.
-- Al enviar: oculta formulario, muestra `WhatsAppButtonWithConfirmation`.
-- Texto de confianza debajo del formulario.
-
-### `FinalCTASection.tsx`
-
-Seccion de llamado a la accion final.
-
-Estado actual: **STUB**
-
-- `id="cta-final"`.
-- Solo muestra texto placeholder "Seccion CTA Final".
-- Sin contenido real ni datos externos.
+---
 
 ## `src/components/shared`
 
-Componentes reutilizables compartidos entre secciones.
+### `Modal.tsx` (`"use client"`)
+- Diálogo modal accesible (`role="dialog"`, `aria-modal="true"`) con *focus trap* completo (`Tab` / `Shift + Tab`), restauración del foco previo al cerrar, cierre con `Escape` y `overscroll-contain`.
 
-### `src/components/shared/WhatsAppButton.tsx`
+### `SpotlightCard.tsx` (`"use client"`)
+- Contenedor interactivo con iluminación radial que sigue el cursor mediante variables CSS (`--mouse-x`, `--mouse-y`) sin provocar re-renders de React.
 
-Boton de WhatsApp reutilizable.
+### `ScrollReveal.tsx` (`"use client"`)
+- Wrapper de animación de entrada progresiva basado en `IntersectionObserver` con retardo configurable y respeto estricto a `prefers-reduced-motion`.
 
-Estado actual: **IMPLEMENTADO**
+### `ThemeToggle.tsx` (`"use client"`)
+- Conmutador accesible de tema Claro / Oscuro sincronizado con `document.documentElement.classList` y `localStorage`.
 
-- Construye deep link `https://wa.me/...` con mensaje predefinido.
-- Dos variantes: `secondary` (boton normal) y `floating` (boton flotante fixed).
-- Icono SVG de WhatsApp inline.
-- Numero y mensaje desde `@/content/contactContent`.
+## Última actualización
 
-### `src/components/shared/WhatsAppButtonWithConfirmation.tsx`
-
-Wrapper de WhatsAppButton con modal de confirmacion.
-
-Estado actual: **IMPLEMENTADO**
-
-- Usa `"use client"` con `useState` para `showModal`.
-- Envuelve `WhatsAppButton` + `Modal`.
-- Modal de agradecimiento con 3 opciones: "Continuar por WhatsApp", "Agendar llamada" (opcional), "Seguir explorando".
-- Props: `initialOpen`, `hideButton`, `hideWhatsAppAction`, `onClose`.
-
-### `src/components/shared/Modal.tsx`
-
-Dialogo modal accesible.
-
-Estado actual: **IMPLEMENTADO**
-
-- Usa `"use client"` con `useEffect`, `useRef`, `useId`.
-- Backdrop click-to-close.
-- Cierre con tecla Escape.
-- Focus trap: auto-foco en primer elemento focusable.
-- Scroll lock en `<body>`.
-- Boton de cierre opcional.
-- Renderizado via portal (`createPortal` no usado; render inline con posicion fixed).
+2026-10-23 — Catálogo actualizado con todos los componentes activos y eliminación de referencias legacy (WhatsApp, stubs antiguos).

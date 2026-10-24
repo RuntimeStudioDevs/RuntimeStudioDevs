@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) and compatible AI coding assistants when working with code in this repository.
 
 @AGENTS.md
 
@@ -8,50 +8,45 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev      # Start dev server with Turbopack at http://localhost:3000
-npm run build    # Production build
+npm run build    # Production build and strict TypeScript check
 npm run start    # Serve production build
 npm run lint     # ESLint validation
+npm test         # Run Vitest unit & integration test suite
 ```
-
-No test framework is configured.
 
 ## Architecture
 
-This is a **Next.js 15 App Router** single-page landing site for a software agency. All navigation is anchor-based (`#section-id`); there are no additional routes.
+This is a **Next.js 16 App Router** + **React 19** single-page B2B landing application for **Runtime Studio Devs**, backed by a serverless contact endpoint (`POST /api/contact`).
 
-### Content / Presentation separation
+### Content / Presentation Separation (Rule 1)
 
-Data lives in `src/content/` as typed objects (e.g. `heroContent.ts`, `faqContent.ts`). Components in `src/components/landing/` import and render that data. When adding or editing a section, update the content file first, then the component.
+All text, titles, descriptions, and accessibility labels live in `src/content/` as strictly typed objects (`heroContent.tsx`, `problemContent.tsx`, `solutionContent.tsx`, `howItWorksContent.ts`, `ContentServices.tsx`, `teamContent.ts`, `faqContent.tsx`, `contactContent.tsx`, `techStackContent.ts`, `layoutContent.ts`). Components under `src/components/` import and render that data without hardcoded strings.
 
-### Server vs. Client Components
+### Server vs. Client Components (Rule 2)
 
-All components default to **Server Components**. Add `"use client"` only when the component needs `useState`/`useEffect` (filtering, accordion, form state, modals, mobile menu). The current `"use client"` components are: `ServicesSection`, `BenefitsSection`, `FAQSection`, `ContactSection`, `MobileMenu`, `WhatsAppButtonWithConfirmation`, `Modal`.
+All components default to **Server Components**. Add `"use client"` only when a component requires React state, lifecycle hooks, or browser event listeners:
+- `HeroBackgroundWatermarks` (pointer parallax)
+- `ServicesSection` (service detail modal & contact preselection)
+- `FAQSection` (accordion state)
+- `ContactSection` (form state, validation, and submission to `/api/contact`)
+- `MobileMenu` (drawer state, focus management, scroll lock)
+- `Modal` (dialog focus trap, Escape key, scroll lock)
+- `ThemeToggle` (Light/Dark theme persistence)
+- `SpotlightCard` & `ScrollReveal` (GPU spotlight & IntersectionObserver animations)
 
-### Design system
+### Design System
 
-Tokens are defined in `src/app/globals.css` via CSS custom properties and exposed to Tailwind v4 through `@theme inline`. **Use semantic Tailwind classes** (`bg-background`, `text-foreground`, `text-primary`, `border-border`) instead of raw Hex values. No `tailwind.config.*` file exists — all customisation lives in `globals.css`.
+Tokens are defined in `src/app/globals.css` via CSS custom properties (supporting both `:root` Light Mode and `.dark` Dark Mode) and exposed to Tailwind v4 through `@theme inline`. Use semantic Tailwind classes (`bg-background`, `text-foreground`, `text-primary`, `bg-card`, `border-border`, `text-muted-foreground`) instead of raw Hex values. Typography uses `Geist` (`--font-geist-sans`) and `Geist_Mono` (`--font-geist-mono`) via `next/font/google`.
 
-Key brand tokens:
-- `--color-studio-blue` → `#008cf9` → `text-primary` / `bg-primary`
-- `--color-devs-silver` → `#c0c0bf` → `border-border`
-- `--font-runtime-sans` → "Clear Sans" (system fallback Arial/Helvetica)
+### Contact & Serverless API
 
-### Import alias
-
-Use `@/` for all imports from `src/` (e.g. `@/components/landing/HeroSection`, `@/content/heroContent`).
-
-### Section anatomy
-
-Each landing section is a full-height `<section id="...">`. The home page (`src/app/page.tsx`) assembles them in order. Placeholder sections (Problem, HowItWorks, UseCases, FinalCTA) need content files created in `src/content/` and real markup replacing the stub.
-
-### Logo components
-
-`src/components/brand/` exports two React components — `LogoNegroRuntimeStudioDevs` (dark backgrounds) and `LogoBlancoRuntimeStudioDevs` (light backgrounds). They render the logo as styled `<span>` elements, not images.
-
-### Contact / WhatsApp
-
-The contact form in `ContactSection` shows a success state on submit but does **not** send email. The real contact path is WhatsApp deep links configured in `src/content/contactContent.tsx` (phone number and message template).
+The contact form in `ContactSection` submits JSON payloads to `POST /api/contact` (`src/app/api/contact/route.ts`), which enforces:
+1. IP-based rate limiting (`src/lib/rateLimit.ts`)
+2. Payload size & `Content-Type` guards
+3. Strict Zod validation (`src/lib/validations/contactSchema.ts`)
+4. Passive honeypot anti-spam trap
+5. Sanitized Discord Webhook notification via `DISCORD_WEBHOOK_URL`
 
 ### Documentation
 
-Project documentation lives in `docs/` (architecture, design system, development guidelines). Keep it in sync when making structural changes.
+Project documentation lives in `docs/`. Keep it synchronized whenever architectural or component changes occur.

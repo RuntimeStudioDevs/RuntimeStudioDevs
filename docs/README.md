@@ -1,21 +1,22 @@
-# Documentacion del Proyecto
+# Documentación del Proyecto
 
-Indice documental del proyecto Runtime Studio Devs.
+Índice documental oficial del repositorio **Runtime Studio Devs**.
 
-## Documentos
+## Documentos Generales
 
-| Documento | Descripcion |
+| Documento | Descripción |
 |---|---|
-| [DOCUMENTATION.md](DOCUMENTATION.md) | Mapa documental, reglas organizativas y de mantenimiento |
-| [RUN.md](RUN.md) | Ejecucion local, tecnologias, instalacion, variables de entorno |
+| [DOCUMENTATION.md](DOCUMENTATION.md) | Mapa documental, estructura y reglas de mantenimiento |
+| [RUN.md](RUN.md) | Ejecución local, tecnologías, variables de entorno (`DISCORD_WEBHOOK_URL`), testing y comandos operativos |
+| [ROADMAP.md](ROADMAP.md) | Hoja de ruta técnica e historial de sprints completados |
 
-## Areas
+## Áreas Técnicas
 
-| Area | Documento |
-|---|---|
-| Frontend | [frontend/README.md](frontend/README.md) |
-| Backend | [backend/README.md](backend/README.md) |
+| Área | Documento | Descripción |
+|---|---|---|
+| Frontend | [frontend/README.md](frontend/README.md) | Arquitectura App Router, sistema de diseño (Geist + Dark Mode), catálogo de componentes y guías |
+| Backend | [backend/README.md](backend/README.md) | Endpoint serverless `POST /api/contact`, validación Zod, rate limiting y webhook de Discord |
 
-## Ultima actualizacion
+## Última actualización
 
-2026-06-12 — Actualización documental: ProblemSection implementada, FAQSection con 8 items, stubs reducidos a 3.
+2026-10-23 — Sincronización completa de documentación frontend, backend y variables de entorno.
