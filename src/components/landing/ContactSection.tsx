@@ -12,7 +12,13 @@ import { SpotlightCard } from "@/components/shared/SpotlightCard";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { Modal } from "@/components/shared/Modal";
 
-function extractServiceFromHash(hash: string): string | null {
+function extractServiceFromLocation(hash: string, search: string): string | null {
+  if (search) {
+    const searchParams = new URLSearchParams(search);
+    const serviceFromSearch = resolveContactServiceOption(searchParams.get("service"));
+    if (serviceFromSearch) return serviceFromSearch;
+  }
+
   if (!hash.startsWith("#contacto")) {
     return null;
   }
@@ -82,10 +88,16 @@ function ContactFormPanel({ content }: PanelProps) {
   const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
-    const syncFromLocation = () => {
-      const fromHash = extractServiceFromHash(window.location.hash);
-      if (fromHash) {
-        setSelectedService(fromHash);
+    const syncFromLocation = (scroll = false) => {
+      const fromLocation = extractServiceFromLocation(window.location.hash, window.location.search);
+      if (fromLocation) {
+        setSelectedService(fromLocation);
+      }
+      if (scroll && (window.location.hash.startsWith("#contacto") || window.location.search.includes("service="))) {
+        const contactElement = document.getElementById("contacto");
+        if (contactElement && typeof contactElement.scrollIntoView === "function") {
+          contactElement.scrollIntoView({ behavior: "smooth" });
+        }
       }
     };
 
@@ -103,7 +115,7 @@ function ContactFormPanel({ content }: PanelProps) {
       }
 
       const hashPart = rawHref.slice(hashIndex);
-      const resolvedService = extractServiceFromHash(hashPart);
+      const resolvedService = extractServiceFromLocation(hashPart, "");
       if (resolvedService) {
         setSelectedService(resolvedService);
         const contactElement = document.getElementById("contacto");
@@ -115,14 +127,15 @@ function ContactFormPanel({ content }: PanelProps) {
       }
     };
 
-    syncFromLocation();
-    window.addEventListener("hashchange", syncFromLocation);
-    window.addEventListener("popstate", syncFromLocation);
+    syncFromLocation(true);
+    const handleHashChange = () => syncFromLocation(true);
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleHashChange);
     document.addEventListener("click", handleDocumentClick);
 
     return () => {
-      window.removeEventListener("hashchange", syncFromLocation);
-      window.removeEventListener("popstate", syncFromLocation);
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleHashChange);
       document.removeEventListener("click", handleDocumentClick);
     };
   }, []);

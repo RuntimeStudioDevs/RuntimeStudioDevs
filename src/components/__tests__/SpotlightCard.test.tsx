@@ -35,4 +35,15 @@ describe("SpotlightCard", () => {
       expect(article.style.getPropertyValue("--mouse-x")).toBeDefined();
     }
   });
+
+  it("applies motion-safe hover translation to respect prefers-reduced-motion", () => {
+    const { container } = render(
+      <SpotlightCard>
+        <p>Contenido accesible</p>
+      </SpotlightCard>,
+    );
+
+    const article = container.querySelector("article");
+    expect(article?.className).toContain("motion-safe:hover:-translate-y-1");
+  });
 });

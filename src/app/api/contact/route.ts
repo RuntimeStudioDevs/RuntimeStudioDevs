@@ -155,12 +155,17 @@ export async function POST(request: NextRequest) {
       const safeEmail = sanitizeDiscordField(data.email);
       const safeMessage = sanitizeDiscordField(data.message);
 
+      // Embed description admite hasta 4096 caracteres, permitiendo mensajes de hasta 2000 chars sin exceder el límite de 1024 de embed.fields
+      const formattedMessage = safeMessage.length > 4000
+        ? `${safeMessage.slice(0, 3996)}...`
+        : safeMessage;
+
       const discordPayload = {
         allowed_mentions: { parse: [] },
         embeds: [
           {
             title: `🚀 Solicitud: ${readableService}`,
-            description: "Se ha recibido un nuevo lead de contacto desde la landing page.",
+            description: `>>> ${formattedMessage}`,
             color: 0x008cf9,
             thumbnail: {
               url: BRAND_LOGO_URL,
@@ -169,21 +174,16 @@ export async function POST(request: NextRequest) {
               {
                 name: "👤 Contacto",
                 value: safeName,
-                inline: false,
+                inline: true,
               },
               {
                 name: "📧 Correo",
                 value: `[${safeEmail}](mailto:${safeEmail})`,
-                inline: false,
+                inline: true,
               },
               {
                 name: "🛠️ Servicio",
                 value: readableService,
-                inline: false,
-              },
-              {
-                name: "💬 Alcance / Requerimientos",
-                value: `>>> ${safeMessage}`,
                 inline: false,
               },
             ],
@@ -205,13 +205,21 @@ export async function POST(request: NextRequest) {
         });
 
         if (!webhookResponse.ok) {
-          console.warn(
-            `Advertencia al despachar webhook de contacto: HTTP ${webhookResponse.status}`,
+          const errorDetails = await webhookResponse.text().catch(() => "");
+          console.error(
+            `Fallo al despachar webhook de contacto: HTTP ${webhookResponse.status} - ${errorDetails}`,
+          );
+          return NextResponse.json(
+            { error: "Error en la entrega del mensaje al equipo. Por favor, intenta de nuevo en unos momentos." },
+            { status: 502, headers: NO_STORE_HEADERS },
           );
         }
       } catch (webhookError) {
-        // Registramos fallo del webhook sin bloquear la respuesta de confirmación al usuario
-        console.error('Error al despachar webhook de contacto:', webhookError);
+        console.error("Error o timeout al despachar webhook de contacto:", webhookError);
+        return NextResponse.json(
+          { error: "Tiempo de espera agotado al conectar con el servicio de mensajería. Por favor, intenta de nuevo." },
+          { status: 504, headers: NO_STORE_HEADERS },
+        );
       }
     }
 
