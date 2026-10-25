@@ -197,13 +197,12 @@ describe("POST /api/contact", () => {
     expect(blockedRes.status).toBe(429);
   });
 
-  it("sanitiza backticks triples y caracteres de control, añade allowed_mentions vacías y registra warning si el webhook falla", async () => {
+  it("sanitiza backticks triples, ubica el mensaje en embed description y retorna 200 en entrega exitosa", async () => {
     process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
 
     const fetchSpy = vi
       .spyOn(globalThis, "fetch")
-      .mockResolvedValue(new Response(null, { status: 502 }));
-    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      .mockResolvedValue(new Response(null, { status: 204 }));
 
     const payload = {
       name: "Juan\u0000 ```Admin```",
@@ -224,13 +223,107 @@ describe("POST /api/contact", () => {
     const sentDiscordBody = JSON.parse(fetchInit?.body as string);
     expect(sentDiscordBody.allowed_mentions).toEqual({ parse: [] });
 
-    const fields = sentDiscordBody.embeds[0].fields;
-    expect(fields[0].value).toBe("Juan '''Admin'''");
-    expect(fields[3].value).toBe(
+    expect(sentDiscordBody.embeds[0].description).toBe(
       ">>> Hola @everyone '''script malicioso''' necesito cotización.",
     );
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("HTTP 502"),
+    const fields = sentDiscordBody.embeds[0].fields;
+    expect(fields[0].value).toBe("Juan '''Admin'''");
+  });
+
+  it("admite mensajes de más de 1024 caracteres en embed description sin truncamiento prematuro", async () => {
+    process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
+
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(new Response(null, { status: 204 }));
+
+    const longMessage = "Detalle técnico del proyecto: " + "a".repeat(1500);
+    const payload = {
+      name: "Cliente Empresa",
+      email: "contacto@empresa.com",
+      service: "plataformas-a-medida",
+      message: longMessage,
+    };
+
+    const req = createRequest(payload);
+    const res = await POST(req);
+
+    expect(res.status).toBe(200);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+    const [, fetchInit] = fetchSpy.mock.calls[0];
+    const sentDiscordBody = JSON.parse(fetchInit?.body as string);
+    expect(sentDiscordBody.embeds[0].description).toBe(`>>> ${longMessage}`);
+  });
+
+  it("retorna HTTP 502 si el webhook de Discord responde con error", async () => {
+    process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
+
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response("Invalid form", { status: 500 }),
     );
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const payload = {
+      name: "Juan Perez",
+      email: "juan@empresa.com",
+      service: "automatizaciones",
+      message: "Mensaje de prueba para webhook fallido.",
+    };
+
+    const req = createRequest(payload);
+    const res = await POST(req);
+
+    expect(res.status).toBe(502);
+    const data = await res.json();
+    expect(data.error).toBeDefined();
+    expect(errSpy).toHaveBeenCalled();
+  });
+
+  it("retorna HTTP 504 si el webhook de Discord sufre timeout", async () => {
+    process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
+
+    const timeoutError = new Error("The operation was aborted due to timeout");
+    timeoutError.name = "TimeoutError";
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(timeoutError);
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const payload = {
+      name: "Juan Perez",
+      email: "juan@empresa.com",
+      service: "automatizaciones",
+      message: "Mensaje de prueba para timeout.",
+    };
+
+    const req = createRequest(payload);
+    const res = await POST(req);
+
+    expect(res.status).toBe(504);
+    const data = await res.json();
+    expect(data.error).toContain("Tiempo de espera");
+    expect(errSpy).toHaveBeenCalled();
+  });
+
+  it("retorna HTTP 502 si el fetch del webhook falla por error de red genérico o DNS", async () => {
+    process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
+
+    const networkError = new TypeError("fetch failed: ENOTFOUND");
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(networkError);
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const payload = {
+      name: "Juan Perez",
+      email: "juan@empresa.com",
+      service: "automatizaciones",
+      message: "Mensaje de prueba para fallo de red.",
+    };
+
+    const req = createRequest(payload);
+    const res = await POST(req);
+
+    expect(res.status).toBe(502);
+    const data = await res.json();
+    expect(data.error).toContain("Error de red");
+    expect(errSpy).toHaveBeenCalled();
   });
 });

@@ -39,7 +39,7 @@ export function SpotlightCard({
     <article
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`group relative rounded-2xl p-[1px] transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_16px_36px_-6px_rgba(0,140,249,0.18),_0_6px_12px_-2px_rgba(0,0,0,0.06)] ${className}`}
+      className={`group relative rounded-2xl p-[1px] transition-[box-shadow] motion-safe:transition-[transform,box-shadow] duration-200 ease-out motion-safe:hover:-translate-y-1 hover:shadow-[0_16px_36px_-6px_rgba(0,140,249,0.18),_0_6px_12px_-2px_rgba(0,0,0,0.06)] ${className}`}
       style={
         {
           "--mouse-x": "-300px",
