@@ -38,7 +38,8 @@ describe("ScrollReveal", () => {
     );
 
     const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper).toHaveClass("opacity-0");
+    expect(wrapper.dataset.revealed).toBe("false");
+    expect(wrapper.className).toContain("data-[revealed=false]:opacity-0");
 
     act(() => {
       observerCallback([
