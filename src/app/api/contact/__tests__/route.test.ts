@@ -303,4 +303,27 @@ describe("POST /api/contact", () => {
     expect(data.error).toContain("Tiempo de espera");
     expect(errSpy).toHaveBeenCalled();
   });
+
+  it("retorna HTTP 502 si el fetch del webhook falla por error de red genérico o DNS", async () => {
+    process.env.DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/test/token";
+
+    const networkError = new TypeError("fetch failed: ENOTFOUND");
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(networkError);
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const payload = {
+      name: "Juan Perez",
+      email: "juan@empresa.com",
+      service: "automatizaciones",
+      message: "Mensaje de prueba para fallo de red.",
+    };
+
+    const req = createRequest(payload);
+    const res = await POST(req);
+
+    expect(res.status).toBe(502);
+    const data = await res.json();
+    expect(data.error).toContain("Error de red");
+    expect(errSpy).toHaveBeenCalled();
+  });
 });

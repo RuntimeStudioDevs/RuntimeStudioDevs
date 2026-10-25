@@ -37,7 +37,18 @@ export function ScrollReveal({
       return;
     }
 
-    // Inicializamos el estado oculto en cliente solo cuando el observer está activo
+    // Si el elemento ya es visible en la carga inicial, se marca revelado inmediatamente para evitar parpadeos (flash) en hidratación
+    const rect = element.getBoundingClientRect();
+    const isAlreadyInView =
+      rect.height > 0 &&
+      rect.top < window.innerHeight + 50 &&
+      rect.bottom > -50;
+
+    if (isAlreadyInView) {
+      element.dataset.revealed = "true";
+      return;
+    }
+
     if (element.dataset.revealed !== "true") {
       element.dataset.revealed = "false";
     }

@@ -215,10 +215,21 @@ export async function POST(request: NextRequest) {
           );
         }
       } catch (webhookError) {
-        console.error("Error o timeout al despachar webhook de contacto:", webhookError);
+        console.error("Error al despachar webhook de contacto:", webhookError);
+        const isTimeout =
+          webhookError instanceof Error &&
+          (webhookError.name === "TimeoutError" || webhookError.name === "AbortError");
+
+        if (isTimeout) {
+          return NextResponse.json(
+            { error: "Tiempo de espera agotado al conectar con el servicio de mensajería. Por favor, intenta de nuevo." },
+            { status: 504, headers: NO_STORE_HEADERS },
+          );
+        }
+
         return NextResponse.json(
-          { error: "Tiempo de espera agotado al conectar con el servicio de mensajería. Por favor, intenta de nuevo." },
-          { status: 504, headers: NO_STORE_HEADERS },
+          { error: "Error de red al entregar el mensaje al servicio de notificación. Por favor, intenta de nuevo." },
+          { status: 502, headers: NO_STORE_HEADERS },
         );
       }
     }
