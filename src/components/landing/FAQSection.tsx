@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { faqContent, type FaqItem } from "@/content/faqContent";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function FAQSection() {
   return (
@@ -12,7 +13,9 @@ export function FAQSection() {
       className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
-        <FAQHeader />
+        <ScrollReveal>
+          <FAQHeader />
+        </ScrollReveal>
         <FAQAccordion items={faqContent.items} />
       </div>
     </section>
@@ -22,7 +25,11 @@ export function FAQSection() {
 function FAQHeader() {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {faqContent.eyebrow}
       </p>
       <h2
@@ -52,13 +59,14 @@ function FAQAccordion({ items }: FAQAccordionProps) {
   return (
     <div className="mx-auto max-w-4xl space-y-4">
       {items.map((item, index) => (
-        <FAQAccordionItem
-          key={item.question}
-          item={item}
-          index={index}
-          isOpen={activeIndex === index}
-          onToggle={() => toggleItem(index)}
-        />
+        <ScrollReveal key={item.question} delay={index * 60}>
+          <FAQAccordionItem
+            item={item}
+            index={index}
+            isOpen={activeIndex === index}
+            onToggle={() => toggleItem(index)}
+          />
+        </ScrollReveal>
       ))}
     </div>
   );
@@ -82,7 +90,7 @@ function FAQAccordionItem({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border bg-card px-5 py-5 text-card-foreground transition-[transform,box-shadow,border-color] duration-200 ease-out dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] ${
+      className={`relative overflow-hidden rounded-2xl border bg-card px-5 py-5 text-card-foreground transition-[box-shadow,border-color] motion-safe:transition-[transform,box-shadow,border-color] duration-200 ease-out dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] ${
         isOpen
           ? "border-primary/50 shadow-[0_18px_50px_rgba(0,140,249,0.10)] motion-safe:-translate-y-0.5"
           : "border-border/80 hover:border-primary/40 hover:shadow-md dark:border-border/40"
@@ -117,7 +125,7 @@ function FAQAccordionItem({
       <section
         id={answerId}
         aria-labelledby={questionId}
-        className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${
+        className={`grid transition-opacity motion-safe:transition-[grid-template-rows,opacity] duration-200 ease-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
@@ -164,8 +172,8 @@ function AccordionIndicator({ isOpen }: Readonly<{ isOpen: boolean }>) {
           y1="8"
           x2="12"
           y2="16"
-          className={`transition-[transform,opacity] duration-200 ease-out ${
-            isOpen ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100"
+          className={`transition-opacity motion-safe:transition-[transform,opacity] duration-200 ease-out ${
+            isOpen ? "motion-safe:scale-y-0 opacity-0" : "motion-safe:scale-y-100 opacity-100"
           }`}
         />
       </svg>

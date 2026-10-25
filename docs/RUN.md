@@ -24,7 +24,11 @@ Centraliza la informacion necesaria para instalar, ejecutar y desarrollar el pro
 
 ## Variables de entorno
 
-En este momento el proyecto no requiere variables de entorno. No existe archivo `.env` ni configuracion de entorno definida para la ejecucion local. Si en el futuro se agregan, deben documentarse en esta seccion.
+El proyecto puede levantarse en local sin variables de entorno obligatorias. Para habilitar el despacho de leads del formulario de contacto (`POST /api/contact`) hacia Discord, configura en tu archivo `.env` (basado en `.env.example`):
+
+| Variable | Alcance | Descripcion |
+|---|---|---|
+| `DISCORD_WEBHOOK_URL` | Server-only (Opcional en local) | URL del Webhook de Discord para recibir notificaciones de leads del formulario de contacto. |
 
 ## Instalacion
 
@@ -67,7 +71,20 @@ npm run start   # Servir build de produccion
 
 ## Comandos de testing
 
-PENDING: No se detectaron scripts de testing en `package.json`. No existen dependencias de testing (jest, vitest, playwright, testing-library) en el proyecto.
+```bash
+npm test        # Ejecuta la suite de pruebas unitarias con Vitest
+```
+
+El proyecto utiliza Vitest y React Testing Library con cobertura completa sobre componentes de landing, utilidades compartidas y endpoints de API.
+
+## Revision asistida por IA en Pull Requests (Qodo / PR-Agent)
+
+El repositorio cuenta con la integracion de **Qodo** (PR-Agent). Al abrir un Pull Request, el bot genera un analisis automatico. Tambien puedes interactuar mediante los siguientes comandos en los comentarios del PR:
+
+- `@qodo <pregunta>` — Responde preguntas en lenguaje natural sobre las implicaciones del diff, riesgos de tipos o arquitectura *(reemplazo oficial de `/ask` en la GitHub App)*.
+- `/review` — Realiza un re-analisis exhaustivo de seguridad, rendimiento y posibles bugs logicos.
+- `/improve` — Sugiere bloques de codigo listos para aplicar directamente con el boton "Commit suggestion".
+- `/describe` — Actualiza y re-evalua el titulo, resumen, walkthrough y diagrama Mermaid cuando subes nuevos commits.
 
 ## Problemas frecuentes
 
@@ -79,11 +96,6 @@ Ejecutar `npm install` para instalar las dependencias.
 
 Ejecutar `npm run build` para verificar la compilacion completa. El proyecto usa `strict: true` en `tsconfig.json`.
 
-## Notas pendientes
-
-- PENDING: Scripts de testing (no existen).
-- PENDING: Configuracion de despliegue (no detectada).
-
 ## Ultima actualizacion
 
-2026-06-11 — Actualizacion: version de Node.js, variables de entorno.
+2026-10-21 — Actualizacion: suite de pruebas Vitest y guia de comandos operativos Qodo (PR-Agent).

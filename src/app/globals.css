@@ -7,6 +7,7 @@
   --color-runtime-black: #0f172a;
   --color-studio-blue: #008cf9;
   --color-devs-silver: #c0c0bf;
+  --color-footer-bg: #0f172a;
 
   --background: #ffffff;
   --foreground: #0f172a;
@@ -16,7 +17,14 @@
   --card-foreground: #0f172a;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --shadow-border: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-border:
+    0px 0px 0px 1px oklch(0 0 0 / 0.06),
+    0px 1px 2px -1px oklch(0 0 0 / 0.06),
+    0px 2px 4px 0px oklch(0 0 0 / 0.04);
+  --shadow-border-hover:
+    0px 0px 0px 1px oklch(0 0 0 / 0.08),
+    0px 1px 2px -1px oklch(0 0 0 / 0.08),
+    0px 2px 4px 0px oklch(0 0 0 / 0.06);
 }
 
 .dark {
@@ -32,6 +40,7 @@
   --muted: #1e293b;
   --muted-foreground: #94a3b8;
   --shadow-border: 0 0 0 1px oklch(1 0 0 / 0.08);
+  --shadow-border-hover: 0 0 0 1px oklch(1 0 0 / 0.13);
 }
 
 @theme inline {
@@ -47,8 +56,12 @@
   --color-runtime-black: var(--color-runtime-black);
   --color-studio-blue: var(--color-studio-blue);
   --color-devs-silver: var(--color-devs-silver);
+  --color-footer-bg: var(--color-footer-bg);
+  --shadow-border: var(--shadow-border);
+  --shadow-border-hover: var(--shadow-border-hover);
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-logo: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
 }
 
 @keyframes marquee {
@@ -99,10 +112,20 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   background: var(--background);
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -110,6 +133,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
+  overflow-x: clip;
 }
 
 a {

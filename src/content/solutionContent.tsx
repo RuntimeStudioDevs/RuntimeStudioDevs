@@ -19,6 +19,10 @@ export type SolutionContent = {
   title: string;
   highlightedPart: string;
   description: string;
+  labels: {
+    targetAudiencePrefix: string;
+    directImpact: string;
+  };
   cases: SolutionCard[];
 };
 
@@ -28,21 +32,26 @@ export const solutionContent: SolutionContent = {
   highlightedPart: "reales",
   description:
     "Aplicamos disciplina de ingeniería en escenarios donde la calidad técnica, el rendimiento y la escalabilidad son indispensables.",
+  labels: {
+    targetAudiencePrefix: "Para:",
+    directImpact: "Impacto directo:",
+  },
   cases: [
+
     {
       tag: "Startups & Nuevos Productos",
       title: "MVPs & Prototipos Técnicos de Alto Nivel",
       targetAudience:
         "Fundadores y equipos que necesitan validar rápido sin acumular deuda técnica.",
       description:
-        "Construcción ágil de productos mínimos viables sobre arquitecturas limpias y tipadas que permiten iterar velozmente sin tener que reescribir la base a los tres meses.",
+        "Construcción ágil de productos mínimos viables sobre arquitecturas modulares y tipadas que permiten iterar velozmente sin tener que reescribir la base a los tres meses.",
       benefits: [
-        "Time-to-market acelerado",
-        "Base escalable y testeada",
+        "Time-to-market acelerado (2-4 semanas)",
+        "Base 100% testeada con Vitest / RTL",
         "Cero dependencias innecesarias",
       ],
       proofPoints:
-        "Arquitectura modular lista para escalar o recibir inversión técnica.",
+        "Desafío: Validar producto sin deuda. Solución: Next.js + TS estricto. Resultado: Base modular lista para escalar o auditoría de inversión.",
     },
     {
       tag: "Optimización & Refactor",
@@ -50,14 +59,14 @@ export const solutionContent: SolutionContent = {
       targetAudience:
         "Plataformas con lentitud, mala accesibilidad o código legado difícil de mantener.",
       description:
-        "Diagnóstico y migración hacia tecnologías modernas, eliminando sobrecarga de JavaScript, optimizando LCP/INP/CLS y elevando el cumplimiento de accesibilidad.",
+        "Diagnóstico y migración hacia arquitecturas modernas, eliminando sobrecarga de JavaScript, optimizando LCP/INP/CLS y elevando el cumplimiento de accesibilidad.",
       benefits: [
-        "Carga instantánea en el Edge",
-        "Accesibilidad WCAG 2.2 AA",
-        "Reducción drástica del bundle size",
+        "LCP < 2.5s y CLS ≤ 0.1 garantizados",
+        "Accesibilidad WCAG 2.2 nivel AA",
+        "Reducción >50% en bundle size inicial",
       ],
       proofPoints:
-        "Auditorías de métricas con reportes reproducibles y métricas en verde.",
+        "Desafío: Lentitud y pérdida de leads. Solución: SSR + CSS atómico en Tailwind v4. Resultado: 100/100 en auditorías Core Web Vitals.",
     },
     {
       tag: "Herramientas de Operación",
@@ -67,12 +76,12 @@ export const solutionContent: SolutionContent = {
       description:
         "Desarrollo de herramientas a medida, paneles utilitarios y conectores de API robustos que optimizan la productividad del equipo con tipado seguro de extremo a extremo.",
       benefits: [
-        "Automatización de tareas repetitivas",
+        "Validación estricta con Zod y Rate Limiting",
         "Contratos de API seguros y tipados",
-        "Mantenibilidad a largo plazo",
+        "Monitoreo con Webhooks en tiempo real",
       ],
       proofPoints:
-        "Código documentado y preparado para operar de forma autónoma.",
+        "Desafío: Tareas manuales y fallos silenciosos. Solución: Route handlers defensivos. Resultado: Automatización trazable sin fricción.",
     },
   ],
 };

@@ -1,13 +1,28 @@
 "use client";
 
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import {
   contactContent,
+  resolveContactServiceOption,
   type ContactContent,
   type ContactFieldContent,
   type ServiceOption,
 } from "@/content/contactContent";
-import { WhatsAppButtonWithConfirmation } from "@/components/shared/WhatsAppButtonWithConfirmation";
+import { SpotlightCard } from "@/components/shared/SpotlightCard";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { Modal } from "@/components/shared/Modal";
+
+function extractServiceFromHash(hash: string): string | null {
+  if (!hash.startsWith("#contacto")) {
+    return null;
+  }
+  const queryIndex = hash.indexOf("?");
+  if (queryIndex === -1) {
+    return null;
+  }
+  const params = new URLSearchParams(hash.slice(queryIndex + 1));
+  return resolveContactServiceOption(params.get("service"));
+}
 
 export function ContactSection() {
   return (
@@ -17,9 +32,12 @@ export function ContactSection() {
       className="bg-background text-foreground"
     >
       <div className="mx-auto max-w-7xl space-y-16 px-4 py-16 lg:space-y-20 lg:px-8 lg:py-24">
-        <ContactHeader content={contactContent} />
-        <ContactFormPanel content={contactContent} />
-        <DirectWhatsAppBlock content={contactContent} />
+        <ScrollReveal>
+          <ContactHeader content={contactContent} />
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <ContactFormPanel content={contactContent} />
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -32,7 +50,11 @@ type HeaderProps = Readonly<{
 function ContactHeader({ content }: HeaderProps) {
   return (
     <header className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary dark:bg-primary/10">
+        <span className="relative flex size-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+          <span className="relative inline-flex size-2 rounded-full bg-primary" />
+        </span>
         {content.eyebrow}
       </p>
       <h2
@@ -54,9 +76,56 @@ type PanelProps = Readonly<{
 
 function ContactFormPanel({ content }: PanelProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[] | undefined>>({});
+  const [selectedService, setSelectedService] = useState("");
+
+  useEffect(() => {
+    const syncFromLocation = () => {
+      const fromHash = extractServiceFromHash(window.location.hash);
+      if (fromHash) {
+        setSelectedService(fromHash);
+      }
+    };
+
+    const handleDocumentClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const anchor = target?.closest<HTMLAnchorElement>('a[href*="#contacto?service="]');
+      if (!anchor) {
+        return;
+      }
+
+      const rawHref = anchor.getAttribute("href") ?? "";
+      const hashIndex = rawHref.indexOf("#contacto");
+      if (hashIndex === -1) {
+        return;
+      }
+
+      const hashPart = rawHref.slice(hashIndex);
+      const resolvedService = extractServiceFromHash(hashPart);
+      if (resolvedService) {
+        setSelectedService(resolvedService);
+        const contactElement = document.getElementById("contacto");
+        if (contactElement && typeof contactElement.scrollIntoView === "function") {
+          event.preventDefault();
+          window.history.replaceState(null, "", hashPart);
+          contactElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    syncFromLocation();
+    window.addEventListener("hashchange", syncFromLocation);
+    window.addEventListener("popstate", syncFromLocation);
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      window.removeEventListener("hashchange", syncFromLocation);
+      window.removeEventListener("popstate", syncFromLocation);
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
 
   async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -87,12 +156,19 @@ function ContactFormPanel({ content }: PanelProps) {
       const result = await response.json();
 
       if (response.ok) {
-        setIsSuccess(true);
+        setShowSuccessModal(true);
+        setSelectedService("");
         form.reset();
       } else if (response.status === 429) {
         setGeneralError(content.statusMessages.rateLimitError);
       } else if (response.status === 400 && result.details) {
         setFieldErrors(result.details);
+        // Focus en el primer campo con error de forma accesible
+        const firstErrorKey = Object.keys(result.details)[0];
+        if (firstErrorKey) {
+          const errorElement = form.querySelector<HTMLElement>(`[name="${firstErrorKey}"]`);
+          errorElement?.focus();
+        }
       } else {
         setGeneralError(result.error || content.statusMessages.genericError);
       }
@@ -103,122 +179,114 @@ function ContactFormPanel({ content }: PanelProps) {
     }
   }
 
-  function handleReset() {
-    setIsSuccess(false);
-    setGeneralError(null);
-    setFieldErrors({});
-  }
-
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="rounded-2xl border border-border/40 bg-card p-6 shadow-sm dark:shadow-[0_0_0_1px_oklch(1_0_0_/_0.06),_0_2px_8px_0_rgba(0,0,0,0.25)] sm:p-10">
-        {isSuccess ? (
-          <SuccessFeedback content={content} onReset={handleReset} />
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-            {/* Input trampa anti-spam invisible para humanos pero detectable por bots */}
-            <input
-              type="text"
-              name="honeypot"
-              aria-hidden="true"
-              tabIndex={-1}
-              autoComplete="off"
-              className="hidden"
-            />
+      <SpotlightCard className="w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+          {/* Input trampa anti-spam invisible para humanos pero detectable por bots */}
+          <input
+            type="text"
+            name="honeypot"
+            aria-hidden="true"
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+          />
 
-            {generalError && (
-              <div
-                role="alert"
-                className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-600 dark:text-red-400"
-              >
-                {generalError}
-              </div>
-            )}
+          {generalError && (
+            <div
+              role="alert"
+              className="rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-600 dark:text-red-400"
+            >
+              {generalError}
+            </div>
+          )}
 
-            <InputField
-              id="contact-name"
-              name="name"
-              type="text"
-              field={content.fields.name}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.name?.[0]}
-            />
+          <InputField
+            id="contact-name"
+            name="name"
+            type="text"
+            field={content.fields.name}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.name?.[0]}
+          />
 
-            <InputField
-              id="contact-email"
-              name="email"
-              type="email"
-              field={content.fields.email}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.email?.[0]}
-            />
+          <InputField
+            id="contact-email"
+            name="email"
+            type="email"
+            field={content.fields.email}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.email?.[0]}
+          />
 
-            <SelectField
-              id="contact-service"
-              name="service"
-              field={content.fields.service}
-              options={content.fields.service.options}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.service?.[0]}
-            />
+          <SelectField
+            id="contact-service"
+            name="service"
+            field={content.fields.service}
+            options={content.fields.service.options}
+            value={selectedService}
+            onChange={setSelectedService}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.service?.[0]}
+          />
 
-            <TextareaField
-              id="contact-message"
-              name="message"
-              field={content.fields.message}
-              required
-              disabled={isSubmitting}
-              error={fieldErrors.message?.[0]}
-            />
+          <TextareaField
+            id="contact-message"
+            name="message"
+            field={content.fields.message}
+            required
+            disabled={isSubmitting}
+            error={fieldErrors.message?.[0]}
+          />
 
-            <SubmitButton content={content} isSubmitting={isSubmitting} />
-          </form>
-        )}
-      </div>
-    </div>
-  );
-}
+          <SubmitButton content={content} isSubmitting={isSubmitting} />
+        </form>
+      </SpotlightCard>
 
-type SuccessFeedbackProps = Readonly<{
-  content: ContactContent;
-  onReset: () => void;
-}>;
-
-function SuccessFeedback({ content, onReset }: SuccessFeedbackProps) {
-  return (
-    <div className="flex flex-col items-center py-6 text-center">
-      <div className="flex size-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 dark:bg-emerald-500/20">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="size-7"
-          aria-hidden="true"
-        >
-          <path d="M20 6L9 17l-5-5" />
-        </svg>
-      </div>
-
-      <h3 className="mt-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-        {content.statusMessages.successTitle}
-      </h3>
-      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-        {content.statusMessages.successDescription}
-      </p>
-
-      <button
-        type="button"
-        onClick={onReset}
-        className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full border border-border/80 bg-background px-6 py-2.5 text-xs font-semibold tracking-wide text-foreground transition-[transform,background-color,border-color] duration-150 ease-out hover:border-primary/40 hover:bg-muted/40 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      {/* Popup / Modal de feedback inmediato al enviar mensaje */}
+      <Modal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title={content.statusMessages.successTitle}
+        showTitle={false}
+        className="max-w-md"
       >
-        {content.statusMessages.sendAnother}
-      </button>
+        <div className="flex flex-col items-center py-2 text-center sm:py-4">
+          <div className="flex size-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 ring-8 ring-emerald-500/5 dark:bg-emerald-500/20 dark:ring-emerald-500/10">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-8"
+              aria-hidden="true"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </div>
+
+          <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            {content.statusMessages.successTitle}
+          </h3>
+          <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {content.statusMessages.successDescription}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setShowSuccessModal(false)}
+            className="mt-6 inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-primary px-8 py-2.5 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 enabled:active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:w-auto"
+          >
+            {content.statusMessages.closeModalLabel}
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -275,6 +343,8 @@ type SelectFieldProps = Readonly<{
   name: string;
   field: ContactFieldContent;
   options: readonly ServiceOption[];
+  value: string;
+  onChange: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
   error?: string;
@@ -285,6 +355,8 @@ function SelectField({
   name,
   field,
   options,
+  value,
+  onChange,
   required,
   disabled,
   error,
@@ -303,7 +375,8 @@ function SelectField({
           name={name}
           required={required}
           disabled={disabled}
-          defaultValue=""
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
           aria-required={required}
           aria-describedby={error ? `${id}-error` : undefined}
           className="w-full appearance-none rounded-xl border border-border/60 bg-background px-4 py-3 pr-10 text-sm text-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-60"
@@ -395,44 +468,16 @@ function SubmitButton({ content, isSubmitting }: SubmitButtonProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-[44px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition-[transform,opacity] duration-150 ease-out hover:opacity-90 enabled:active:scale-[0.96] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting && (
           <span className="size-4 animate-spin rounded-full border-2 border-white/20 border-t-white" />
         )}
         <span>{isSubmitting ? content.submittingLabel : content.submitLabel}</span>
       </button>
-      <p className="text-[11px] text-muted-foreground/60">
+      <p className="text-center text-[11px] text-muted-foreground/60">
         {content.trustText}
       </p>
-    </div>
-  );
-}
-
-type DirectWhatsAppBlockProps = Readonly<{
-  content: ContactContent;
-}>;
-
-function DirectWhatsAppBlock({ content }: DirectWhatsAppBlockProps) {
-  return (
-    <div className="mx-auto max-w-xl text-center">
-      <div className="rounded-2xl border border-border/40 bg-card/60 p-6 sm:p-8">
-        <h4 className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
-          {content.whatsapp.heading}
-        </h4>
-        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground sm:text-sm">
-          {content.whatsapp.subheading}
-        </p>
-        <div className="mt-4 flex justify-center">
-          <WhatsAppButtonWithConfirmation
-            name=""
-            email=""
-            idea=""
-            phoneNumber={content.whatsapp.phonePlaceholder}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-xs font-semibold text-white shadow-sm transition-[transform,background-color] duration-150 ease-out hover:bg-emerald-500 active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-          />
-        </div>
-      </div>
     </div>
   );
 }

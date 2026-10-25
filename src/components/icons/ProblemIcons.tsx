@@ -9,7 +9,7 @@ export const iconMap: Record<ProblemIconType, IconComponent> = {
       <path
         d="M8.5 5.5L15.5 18.5"
         stroke="currentColor"
-        strokeWidth="2.2"
+        strokeWidth="2"
         strokeLinecap="round"
       />
       <circle

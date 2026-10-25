@@ -31,3 +31,13 @@ jobs:
 
       - name: Production build & Typecheck
         run: npm run build
+
+      - name: Notificar a Discord (#ci-cd)
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_CI }}
+          status: ${{ job.status }}
+          title: "CI Pipeline: ${{ github.repository }}"
+          description: "Resultado de Lint, Test & Build en `${{ github.ref_name }}`"
+          nodetail: false

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { layoutContent } from "@/content/layoutContent";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://runtimestudiodevs.com";
+const siteUrl = "https://runtimestudiodevs.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -75,13 +77,15 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, String.raw`\u003c`),
+          }}
         />
         <a
-          href="#main-content"
+          href={`#${layoutContent.mainContentId}`}
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:border focus:border-border focus:rounded-md focus:shadow-md"
         >
-          Saltar al contenido principal
+          {layoutContent.skipToContentLabel}
         </a>
         {children}
       </body>

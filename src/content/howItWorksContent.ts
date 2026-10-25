@@ -11,6 +11,7 @@ export type HowItWorksContent = {
   title: string;
   highlightedPart: string;
   description: string;
+  deliverablesLabel: string;
   steps: HowItWorksStep[];
 };
 
@@ -20,7 +21,9 @@ export const howItWorksContent: HowItWorksContent = {
   highlightedPart: "predecible",
   description:
     "Un flujo de trabajo transparente y riguroso. Sin burocracia innecesaria, sin sorpresas y con entregables auditables en cada fase.",
+  deliverablesLabel: "Entregables:",
   steps: [
+
     {
       step: "01",
       title: "Diagnóstico & Alcance Técnico",
